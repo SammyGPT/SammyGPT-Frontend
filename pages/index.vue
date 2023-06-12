@@ -1,5 +1,19 @@
 <template>
-    <div class="bg-background h-screen w-full flex justify-center items-center">
+    <div class="bg-background w-full flex justify-center items-center" id="chatouter">
         <Chatbox/>
+        <FooterMessage/>
     </div>
 </template>
+
+<style scoped>
+#chatouter{
+    height: 100vh;
+}
+
+@media (max-width: 1200px){
+    #chatouter{
+        height: 85vh;
+    }
+}
+
+</style>
