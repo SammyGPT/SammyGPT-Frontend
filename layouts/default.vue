@@ -1,9 +1,19 @@
 <template>
-    <div>
+    <div id="main">
         <Menu/>
         <slot/>
     </div>
 </template>
 
-<script>
-</script>
+<style scoped>
+#main{
+    display: flex;
+    flex-direction: row;
+}
+
+@media (max-width: 1200px) {
+    #main{
+        flex-direction: column;
+    }
+}
+</style>
