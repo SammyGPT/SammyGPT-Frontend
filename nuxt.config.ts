@@ -3,5 +3,10 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ['@nuxtjs/tailwindcss'], 
   css: ['~/assets/css/font.css'],
-  ssr: false
+  ssr: false,
+  runtimeConfig: {
+    public: {
+      api: "http://192.168.1.189:5000/"
+    }
+  }
 })

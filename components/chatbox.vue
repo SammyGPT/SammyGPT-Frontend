@@ -1,11 +1,11 @@
 <template>
     <div class="bg-primary w-[85%] h-[80%] rounded-2xl" id="chatbox">
-        <div id="chatbox" class="flex flex-col items-center p-7 overflow-y-auto">
+        <div id="chatbox" ref="chatbox" class="flex flex-col items-center p-7 overflow-y-auto">
             <BotMessage/>
         </div>
         <form id="form" class="pt-5 pl-7 pr-5" :onsubmit="send" autocomplete="off">
             <div class="h-full flex justify-center items-center">
-                <input type="text" id="user_input" 
+                <input type="text" id="user_input" ref="user_input"
                     class="w-full bg-accent1 border-2 
                     border-gray-400 p-4 text-secondary rounded-full 
                     text-[Montserrat] focus:border-yellow-100 
@@ -50,11 +50,20 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useFetch } from 'nuxt/app';
 
 const send_button = ref(null)
+const user_input = ref(null)
+const chatbox = ref(null)
+const env = useRuntimeConfig()
 
-const send = (e)=>{
+const send = async(e)=>{
     e.preventDefault()
-    
+    let prompt = user_input.value.value
+    user_input.value.value = ""
+    chatbox.value.innerHtml = ""
+    console.log(`${env.public.api}/generate?prompt=${prompt}`)
+    const data = await useFetch(`${env.public.api}/generate?prompt=${prompt}`, { crossOrigin: '*' })
+    console.log(data)
 }
 </script>
