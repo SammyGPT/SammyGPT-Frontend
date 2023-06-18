@@ -6,7 +6,7 @@ export default defineNuxtConfig({
   ssr: false,
   runtimeConfig: {
     public: {
-      api: "https://siths2024.com:5000"
+      api: "https://siths2024.com:5555"
     }
   }
 })

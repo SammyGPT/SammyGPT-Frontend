@@ -65,7 +65,6 @@
 <script setup>
 import { ref, onMounted, reactive } from 'vue'
 import { useFetch } from 'nuxt/app';
-import { Data } from "dataclass"
 
 const send_button = ref(null)
 const user_input = ref(null)
