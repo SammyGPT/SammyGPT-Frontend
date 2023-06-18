@@ -6,7 +6,7 @@ export default defineNuxtConfig({
   ssr: false,
   runtimeConfig: {
     public: {
-      api: "http://192.168.1.189:5000/"
+      api: "http://192.168.1.249:5000"
     }
   }
 })

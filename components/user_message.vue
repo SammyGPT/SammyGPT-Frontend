@@ -1,7 +1,7 @@
 <template>
-    <div id="message" class="w-full bg-accent1 rounded-xl text-secondary text-[Montserrat] lex items-center justify-start">
+    <div id="message" class="w-full bg-accent1 rounded-xl text-secondary text-[Montserrat] flex items-center justify-start">
         <div class="flex" id="bot_image">
-            <img src="~/assets/images/seagull_temp.jpg" class="w-12 h-12 rounded-full"/>
+            <img src="~/assets/images/user_image.png" class="w-12 h-12 rounded-full"/>
         </div>
         <p id="content" class="ease-in-out duration-300 text-white">
             {{ props.message }}
