@@ -9,7 +9,7 @@
             </div>
         </div>
         <div>
-            <p class="text-green-500 w-full flex items-center justify-center">
+            <p class="text-green-500 w-full flex items-center justify-center p-4">
                 {{ system_msg }}
             </p>
         </div>
@@ -65,7 +65,6 @@
 <script setup>
 import { ref, onMounted, reactive } from 'vue'
 import { useFetch } from 'nuxt/app';
-import { Data } from "dataclass"
 
 const send_button = ref(null)
 const user_input = ref(null)
@@ -116,7 +115,7 @@ const send = async(e)=>{
 
     messages.push(new Message(prompt, false))
     waiting_response = true
-    system_msg = "Estimated wait time: 15 seconds"
+    system_msg = "Estimated wait time: ~30 seconds/response. Will have less wait time at production."
 
     scroll_down() 
 
