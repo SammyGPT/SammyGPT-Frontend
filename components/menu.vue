@@ -6,15 +6,17 @@
 
 <script setup>
 import { ref, onMounted, reactive } from 'vue'
+import { useRouter } from 'vue-router';
 import { useFetch } from 'nuxt/app';
 
+const router = useRouter()
 
 onMounted(async()=>{
     const env = useRuntimeConfig()
     const { data, pending, error, refresh} = await useFetch(`${env.public.api}/`, { crossOrigin: '*' })
 
     if (error.value && window.location.pathname.indexOf("/server_is_down") == -1){
-        window.location.replace("/server_is_down")
+        router.push('/server_is_down')
     }
 })
 
