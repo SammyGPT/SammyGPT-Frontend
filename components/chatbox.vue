@@ -75,6 +75,15 @@ const env = useRuntimeConfig()
 var messages = reactive([])
 var waiting_response = reactive(false)
 var system_msg = reactive("")
+var conn = reactive(null)
+
+onMounted(()=>{
+    conn = new WebSocket(`ws://${env.public.api}/spam`)
+
+    conn.addEventListener("message", (msg)=>{
+        console.log(msg)
+    })
+})
 
 class Message{
 
@@ -117,9 +126,10 @@ const send = async(e)=>{
     waiting_response = true
     system_msg = "Estimated wait time: ~30 seconds/response. Will have less wait time at production."
 
-    scroll_down() 
+    scroll_down()
 
-    const { data, pending, error, refresh} = await useFetch(`${env.public.api}/generate?prompt=${prompt}`, { crossOrigin: '*' })
+    conn.send("Hello")
+
     messages.push(new Message("", true))
 
     scroll_down()
