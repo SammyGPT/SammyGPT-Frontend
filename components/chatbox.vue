@@ -78,7 +78,7 @@ var system_msg = reactive("")
 var conn = reactive(null)
 
 onMounted(()=>{
-    conn = new WebSocket(`ws://${env.public.api}/spam`)
+    conn = new WebSocket(`ws://${env.public.api}/generate`)
 
     conn.addEventListener("message", (msg)=>{
         console.log(msg)
@@ -115,8 +115,10 @@ const sleep = async(ms)=> {
 }
 
 const send = async(e)=>{
+    conn.send("from client")
     e.preventDefault()
     if (waiting_response) return
+
 
     let prompt = user_input.value.value
     user_input.value.value = ""
