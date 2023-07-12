@@ -66,6 +66,8 @@
 import { ref, onMounted, reactive } from 'vue'
 import { useFetch } from 'nuxt/app';
 
+useFetch.timeout = 50000
+
 const send_button = ref(null)
 const user_input = ref(null)
 const chatbox = ref(null)
