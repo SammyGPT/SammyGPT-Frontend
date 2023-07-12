@@ -91,6 +91,8 @@ onMounted(async()=>{
     conn.addEventListener("message", async(res)=>{
 
         let data = JSON.parse(res['data'])
+
+        console.log(data)
         
         let response = data["generated"]
         let end = data["end"]
