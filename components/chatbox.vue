@@ -76,6 +76,7 @@ var messages = reactive([])
 var waiting_response = reactive(false)
 var system_msg = reactive("")
 var conn = reactive(null)
+var message
 
 onMounted(async()=>{
     conn = new WebSocket(`ws://${env.public.api}/generate`)
@@ -94,8 +95,8 @@ onMounted(async()=>{
 
             if (i != 0) messages[messages.length - 1].message += " "
             messages[messages.length - 1].message += word
-            
-            await sleep(100)
+
+            await sleep(150)
             scroll_down()
         }
     
