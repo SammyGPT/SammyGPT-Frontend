@@ -6,7 +6,9 @@ export default defineNuxtConfig({
   ssr: false,
   runtimeConfig: {
     public: {
-      api: "localhost:5000"
+      api: "siths2024.com:5555",
+      protocol: "https",
+      ws_protocol: "wss"
     }
   }
 })

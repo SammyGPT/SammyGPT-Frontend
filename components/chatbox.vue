@@ -79,7 +79,7 @@ var conn = reactive(null)
 var message
 
 onMounted(async()=>{
-    conn = new WebSocket(`ws://${env.public.api}/generate`)
+    conn = new WebSocket(`${env.public.ws_protocol}://${env.public.api}/generate`)
 
     conn.addEventListener("message", async(res)=>{
 
