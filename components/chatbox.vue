@@ -75,6 +75,40 @@ const env = useRuntimeConfig()
 var messages = reactive([])
 var waiting_response = reactive(false)
 var system_msg = reactive("")
+var conn = reactive(null)
+var message
+
+onMounted(async()=>{
+    conn = new WebSocket(`ws://${env.public.api}/generate`)
+
+    conn.addEventListener("message", async(res)=>{
+
+        let data = JSON.parse(res['data'])
+        
+        let response = data["generated"]
+        let end = data["end"]
+
+        let splitted = response.split(" ")
+
+        for (let i = 0; i < splitted.length; i ++){
+            let word = splitted[i]
+
+            if (i != 0) messages[messages.length - 1].message += " "
+            messages[messages.length - 1].message += word
+
+            await sleep(150)
+            scroll_down()
+        }
+    
+        if (end){
+            waiting_response = false
+            system_msg = ""
+        
+            scroll_down()
+        }
+    })
+
+})
 
 class Message{
 
@@ -97,7 +131,7 @@ class Message{
 }
 
 const scroll_down = async()=>{
-    await sleep(100)
+    await sleep(150)
     chatbox.value.scrollTop = chatbox.value.scrollHeight
 }
 
@@ -108,29 +142,20 @@ const sleep = async(ms)=> {
 const send = async(e)=>{
     e.preventDefault()
     if (waiting_response) return
-
+    
+    
     let prompt = user_input.value.value
     user_input.value.value = ""
     chatbox.value.innerHtml = ""
-
+    
+    conn.send(prompt)
     messages.push(new Message(prompt, false))
     waiting_response = true
     system_msg = "Estimated wait time: ~30 seconds/response. Will have less wait time at production."
 
-    scroll_down() 
-
-    const { data, pending, error, refresh} = await useFetch(`${env.public.api}/generate?prompt=${prompt}`, { crossOrigin: '*' })
-    messages.push(new Message("", true))
-
     scroll_down()
 
-    for (let word of data.value.split(" ")){
-        messages[messages.length - 1].message += " " + word
-        await sleep(100)
-    }
-
-    waiting_response = false
-    system_msg = ""
+    messages.push(new Message("", true))
 
 }
 </script>
