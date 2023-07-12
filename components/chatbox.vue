@@ -78,10 +78,15 @@ var messages = reactive([])
 var waiting_response = reactive(false)
 var system_msg = reactive("")
 var conn = reactive(null)
-var message
+
+const ping = ()=>{
+    conn.send(JSON.stringify({"prompt": null, "type": "ping"}))
+}
 
 onMounted(async()=>{
     conn = new WebSocket(`${env.public.ws_protocol}://${env.public.api}/generate`)
+
+    setInterval(ping, 50000)
 
     conn.addEventListener("message", async(res)=>{
 
@@ -150,7 +155,7 @@ const send = async(e)=>{
     user_input.value.value = ""
     chatbox.value.innerHtml = ""
     
-    conn.send(prompt)
+    conn.send(JSON.stringify({"prompt": prompt, "type": "prompt"}))
     messages.push(new Message(prompt, false))
     waiting_response = true
     system_msg = "Estimated wait time: ~30 seconds/response. Will have less wait time at production."
