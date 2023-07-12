@@ -13,7 +13,7 @@ const router = useRouter()
 
 onMounted(async()=>{
     const env = useRuntimeConfig()
-    const { data, pending, error, refresh} = await useFetch(`http://${env.public.api}/`, { crossOrigin: '*' })
+    const { data, pending, error, refresh} = await useFetch(`${env.public.protocol}://${env.public.api}/`, { crossOrigin: '*' })
 
     if (error.value && window.location.pathname.indexOf("/server_is_down") == -1){
         router.push('/server_is_down')
