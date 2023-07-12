@@ -3,7 +3,7 @@
         <div class="flex" id="bot_image">
             <img src="~/assets/images/seagull_temp.jpg" class="w-12 h-12 rounded-full"/>
         </div>
-        <p id="content" class="ease-in-out duration-300 text-white">
+        <p id="content" class="ease-in-out duration-300 text-white whitespace-pre-line">
             {{ props.message }}
         </p>
         <div></div>
