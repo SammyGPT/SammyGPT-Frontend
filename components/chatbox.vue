@@ -105,8 +105,6 @@ onMounted(async()=>{
             if (i != 0) messages[messages.length - 1].message += " "
             messages[messages.length - 1].message += word
 
-            await sleep(100)
-
             scroll_down()
         }
     
