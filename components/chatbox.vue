@@ -66,7 +66,7 @@
 import { ref, onMounted, reactive } from 'vue'
 import { useFetch } from 'nuxt/app';
 
-useFetch.timeout = 50000
+const word_delay = 35
 
 const send_button = ref(null)
 const user_input = ref(null)
@@ -74,13 +74,40 @@ const chatbox = ref(null)
 const container = ref(null)
 const env = useRuntimeConfig()
 
-var messages = reactive([])
+var messages = reactive([]) // conversation history
+var message_cache = reactive([]) // array of words to be printed for bot
 var waiting_response = reactive(false)
 var system_msg = reactive("")
 var conn = reactive(null)
+var is_printing = reactive(false) // keeps track of the printing_message task, only 1 instance at a time
+const END_TOKEN = "<END>"
 
 const ping = ()=>{
     conn.send(JSON.stringify({"prompt": null, "type": "ping"}))
+}
+
+// Prints the message at reading speed for the bot
+const print_message = async()=>{
+
+    if (is_printing) return
+    is_printing = true
+
+    while (message_cache.length > 0){
+        
+        let word = message_cache.shift()
+        
+        if (word == END_TOKEN){
+            system_msg = ""
+            waiting_response = false
+        }else{
+            messages[messages.length - 1].message += word + " "
+        }
+
+        await sleep(word_delay)
+        scroll_down()
+    }
+    
+    is_printing = false
 }
 
 onMounted(async()=>{
@@ -91,29 +118,17 @@ onMounted(async()=>{
     conn.addEventListener("message", async(res)=>{
 
         let data = JSON.parse(res['data'])
-
-        console.log(data)
         
         let response = data["generated"]
         let end = data["end"]
 
         let splitted = response.split(" ")
 
-        for (let i = 0; i < splitted.length; i ++){
-            let word = splitted[i]
+        message_cache = message_cache.concat(splitted)
 
-            if (i != 0) messages[messages.length - 1].message += " "
-            messages[messages.length - 1].message += word
-
-            scroll_down()
-        }
-    
-        if (end){
-            waiting_response = false
-            system_msg = ""
+        if (end) message_cache.push(END_TOKEN)
         
-            scroll_down()
-        }
+        print_message()
     })
 
 })
