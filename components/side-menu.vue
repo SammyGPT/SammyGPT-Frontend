@@ -1,7 +1,7 @@
 <template>
     <div id="menu" class="bg-primary">
-        <div class="h-full" id="desktop">
-            <div class="h-[15%]">
+        <div class="h-full bg-primary" id="desktop_menu" ref="desktop_menu">
+            <div class="h-[15%]" id="desktop_logo">
                 <Logo/>
             </div>
             <div class="h-[75%] text-white font-[Montserrat] flex flex-col items-center">
@@ -23,8 +23,9 @@
                 </div>
             </div>
         </div>
-        <div id="mobile">
-            <Logo/>
+        <div class="flex flex-row items-center justify-evenly" id="mobile_menu" ref="mobile_menu">
+            <Logo class="z-20"/>
+            <span class="z-20 material-symbols-outlined text-secondary hover:cursor-pointer" @click="mobile_menu">settings</span>
         </div>
     </div>
 </template>
@@ -37,10 +38,15 @@ import { useFetch } from 'nuxt/app';
 const router = useRouter()
 const version = reactive("alpha-0.17.5")
 const builddate = reactive("July 18th, 2023")
+const desktop_menu = ref(null)
 const b1 = ref(null), b2 = ref(null), b3 = ref(null)
 
 const generation_speed = ref(localStorage.getItem("generationSpeed"));
 
+
+const mobile_menu = ()=>{
+    desktop_menu.value.classList.toggle("make_desktop_menu_visible")
+}
 
 const select = (selected_speed)=>{
 
@@ -75,6 +81,10 @@ onMounted(async()=>{
 </script>
 
 <style scoped>
+.material-symbols-outlined{
+    font-size: 3rem;
+}
+
 #menu{
     width: 20vw;
     height: 100vh;
@@ -84,8 +94,15 @@ onMounted(async()=>{
     justify-content: space-evenly;
 }
 
-#mobile{
+#mobile_menu{
     display: none;
+}
+
+.make_desktop_menu_visible{
+    display: block !important;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 @media (max-width:1200px){
@@ -94,17 +111,22 @@ onMounted(async()=>{
         height: 20vh;
     }
 
-    #desktop{
+    #desktop_menu{
         display: none;
+        z-index: 10;
     }
 
     #inner-menu{
         justify-content: start;
     }
 
-    #mobile{
-        display: block;
+    #mobile_menu{
+        display: flex;
     }
-}
+
+    #desktop_logo{
+        visibility: hidden;
+    }
+}   
 
 </style>
