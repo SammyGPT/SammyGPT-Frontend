@@ -66,10 +66,12 @@ onMounted(async()=>{
     const env = useRuntimeConfig()
     const { data, pending, error, refresh} = await useFetch(`${env.public.protocol}://${env.public.api}/`, { crossOrigin: '*' })
     
-    if (generation_speed.value){
+    if (generation_speed.value){ // previous generation value
         if (generation_speed.value == "slow") b1.value.click()
         else if (generation_speed.value == "medium") b2.value.click()
         else b3.value.click()
+    }else{ // never set a generation speed, auto set. This will be removed soon as it force prompts the user to choose
+        select("fast")
     }
 
     if (error.value && window.location.pathname.indexOf("/server_is_down") == -1){
