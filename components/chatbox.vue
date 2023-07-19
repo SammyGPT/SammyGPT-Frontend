@@ -1,6 +1,6 @@
 <template>
     <div class="bg-primary w-[85%] h-[75vh] rounded-2xl" id="chatbox">
-        <div id="chatbox" ref="chatbox" class="h-full flex flex-col items-start p-7 overflow-y-scroll">
+        <div id="chatbox" ref="chatbox" class="h-full flex flex-col items-start p-7 overflow-y-scroll overflow-x-hidden">
             <div class="flex flex-col gap-y-2" ref="container" id="container">
                 <Examples class="h-fit" v-if="messages.length === 0" @putInChat="(x) => {user_input.value = x; editBoxSize()}"/>
                 <div v-for="msg in messages">

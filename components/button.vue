@@ -32,6 +32,12 @@ const reset = ()=>{
     button.value.classList.remove("selected")
 }
 
+onMounted(()=>{
+    if (props.selected){
+        click()
+    }
+})
+
 defineExpose({
     click, reset
 })

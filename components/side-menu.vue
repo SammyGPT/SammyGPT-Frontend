@@ -1,10 +1,10 @@
 <template>
     <div id="menu" class="bg-primary">
-        <div class="h-full bg-primary" id="desktop_menu" ref="desktop_menu">
-            <div class="h-[15%]" id="desktop_logo">
+        <div class="h-full bg-primary w-full" id="desktop_menu" ref="desktop_menu">
+            <div class="h-[20%]" id="desktop_logo">
                 <Logo/>
             </div>
-            <div class="h-[75%] text-white font-[Montserrat] flex flex-col items-center">
+            <div class="h-[70%] text-white font-[Montserrat] flex flex-col items-center">
                 <div class="flex flex-col gap-y-4">
                     <h3>Version: {{ version }}</h3>
                     <h3>Build: {{ builddate }}</h3>
@@ -16,16 +16,16 @@
                     </div>
                 </div>
             </div>
-            <div class="h-[10%]">
-                <div class="p-4 flex flex-row items-center justify-evenly w-full">
-                    <img src="~assets/images/user_image.png" class="w-[25%]">
+            <div class="h-[10%] w-full">
+                <div class="p-4 flex flex-row items-center justify-evenly">
+                    <img src="~assets/images/user_image.png" class="w-[5vmin]">
                     <h3 class="font-[Montserrat] text-white w-[75%] text-center">Guest User Account</h3>
                 </div>
             </div>
         </div>
         <div class="flex flex-row items-center justify-evenly" id="mobile_menu" ref="mobile_menu">
             <Logo class="z-20"/>
-            <span class="z-20 material-symbols-outlined text-secondary hover:cursor-pointer" @click="mobile_menu">settings</span>
+            <span class="z-20 material-symbols-outlined text-secondary hover:cursor-pointer" @click="mobile_menu" ref="settings" id="settings">settings</span>
         </div>
     </div>
 </template>
@@ -39,6 +39,7 @@ const router = useRouter()
 const version = reactive("alpha-0.17.5")
 const builddate = reactive("July 18th, 2023")
 const desktop_menu = ref(null)
+const settings = ref(null)
 const b1 = ref(null), b2 = ref(null), b3 = ref(null)
 
 const generation_speed = ref(localStorage.getItem("generationSpeed"));
@@ -46,6 +47,7 @@ const generation_speed = ref(localStorage.getItem("generationSpeed"));
 
 const mobile_menu = ()=>{
     desktop_menu.value.classList.toggle("make_desktop_menu_visible")
+    settings.value.classList.toggle("spin")
 }
 
 const select = (selected_speed)=>{
@@ -98,6 +100,15 @@ onMounted(async()=>{
 
 #mobile_menu{
     display: none;
+}
+
+#settings{
+    transition: all ease 0.5s;
+}
+
+
+.spin {
+    transform: rotate(120deg);
 }
 
 .make_desktop_menu_visible{
