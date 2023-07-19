@@ -1,7 +1,8 @@
 <template>
     <div class="bg-primary w-[85%] h-[75vh] rounded-2xl" id="chatbox">
         <div id="chatbox" ref="chatbox" class="h-full flex flex-col items-start p-7 overflow-y-scroll">
-            <div class="overflow-y-auto flex flex-col gap-y-2" ref="container" id="container">
+            <div class="flex flex-col gap-y-2" ref="container" id="container">
+                <Examples class="h-fit" v-if="messages.length === 0" @putInChat="(x) => {user_input.value = x; editBoxSize()}"/>
                 <div v-for="msg in messages">
                     <BotMessage v-if="msg.is_bot" :message="msg.message"/>
                     <UserMessage v-if="!msg.is_bot" :message="msg.message"/>
@@ -20,7 +21,7 @@
                     border-gray-400 p-4 text-secondary rounded-[1rem]
                     text-[Montserrat] focus:border-yellow-100 
                     outline-none text-[1.2rem] ease-in-out duration-300 resize-none max-h-[30vh]"
-                    oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
+                    @input='editBoxSize'
                     rows="1"
                 />
             </div>
@@ -65,6 +66,7 @@
 </style>
 
 <script setup>
+import Examples from "/components/examples.vue"
 import { ref, onMounted, reactive } from 'vue'
 import { useFetch } from 'nuxt/app';
 
@@ -191,5 +193,9 @@ function handleInput(e) {
         }
         e.preventDefault();
     }
+}
+function editBoxSize() {
+    user_input.value.style.height = ""; 
+    user_input.value.style.height = user_input.value.scrollHeight + "px"
 }
 </script>
