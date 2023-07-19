@@ -2,6 +2,7 @@
     <div id="main">
         <Menu/>
         <slot/>
+        <Patch_notes/>
     </div>
 </template>
 
