@@ -13,13 +13,15 @@
                 {{ system_msg }}
             </p>
         </div>
-        <form id="form" class="pt-5 pl-7 pr-5" :onsubmit="send" autocomplete="off">
+        <form id="form" class="pt-5 pl-7 pr-5" :onsubmit="send" autocomplete="off" @keydown="handleInput">
             <div class="h-full flex justify-center items-center">
-                <input type="text" id="user_input" ref="user_input"
+                <textarea type="text" id="user_input" ref="user_input"
                     class="w-full bg-accent1 border-2 
-                    border-gray-400 p-4 text-secondary rounded-full 
+                    border-gray-400 p-4 text-secondary rounded-[1rem]
                     text-[Montserrat] focus:border-yellow-100 
-                    outline-none text-[1.2rem] ease-in-out duration-300"
+                    outline-none text-[1.2rem] ease-in-out duration-300 resize-none max-h-[30vh]"
+                    oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
+                    rows="1"
                 />
             </div>
             <div class="flex justify-center items-center">
@@ -180,5 +182,14 @@ const send = async(e)=>{
 
     messages.push(new Message("", true))
 
+}
+function handleInput(e) {
+    if (e.which === 13 && !e.shiftKey) {
+        if (!e.repeat) {
+            const newEvent = new Event("submit", {cancelable: true});
+            e.target.form.dispatchEvent(newEvent);
+        }
+        e.preventDefault();
+    }
 }
 </script>
