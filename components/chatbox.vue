@@ -66,13 +66,13 @@
 import { ref, onMounted, reactive } from 'vue'
 import { useFetch } from 'nuxt/app';
 
-const word_delay = 35
-
 const send_button = ref(null)
 const user_input = ref(null)
 const chatbox = ref(null)
 const container = ref(null)
 const env = useRuntimeConfig()
+
+const generation_speed = {"slow": 150, "medium": 75, "fast": 0}
 
 var messages = reactive([]) // conversation history
 var message_cache = reactive([]) // array of words to be printed for bot
@@ -103,6 +103,8 @@ const print_message = async()=>{
             messages[messages.length - 1].message += word + " "
         }
 
+        let word_delay = generation_speed[localStorage.getItem("generationSpeed")]
+        
         await sleep(word_delay)
         scroll_down()
     }

@@ -1,8 +1,8 @@
 <template>
     <div id="main">
-        <Menu/>
+        <SideMenu/>
         <slot/>
-        <Patch_notes/>
+        <PatchNotes/>
     </div>
 </template>
 
