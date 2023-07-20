@@ -1,5 +1,5 @@
 <template>
-    <div id="message" class="w-full bg-accent1 rounded-xl text-secondary text-[Montserrat] flex items-center justify-start">
+    <div id="message" class="max-w-full bg-accent1 rounded-xl text-secondary text-[Montserrat] flex items-center justify-start">
         <div class="flex" id="bot_image">
             <img src="~/assets/images/user_image.png" class="w-12 h-12 rounded-full"/>
         </div>
