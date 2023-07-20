@@ -35,9 +35,9 @@ function handleEmit(e) {
             <div class="text-box-container w-[20%] self-center bg-transparent flex flex-col h-[23rem] gap-4">
                 <span class="material-symbols-outlined text-secondary mx-auto">token</span>
                 <h3 class=" w-full text-center text-secondary text-[1.2rem]">Benefits</h3>
-                <p class="text-box text-secondary w-full text-center bg-gray-700 h-fit p-4 shadow rounded-md">Improving by the day</p>
-                <p class="text-box text-secondary w-full text-center bg-gray-700 h-fit p-4 shadow rounded-md">Constant updates and maintenances</p>
-                <p class="text-box text-secondary w-full text-center bg-gray-700 h-fit p-4 shadow rounded-md">Tailored specifically to SITHS</p>    
+                <p class="text-box dark:text-secondary text-primary w-full text-center dark:bg-gray-700 bg-light-background h-fit p-4 shadow rounded-md">Improving by the day</p>
+                <p class="text-box dark:text-secondary text-primary w-full text-center dark:bg-gray-700 bg-light-background h-fit p-4 shadow rounded-md">Constant updates and maintenances</p>
+                <p class="text-box dark:text-secondary text-primary w-full text-center dark:bg-gray-700 bg-light-background h-fit p-4 shadow rounded-md">Tailored specifically to SITHS</p>    
             </div>
         </div>
     </div>
