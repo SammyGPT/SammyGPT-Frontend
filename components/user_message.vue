@@ -1,9 +1,9 @@
 <template>
-    <div id="message" class="max-w-full bg-accent1 rounded-xl text-secondary text-[Montserrat] flex items-center justify-start">
+    <div id="message" class="max-w-full dark:bg-accent1 bg-accent2 rounded-xl dark:text-secondary text-primary text-[Montserrat] flex items-center justify-start">
         <div class="flex" id="bot_image">
             <img src="~/assets/images/user_image.png" class="w-12 h-12 rounded-full"/>
         </div>
-        <p id="content" class="ease-in-out duration-300 text-white">
+        <p id="content" class="ease-in-out duration-300 dark:text-white text-black">
             {{ props.message }}
         </p>
         <div></div>

@@ -1,5 +1,5 @@
 <template>
-    <button class="bg-gray-700 hover:bg-green-700 text-white font-bold py-2 px-4 border border-gray-700 rounded" @click="selected" ref="button">
+    <button class="bg-gray-700 hover:bg-green-700 dark:text-white font-bold py-2 px-4 border dark:border-gray-700 border-[#c8beae] rounded" @click="selected" ref="button">
         {{text}}
     </button>
 </template>
