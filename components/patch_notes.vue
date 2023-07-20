@@ -8,7 +8,7 @@
                 <span class="dark:text-secondary text-primary">{{patch}}</span>
             </li>
         </ol>
-        <Button text="Close" :selected="true" @clicked="closePatchNotes" class=" rounded-md dark:bg-secondary bg-primary p-2 px-5 dark:text-primary text-white absolute left-[75%] bottom-6"/>
+        <Button text="Close" :selected="true" @clicked="closePatchNotes" class="absolute left-[75%] bottom-6"/>
     </div>
 </template>
 

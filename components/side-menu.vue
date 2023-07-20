@@ -127,7 +127,7 @@ onMounted(async()=>{
 }
 
 #menu{
-    width: 20vw;
+    width: 25vw;
     height: 100vh;
 }
 
