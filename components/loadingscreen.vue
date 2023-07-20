@@ -3,10 +3,10 @@
         <img src="~assets/images/logo.png" class="w-[30vmin] z-40" ref="logo"/>
         <div class="absolute bottom-[17%] z-40 text-center">
             <h1 class="p-4 font-[Montserrat] text-primary text-3xl z-40 opacity-0" ref="project">Project SammyGPT</h1>
-            <h2 class="p-4 font-[Montserrat] text-primary text-base z-40 opacity-0" ref="credits">Youwei Zhen & Max Shabatayev</h2>
+            <h2 class="p-4 font-[Montserrat] text-primary text-base z-40 opacity-0" ref="credits">Youwei Zhen & Maximilian Shabatayev</h2>
         </div>
         <svg class="absolute top-0 left-0 w-full h-full z-30">
-            <circle cx="50%" cy="50%" r="1000" fill="white" ref="circle"/>
+            <circle cx="50%" cy="50%" r="100000" fill="white" ref="circle"/>
         </svg>
     </div>
 </template>
@@ -43,7 +43,7 @@ const minimize = ()=>{
         duration: 1.8,
         onComplete: spin,
         onActivated: hide_project,
-        ease: 'CustomEase.create("custom", "M0,0,C0.07,0.137,0,0.389,0.28,0.64,0.413,0.76,0.835,1,1,1")'
+        ease: 'power1.out'
     })
 }
 
