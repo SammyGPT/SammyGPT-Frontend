@@ -26,9 +26,9 @@
                 />
             </div>
             <div class="flex justify-center items-center">
-                <span alt="send button" class="dark:text-white text-black material-symbols-outlined w-[6vmin] ease-in-out duration-300 cursor-pointer" id="send_button">
+                <button alt="send button" class="dark:text-white text-black material-symbols-outlined w-[6vmin] ease-in-out duration-300 cursor-pointer" id="send_button">
                     send
-                </span>
+                </button>
             </div>
         </form>
         <div class="w-full flex justify-center items-center">
