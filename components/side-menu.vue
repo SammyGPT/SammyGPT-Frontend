@@ -9,10 +9,15 @@
                     <h3>Version: {{ version }}</h3>
                     <h3>Build: {{ builddate }}</h3>
                     <h3>Chat speed: </h3>
-                    <div class="flex flex-wrap gap-x-4 gap-y-4 items-center justify-start text-white">
-                        <Button :selected='false' text="Slow" @clicked="select('slow')" ref="b1"></Button>
-                        <Button :selected='false' text="Medium" @clicked="select('medium')" ref="b2"></Button>
-                        <Button :selected='false' text="Fast" @clicked="select('fast')" ref="b3"></Button>
+
+                    <div class="flex flex-wrap gap-x-4 gap-y-4 items-center justify-start   ">
+                        <Button :selected='false' :toggle_button="true" text="Slow" @clicked="select('slow')" ref="b1"></Button>
+                        <Button :selected='false' :toggle_button="true" text="Medium" @clicked="select('medium')" ref="b2"></Button>
+                        <Button :selected='false' :toggle_button="true" text="Fast" @clicked="select('fast')" ref="b3"></Button>
+                    </div>
+                    <div class="flex flex-col gap-y-4">
+                        <h3>Questions and concerns?</h3>
+                        <Button :toggle_button="false" text="Send us an email" @clicked="email()"></Button>
                     </div>
                 </div>
             </div>
@@ -70,6 +75,11 @@ function handleTheme() {
         props.main.classList.add('dark')
     }
     darkMode.value = main.classList.contains('dark')
+}
+
+const email = ()=>{
+    window.location.href="mailto:youweiz@nycstudents.net"
+
 }
 
 const mobile_menu = ()=>{

@@ -21,7 +21,7 @@ const seenPatchNotes = ref(patchVersion <= lastSeenVersion.value);
 
 const patches = ref([
     "Faster generation speed",
-    "Mental health handeling",
+    "Mental health handling",
     "Staten Island Tech History",
     "Currriculum information",
 ])

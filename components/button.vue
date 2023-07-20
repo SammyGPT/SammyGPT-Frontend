@@ -8,6 +8,7 @@
 
 const props = defineProps({
     selected: Boolean,
+    toggle_button: Boolean,
     text: String
 })
 const emit = defineEmits(['clicked'])
@@ -16,15 +17,19 @@ var state = reactive(props.selected)
 
 // Internal click
 const selected = ()=>{
-    state = !state
-    button.value.classList.toggle("selected")
+    if (props.toggle_button){
+        state = !state
+        button.value.classList.toggle("selected")
+    }
     emit("clicked")
 }
 
 // External click
 const click = ()=>{
-    state = !state
-    button.value.classList.toggle("selected")
+    if (props.toggle_button){
+        state = !state
+        button.value.classList.toggle("selected")
+    }
 }
 
 const reset = ()=>{

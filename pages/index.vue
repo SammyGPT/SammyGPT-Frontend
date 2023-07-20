@@ -1,5 +1,6 @@
 <template>
     <div class="dark:bg-background bg-light-background w-full flex justify-center items-center" id="chatouter">
+        <Loadingscreen/>
         <Chatbox/>
         <FooterMessage/>
     </div>
