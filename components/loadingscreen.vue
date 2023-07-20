@@ -39,11 +39,11 @@ const spin = ()=>{
 const minimize = ()=>{
     gsap.to( circle.value,{
         r: 0,
-        delay: 3,
-        duration: 1.8,
+        delay: 1.5,
+        duration: 1.5,
         onComplete: spin,
         onActivated: hide_project,
-        ease: 'power1.out'
+        ease: 'expo.out'
     })
 }
 
@@ -51,8 +51,7 @@ const minimize = ()=>{
 const show_name = ()=>{
     gsap.to( project.value,{
         opacity: 1,
-        duration: 0.3,
-        delay: 0.15,
+        duration: 0.25,
         onComplete: show_project,
         ease: 'sin.out'
     })
@@ -61,7 +60,7 @@ const show_name = ()=>{
 const show_project = ()=>{
     gsap.to( credits.value,{
         opacity: 1,
-        duration: 0.3,
+        duration: 0.25,
         delay: 0.15,
         onComplete: minimize,
         ease: 'sin.out'
@@ -73,14 +72,12 @@ const hide_project = ()=>{
     gsap.to( credits.value,{
         opacity: 0,
         duration: 0.25,
-        delay: 0.15,
         ease: 'sin.out'
     })
 
     gsap.to( project.value,{
         opacity: 0,
         duration: 0.25,
-        delay: 0.15,
         ease: 'sin.out'
     })
 }
