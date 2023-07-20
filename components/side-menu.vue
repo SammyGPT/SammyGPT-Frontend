@@ -1,31 +1,41 @@
 <template>
-    <div id="menu" class="bg-primary">
-        <div class="h-full bg-primary w-full" id="desktop_menu" ref="desktop_menu">
+    <div id="menu" class="dark:bg-primary bg-secondary">
+        <div class="h-full dark:bg-primary bg-secondary w-full" id="desktop_menu" ref="desktop_menu">
             <div class="h-[20%]" id="desktop_logo">
                 <Logo/>
             </div>
-            <div class="h-[70%] text-white font-[Montserrat] flex flex-col items-center">
+            <div class="h-[60%] dark:text-white text-black font-[Montserrat] flex flex-col items-center">
                 <div class="flex flex-col gap-y-4">
                     <h3>Version: {{ version }}</h3>
                     <h3>Build: {{ builddate }}</h3>
                     <h3>Chat speed: </h3>
-                    <div class="flex flex-wrap gap-x-4 gap-y-4 items-center justify-start   ">
+                    <div class="flex flex-wrap gap-x-4 gap-y-4 items-center justify-start text-white">
                         <Button :selected='false' text="Slow" @clicked="select('slow')" ref="b1"></Button>
                         <Button :selected='false' text="Medium" @clicked="select('medium')" ref="b2"></Button>
                         <Button :selected='false' text="Fast" @clicked="select('fast')" ref="b3"></Button>
                     </div>
                 </div>
             </div>
+            <div class="h-[10%] w-fit mx-auto dark:text-white text-black select-none">
+                <div v-if="darkMode" class="flex cursor-pointer gap-3" @click="handleTheme()">
+                    <span class="material-symbols-outlined h-full">light_mode</span>
+                    <span class="h-full align-middle my-3">Switch to Light Mode</span>
+                </div>
+                <div v-else class="flex cursor-pointer gap-2" @click="handleTheme()">
+                    <span class="material-symbols-outlined h-full">dark_mode</span>
+                    <span class="h-full align-middle my-3">Switch to Dark Mode</span>
+                </div>
+            </div>
             <div class="h-[10%] w-full">
                 <div class="p-4 flex flex-row items-center justify-evenly">
                     <img src="~assets/images/user_image.png" class="w-[5vmin]">
-                    <h3 class="font-[Montserrat] text-white w-[75%] text-center">Guest User Account</h3>
+                    <h3 class="font-[Montserrat] dark:text-white text-black w-[75%] text-center">Guest User Account</h3>
                 </div>
             </div>
         </div>
         <div class="flex flex-row items-center justify-evenly" id="mobile_menu" ref="mobile_menu">
             <Logo class="z-20"/>
-            <span class="z-20 material-symbols-outlined text-secondary hover:cursor-pointer" @click="mobile_menu" ref="settings" id="settings">settings</span>
+            <span class="z-20 material-symbols-outlined dark:text-secondary text-primary hover:cursor-pointer" @click="mobile_menu" ref="settings" id="settings">settings</span>
         </div>
     </div>
 </template>
@@ -44,6 +54,23 @@ const b1 = ref(null), b2 = ref(null), b3 = ref(null)
 
 const generation_speed = ref(localStorage.getItem("generationSpeed"));
 
+const props = defineProps({
+    main: { type:Element, required: true}
+})
+
+const darkMode = ref(main.classList.contains('dark'))
+
+function handleTheme() {
+    if (props.main.classList.contains('dark')) {
+        props.main.classList.remove('dark')
+        localStorage.theme = "light"
+    }
+    else {
+        localStorage.theme = "dark"
+        props.main.classList.add('dark')
+    }
+    darkMode.value = main.classList.contains('dark')
+}
 
 const mobile_menu = ()=>{
     desktop_menu.value.classList.toggle("make_desktop_menu_visible")

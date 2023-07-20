@@ -1,8 +1,26 @@
+<script setup>
+import { ref, onMounted } from "vue"
+const main = ref(null)
+
+onMounted(() => {
+    if (localStorage.theme === undefined) {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            console.log("e")
+            main.value.classList.add("dark")
+        }
+        return
+    }
+    if (localStorage.theme === "dark") {
+        main.value.classList.add("dark")
+    }
+})
+</script>
+
 <template>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-    <div id="main">
+    <div id="main" class="" ref="main">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-        <SideMenu/>
+        <SideMenu v-if="main !== null" :main="main"/>
         <slot/>
         <PatchNotes/>
     </div>

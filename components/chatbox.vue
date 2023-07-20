@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-primary w-[85%] h-[75vh] rounded-2xl" id="chatbox">
+    <div class=" dark:bg-primary bg-secondary w-[85%] h-[75vh] rounded-2xl" id="chatbox">
         <div id="chatbox" ref="chatbox" class="h-full flex flex-col items-start p-7 overflow-y-scroll overflow-x-hidden">
             <div class="flex flex-col gap-y-2" ref="container" id="container">
                 <Examples class="h-fit" v-if="messages.length === 0" @putInChat="(x) => {user_input.value = x; editBoxSize()}"/>
@@ -17,8 +17,8 @@
         <form id="form" class="pt-5 pl-7 pr-5" :onsubmit="send" autocomplete="off" @keydown="handleInput">
             <div class="h-full flex justify-center items-center">
                 <textarea type="text" id="user_input" ref="user_input"
-                    class="w-full bg-accent1 border-2 
-                    border-gray-400 p-4 text-secondary rounded-[1rem]
+                    class="w-full dark:bg-accent1 bg-accent2 border-2 
+                    border-gray-400 p-4 dark:text-secondary text-primary rounded-[1rem]
                     text-[Montserrat] focus:border-yellow-100 
                     outline-none text-[1.2rem] ease-in-out duration-300 resize-none max-h-[30vh]"
                     @input='editBoxSize'
@@ -26,13 +26,13 @@
                 />
             </div>
             <div class="flex justify-center items-center">
-                <button class="text-black">
-                    <img alt="send button" src="~/assets/images/send.png" class="w-[6vmin] ease-in-out duration-300" id="send_button"/>
-                </button>
+                <span alt="send button" class="dark:text-white text-black material-symbols-outlined w-[6vmin] ease-in-out duration-300 cursor-pointer" id="send_button">
+                    send
+                </span>
             </div>
         </form>
         <div class="w-full flex justify-center items-center">
-            <h3 class="text-secondary p-2 text-sm">SammyGPT Version Monday, June 12th</h3>
+            <h3 class="dark:text-secondary text-primary p-2 text-sm">SammyGPT Version Monday, June 12th</h3>
         </div>
     </div>
 </template>
@@ -55,13 +55,11 @@
     display: grid;
     grid-template-columns: 1fr 0.1fr;
 }
-
-#send_button{
-    filter: invert(100%);
+#send_button {
+    font-size: 2.2rem;
 }
-
 #send_button:hover {
-    filter: invert(100%) sepia(90%) saturate(1000%) hue-rotate(5deg);
+    color: #f4ff77;
 }
 </style>
 
