@@ -167,13 +167,14 @@ const sleep = async(ms)=> {
 }
 
 const send = async(e)=>{
-    e.preventDefault()
+    e.preventDefault()    
     if (waiting_response) return
     
     
     let prompt = user_input.value.value
     user_input.value.value = ""
     chatbox.value.innerHtml = ""
+    editBoxSize()
     
     conn.send(JSON.stringify({"prompt": prompt, "type": "prompt"}))
     messages.push(new Message(prompt, false))
