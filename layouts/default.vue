@@ -28,6 +28,7 @@ function windowLoc() {
     <div id="main" class="" ref="main">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
         <SideMenu v-if="main !== null && windowLoc()" :main="main"/>
+        <DetectionSwitcher v-else/>
         <slot/>
         <PatchNotes/>
     </div>
