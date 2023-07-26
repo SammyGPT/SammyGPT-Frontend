@@ -14,13 +14,20 @@ onMounted(() => {
         main.value.classList.add("dark")
     }
 })
+
+function windowLoc() {
+    if (window.location.pathname.startsWith("/detection")) {
+        return false
+    }
+    return true
+}
 </script>
 
 <template>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <div id="main" class="" ref="main">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-        <SideMenu v-if="main !== null" :main="main"/>
+        <SideMenu v-if="main !== null && windowLoc()" :main="main"/>
         <slot/>
         <PatchNotes/>
     </div>
