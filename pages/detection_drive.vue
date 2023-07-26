@@ -29,7 +29,7 @@ async function handleFile(e) {
 </script>
 
 <template>
-    <div class="w-full min-w-[100vw] h-full min-h-[100vh] dark:bg-primary bg-slate-100 font-[Montserrat] p-8">
+    <div class="w-full min-w-[100vw] h-full min-h-[100vh] dark:bg-background bg-slate-100 font-[Montserrat] p-8">
         <h1 class="text-black dark:text-white text-center text-[3rem]">AI Detector</h1>
         <div class="mx-auto w-fit mt-9">
             <input class="dark:text-white text-black text-center" type="file" accept=".doc, .docx, .DOT, .PDF, .CSV, .TXT, .XLS, .XLSX, .JSON" @change="handleFile" multiple="multiple">
@@ -39,11 +39,14 @@ async function handleFile(e) {
         </div>
         <!-- <h2 class="text-black dark:text-white text-center text-[3rem]">{{ result }}</h2> -->
         <DetectionLoading :progress="progress"/>
-        <div id="files" class="flex justify-evenly flex-wrap mt-[15vh] h-auto gap-[3vw]">
-            <div class="w-[18vw] mx-[1vw] h-[20vw] bg-white" v-for="result in results">
+        <div id="files" class="flex flex-wrap mt-[15vh] h-auto">
+            <div class="w-[20vw] h-[20vw] bg-white" v-for="result in results">
                 <h3 class="text-center text-[2rem]">{{ result.fileName }}</h3>
                 <p class="text-center text-[1.2rem]">{{ `Made by ${result.result.result}, ${Math.round(result.result.probability*10000)/100}% confidence` }}</p>
             </div>
         </div>
     </div>
 </template>
+
+<style scoped>
+</style>
