@@ -15,7 +15,7 @@ async function handleFile(e) {
         return;
     for (let i = 0; i < files.length; i++){
         var formData = new FormData();
-        formData.append("file", files[0]);
+        formData.append("file", files[i]);
         const response = await axios.post('http://localhost:5000/upload', formData)
         const data = await JSON.parse(response.data)
         results.value.push({
