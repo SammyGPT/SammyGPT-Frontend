@@ -9,7 +9,8 @@
 const props = defineProps({
     selected: Boolean,
     toggle_button: Boolean,
-    text: String
+    text: String,
+    nonClickable: Boolean
 })
 const emit = defineEmits(['clicked'])
 const button = ref(null)
@@ -17,6 +18,7 @@ var state = reactive(props.selected)
 
 // Internal click
 const selected = ()=>{
+    if (props.nonClickable) {return}
     if (props.toggle_button){
         state = !state
         button.value.classList.toggle("selected")

@@ -1,16 +1,17 @@
 <template>
     <div id="menu" class="dark:bg-primary bg-secondary">
         <div class="h-full dark:bg-primary bg-secondary w-full" id="desktop_menu" ref="desktop_menu">
-            <div class="h-[20%]" id="desktop_logo">
+            <div class="h-auto" id="desktop_logo">
                 <Logo/>
             </div>
             <div class="h-[60%] dark:text-white text-black font-[Montserrat] flex flex-col items-center">
-                <div class="flex flex-col gap-y-4">
+                <Button :toggle_button="false" text="Go to Detector" class="w-[70%]" @clicked="goToDectector()"></Button>
+                <div class="flex flex-col gap-y-4 mt-[5%]">
                     <h3>Version: {{ version }}</h3>
                     <h3>Build: {{ builddate }}</h3>
                     <h3>Chat speed: </h3>
 
-                    <div class="flex flex-wrap gap-x-4 gap-y-4 items-center justify-start   ">
+                    <div class="flex flex-wrap gap-x-4 gap-y-4 items-center justify-start">
                         <Button :selected='false' :toggle_button="true" text="Slow" @clicked="select('slow')" ref="b1"></Button>
                         <Button :selected='false' :toggle_button="true" text="Medium" @clicked="select('medium')" ref="b2"></Button>
                         <Button :selected='false' :toggle_button="true" text="Fast" @clicked="select('fast')" ref="b3"></Button>
@@ -64,6 +65,10 @@ const props = defineProps({
 })
 
 const darkMode = ref(main.classList.contains('dark'))
+
+function goToDectector() {
+    window.location.pathname = '/detection'
+}
 
 function handleTheme() {
     if (props.main.classList.contains('dark')) {
