@@ -16,7 +16,7 @@ onMounted(() => {
 })
 
 function windowLoc() {
-    if (window.location.pathname == "/detection") {
+    if (window.location.pathname.startsWith("/detection")) {
         return false
     }
     return true
