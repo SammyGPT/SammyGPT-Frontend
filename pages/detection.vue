@@ -5,10 +5,11 @@ import axios from 'axios';
 const textarea = ref(null)
 const result = ref("")
 const confidence = ref("")
+const env = useRuntimeConfig()
 
 async function getResults() {
     if (textarea.value.value == "") {return}
-    const response = await axios.post('http://localhost:5000/detect', textarea.value.value);
+    const response = await axios.post(`${env.public.protocol}://${env.public.api}/detect`, textarea.value.value);
     const data = JSON.parse(response.data)
     result.value = `Result: ${data.label}`
     confidence.value = `Confidence: ${Math.round(data.score*10000)/100}%`

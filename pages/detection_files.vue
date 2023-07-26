@@ -6,6 +6,7 @@ const textarea = ref(null)
 const result = ref("")
 const progress = ref(0)
 const results = ref([])
+const env = useRuntimeConfig()
 
 async function handleFile(e) {
     results.value = []
@@ -16,7 +17,7 @@ async function handleFile(e) {
     for (let i = 0; i < files.length; i++){
         var formData = new FormData();
         formData.append("file", files[i]);
-        const response = await axios.post('http://localhost:5000/upload', formData)
+        const response = await axios.post(`${env.public.protocol}://${env.public.api}/upload`, formData)
         const data = await JSON.parse(response.data)
         results.value.push({
             fileName: files[i].name,
