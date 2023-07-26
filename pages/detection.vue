@@ -9,7 +9,7 @@ async function getResults() {
     if (textarea.value.value == "") {return}
     const response = await axios.post('http://localhost:5000/detect', textarea.value.value);
     const data = JSON.parse(response.data)
-    result.value = `${Math.round(data.probability*10000)/100}% Result: ${data.result}`
+    result.value = `${Math.round(data.score*10000)/100}% Result: ${data.label}`
     console.log(result.value)
 }
 </script>

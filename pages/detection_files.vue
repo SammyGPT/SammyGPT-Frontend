@@ -42,7 +42,7 @@ async function handleFile(e) {
         <div id="files" class="flex justify-evenly flex-wrap mt-[15vh] h-auto gap-[3vw]">
             <div class="w-[18vw] mx-[1vw] h-[20vw] bg-white" v-for="result in results">
                 <h3 class="text-center text-[2rem]">{{ result.fileName }}</h3>
-                <p class="text-center text-[1.2rem]">{{ `Made by ${result.result.result}, ${Math.round(result.result.probability*10000)/100}% confidence` }}</p>
+                <p class="text-center text-[1.2rem]">{{ `Made by ${result.result.label}, ${Math.round(result.result.score*10000)/100}% confidence` }}</p>
             </div>
         </div>
     </div>
