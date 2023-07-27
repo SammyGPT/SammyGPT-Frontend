@@ -58,10 +58,10 @@ async function handleFile(e) {
         <DetectionLoading :progress="progress"/>
         <div id="files" class="flex justify-evenly flex-wrap mt-[15vh] h-auto gap-[3vw]">
             <div class="max-w-xs dark:bg-slate-500 bg-primary rounded-md p-10 flex items-center flex-col justify-center gap-y-[1vw]" v-for="result in results">
-                <h3 class="text-center text-[2rem] dark:text-white text-primary">{{ result.fileName }}</h3>
-                <p class="text-center text-[1.2rem] dark:text-white text-primary">Likely written by:</p>
-                <p class="text-center text-[1.2rem] dark:text-white text-primary">{{ result.result.label }}</p>
-                <p class="text-center text-[1.2rem] dark:text-white text-primary">Confidence: {{ Math.round(result.result.score*10000)/100 }}%</p>
+                <h3 class="text-center text-[1.2rem] dark:text-white text-primary break-all">{{ result.fileName }}</h3>
+                <p class="text-center text-[1rem] dark:text-white text-primary">Likely written by:</p>
+                <p class="text-center text-[1rem] dark:text-white text-primary">{{ result.result.label }}</p>
+                <p class="text-center text-[1rem] dark:text-white text-primary">Confidence: {{ Math.round(result.result.score*10000)/100 }}%</p>
                 <img v-if="result.result.label.toLowerCase() == 'human'" class="w-1/3" src="~assets/images/checked.png"/>
                 <img v-if="result.result.label.toLowerCase() == 'chatgpt'" class="w-1/3" src="~assets/images/x.png"/>
             </div>
