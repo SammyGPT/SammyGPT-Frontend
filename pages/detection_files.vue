@@ -47,7 +47,7 @@ async function handleFile(e) {
                         <span class="text-blue-600 underline">browse</span>
                     </span>
                 </span>
-                <input class="hidden" type="file" accept=".doc, .docx, .DOT, .CSV, .TXT, .XLS, .XLSX, .JSON" @change="handleFile" multiple="multiple">
+                <input class="hidden" type="file" name="file_upload" accept=".doc, .docx, .DOT, .CSV, .TXT, .XLS, .XLSX, .JSON" @change="handleFile" multiple="multiple">
                 <!-- <input class="hidden" type="file" accept=".doc, .docx, .DOT, .PDF, .CSV, .TXT, .XLS, .XLSX, .JSON" @change="handleFile" multiple="multiple"> -->
             </label>
         </div>
@@ -57,11 +57,11 @@ async function handleFile(e) {
         <!-- <h2 class="text-black dark:text-white text-center text-[3rem]">{{ result }}</h2> -->
         <DetectionLoading :progress="progress"/>
         <div id="files" class="flex justify-evenly flex-wrap mt-[15vh] h-auto gap-[3vw]">
-            <div class="max-w-xs dark:bg-slate-500 bg-[#d7d7de] rounded-md p-10 flex items-center flex-col justify-center gap-y-[1vw]" v-for="result in results">
-                <h3 class="text-center text-[2rem] dark:text-white text-primary">{{ result.fileName }}</h3>
-                <p class="text-center text-[1.2rem] dark:text-white text-primary">Likely written by:</p>
-                <p class="text-center text-[1.2rem] dark:text-white text-primary">{{ result.result.label }}</p>
-                <p class="text-center text-[1.2rem] dark:text-white text-primary">Confidence: {{ Math.round(result.result.score*10000)/100 }}%</p>
+            <div class="max-w-xs dark:bg-slate-500 bg-primary rounded-md p-10 flex items-center flex-col justify-center gap-y-[1vw]" v-for="result in results">
+                <h3 class="text-center text-[1.2rem] dark:text-white text-primary break-all">{{ result.fileName }}</h3>
+                <p class="text-center text-[1rem] dark:text-white text-primary">Likely written by:</p>
+                <p class="text-center text-[1rem] dark:text-white text-primary">{{ result.result.label }}</p>
+                <p class="text-center text-[1rem] dark:text-white text-primary">Confidence: {{ Math.round(result.result.score*10000)/100 }}%</p>
                 <img v-if="result.result.label.toLowerCase() == 'human'" class="w-1/3" src="~assets/images/checked.png"/>
                 <img v-if="result.result.label.toLowerCase() == 'chatgpt'" class="w-1/3" src="~assets/images/x.png"/>
             </div>
