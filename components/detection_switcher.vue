@@ -25,7 +25,7 @@ async function handleClick(path) {
 </script>
 
 <template>
-    <div id="container" class="flex flex-col fixed w-[10vw] left-[2vw] top-[3vw] gap-1">
+    <div id="container" class="flex flex-col absolute w-[10vw] left-[2vw] top-[3vw] gap-1">
         <h3 class=" bg-transparent text-white text-center text-[1.5rem]">Change Mode</h3>
         <Button text="Text" :selected="normal" :toggle_button="true" :non-clickable="normal" @clicked="handleClick('/detection')"></Button>
         <Button text="Upload File" :selected="files" :toggle_button="true" :non-clickable="files" @clicked="handleClick('/detection_files')"></Button>
