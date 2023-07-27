@@ -47,7 +47,7 @@ async function handleFile(e) {
                         <span class="text-blue-600 underline">browse</span>
                     </span>
                 </span>
-                <input class="hidden" type="file" accept=".doc, .docx, .DOT, .CSV, .TXT, .XLS, .XLSX, .JSON" @change="handleFile" multiple="multiple">
+                <input class="hidden" type="file" name="file_upload" accept=".doc, .docx, .DOT, .CSV, .TXT, .XLS, .XLSX, .JSON" @change="handleFile" multiple="multiple">
                 <!-- <input class="hidden" type="file" accept=".doc, .docx, .DOT, .PDF, .CSV, .TXT, .XLS, .XLSX, .JSON" @change="handleFile" multiple="multiple"> -->
             </label>
         </div>
