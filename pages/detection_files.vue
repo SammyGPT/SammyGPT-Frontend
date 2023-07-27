@@ -35,7 +35,8 @@ async function handleFile(e) {
         <h1 class="text-black dark:text-white text-center text-[3rem]">AI Detector</h1>
         <div class="w-full flex items-center justify-center">
             <label
-                class="flex justify-center w-1/2 h-32 px-4 transition dark:bg-background bg-white border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none">
+                class="flex justify-center w-1/2 h-32 px-4 transition dark:bg-background bg-white border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none" @drop="" @dragover.prevent="">
+                <input class="absolute w-1/2 h-32 opacity-0" type="file" name="file_upload" accept=".doc, .docx, .DOT, .CSV, .TXT, .XLS, .XLSX, .JSON" @change="handleFile" multiple="multiple">
                 <span class="flex items-center space-x-2">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-600" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor" stroke-width="2">
@@ -47,7 +48,6 @@ async function handleFile(e) {
                         <span class="text-blue-600 underline">browse</span>
                     </span>
                 </span>
-                <input class="hidden" type="file" name="file_upload" accept=".doc, .docx, .DOT, .CSV, .TXT, .XLS, .XLSX, .JSON" @change="handleFile" multiple="multiple">
                 <!-- <input class="hidden" type="file" accept=".doc, .docx, .DOT, .PDF, .CSV, .TXT, .XLS, .XLSX, .JSON" @change="handleFile" multiple="multiple"> -->
             </label>
         </div>
