@@ -57,7 +57,7 @@ async function handleFile(e) {
         <!-- <h2 class="text-black dark:text-white text-center text-[3rem]">{{ result }}</h2> -->
         <DetectionLoading :progress="progress"/>
         <div id="files" class="flex justify-evenly flex-wrap mt-[15vh] h-auto gap-[3vw]">
-            <div class="max-w-xs dark:bg-slate-500 bg-primary rounded-md p-10 flex items-center flex-col justify-center gap-y-[1vw]" v-for="result in results">
+            <div class="max-w-xs dark:bg-slate-500 bg-[#bfc3c9] rounded-md p-10 flex items-center flex-col justify-center gap-y-[1vw]" v-for="result in results">
                 <h3 class="text-center text-[1.2rem] dark:text-white text-primary break-all">{{ result.fileName }}</h3>
                 <p class="text-center text-[1rem] dark:text-white text-primary">Likely written by:</p>
                 <p class="text-center text-[1rem] dark:text-white text-primary">{{ result.result.label }}</p>
