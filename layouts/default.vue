@@ -17,9 +17,12 @@ onMounted(() => {
 
 function windowLoc() {
     if (window.location.pathname.startsWith("/detection")) {
-        return false
+        return 2
     }
-    return true
+    if (window.location.pathname.startsWith("/landing")){
+        return 0
+    }
+    return 1
 }
 </script>
 
@@ -27,8 +30,8 @@ function windowLoc() {
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <div id="main" class="" ref="main">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-        <SideMenu v-if="main !== null && windowLoc()" :main="main"/>
-        <DetectionSwitcher v-else/>
+        <SideMenu v-if="main !== null && windowLoc() == 1" :main="main"/>
+        <DetectionSwitcher v-if="main !== null && windowLoc() == 2"/>
         <slot/>
         <PatchNotes/>
     </div>
