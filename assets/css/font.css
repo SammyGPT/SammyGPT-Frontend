@@ -7,3 +7,8 @@
     font-family: 'Didot';
     src: url('../fonts/GFSDidot-Regular.ttf');
 }
+
+@font-face {
+    font-family: 'Raleway';
+    src: url('../fonts/Raleway-VariableFont_wght.ttf');
+}

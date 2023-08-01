@@ -1,10 +1,70 @@
+<template>
+    <div class="h-[100vh] dark:bg-black bg-white pl-[7vh] pr-[7vh] overflow-hidden">
+        <div class="w-full flex items-start justify-star">
+            <Logo/>
+        </div>
+        <div class="dark:bg-primary bg-accent2 w-full h-full p-2 rounded-[5vh]">
+            <div class="w-full flex flex-col justify-center items-center p-24">
+                <h1 class="text-[3rem] text-center font-[Raleway] dark:text-white text-black hidden">Artificial Intelligence for Staten Island Technical High School.</h1>
+                <h2 class="text-[4.5vw] text-center font-[Raleway] dark:text-white text-black" ref="landing_msg"></h2>
+            </div>
+            <div class="flex justify-around">
+                <div class="text-center text-black dark:text-white dark:bg-gray-700 bg-light-background p-8 rounded-lg">
+                    <h2 class="">SammyGPT</h2>
+                    <p>an amazing ai assistant</p>
+                </div>
+                <div
+                    class="text-center text-black dark:text-white dark:bg-gray-700 bg-light-background p-8 rounded-lg hover:bg-">
+                    <h2 class="">SammyGPT</h2>
+                    <p>an amazing ai assistant</p>
+                </div>
+            </div>
+            <div class="bg-transparent w-[90%] h-[20vh] mx-auto mt-[15vh]">
+                <div v-for="s in seagulls" id="seagull" class="h-[80px] w-[80px] cursor-pointer mt-[-80px]" :class="`${s.dead ? 'dead' : 'flying'} ${s.dir == 1 ? 'flipped' : ''}`" :style="`margin-left: ${s.pos}vw;`" @click="s.handleSegull"></div>
+            </div>
+            <div class="bg-transparent w-[90%] h-[20vh] mx-auto mt-[5vh]">
+                <div v-for="s in seagulls2" id="seagull" class="h-[80px] w-[80px] cursor-pointer mt-[-80px]" :class="`${s.dead ? 'dead' : 'flying'} ${s.dir == 1 ? 'flipped' : ''}`" :style="`margin-left: ${s.pos}vw;`" @click="s.handleSegull"></div>
+            </div>
+        </div>
+    </div>
+</template>
+
 <script setup>
 import { ref, onMounted } from 'vue'
+import gsap from 'gsap'
 
+const break_word = "<break>"
 let seagulls = ref([])
 let seagulls2 = ref([])
+let landing_msg = ref("landing_msg")
+let landing_message = `Artificial Intelligence ${break_word} tailored for ${break_word} Staten Island Technical High School.`
+
+const animateWords = ()=>{
+    let words = landing_message.split(" ")
+    let t1 = gsap.timeline()
+
+    words.forEach((word) => {
+
+        if (word == break_word){
+            let br = document.createElement("br")
+            landing_msg.value.appendChild(br);
+        }else{
+            let span = document.createElement("span");
+            span.className = "word";
+            span.style.opacity = 0
+            span.textContent = word + " ";  // adding space after each word for readability
+            landing_msg.value.appendChild(span);
+            t1.to(span, {
+                opacity: 1,
+                duration: 0.3,
+                ease: "sine.out"
+            })
+        }
+    });
+}
 
 onMounted(() => {
+    animateWords()
     seagulls.value.push(new seagull(Math.round(Math.random() * 80)))
     seagulls.value.push(new seagull(Math.round(Math.random() * 80)))
     seagulls2.value.push(new seagull(Math.round(Math.random() * 80)))
@@ -38,35 +98,6 @@ function seagull(pos) {
 }
 }
 </script>
-
-<template>
-    <div class="h-[100vh] dark:bg-black bg-white p-[7vh] overflow-hidden">
-        <h2 class=" text-black dark:text-white absolute top-0 left-[2vh] text-[2.5rem]">SammyGPT</h2>
-        <div class="dark:bg-primary bg-accent2 w-full h-full p-2 rounded-[5vh]">
-            <div class="w-full flex flex-col justify-center items-center">
-                <h1 class="text-[3rem] text-center font-[Montserrat] dark:text-white text-black">AI Assistance for <br>
-                    Staten Island Technical High School.</h1>
-            </div>
-            <div class="flex justify-around mt-[20vh]">
-                <div class="text-center text-black dark:text-white dark:bg-gray-700 bg-light-background p-8 rounded-lg">
-                    <h2 class="">SammyGPT</h2>
-                    <p>an amazing ai assistant</p>
-                </div>
-                <div
-                    class="text-center text-black dark:text-white dark:bg-gray-700 bg-light-background p-8 rounded-lg hover:bg-">
-                    <h2 class="">SammyGPT</h2>
-                    <p>an amazing ai assistant</p>
-                </div>
-            </div>
-            <div class="bg-transparent w-[90%] h-[20vh] mx-auto mt-[15vh]">
-                <div v-for="s in seagulls" id="seagull" class="h-[80px] w-[80px] cursor-pointer mt-[-80px]" :class="`${s.dead ? 'dead' : 'flying'} ${s.dir == 1 ? 'flipped' : ''}`" :style="`margin-left: ${s.pos}vw;`" @click="s.handleSegull"></div>
-            </div>
-            <div class="bg-transparent w-[90%] h-[20vh] mx-auto mt-[5vh]">
-                <div v-for="s in seagulls2" id="seagull" class="h-[80px] w-[80px] cursor-pointer mt-[-80px]" :class="`${s.dead ? 'dead' : 'flying'} ${s.dir == 1 ? 'flipped' : ''}`" :style="`margin-left: ${s.pos}vw;`" @click="s.handleSegull"></div>
-            </div>
-        </div>
-    </div>
-</template>
 
 <style scoped>
 .flipped {
