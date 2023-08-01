@@ -1,30 +1,47 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 
-const dead = ref(false)
-const pos = ref(0)
-const dir = ref(1)
+let seagulls = ref([])
+let seagulls2 = ref([])
 
 onMounted(() => {
+    seagulls.value.push(new seagull(Math.round(Math.random() * 80)))
+    seagulls.value.push(new seagull(Math.round(Math.random() * 80)))
+    seagulls2.value.push(new seagull(Math.round(Math.random() * 80)))
+    seagulls2.value.push(new seagull(Math.round(Math.random() * 80)))
     setInterval(() => {
-        if (pos.value > 80 || pos.value < 0) {
-            dir.value *= -1
-        }
-        pos.value += dir.value
+        seagulls.value.forEach((s) => {
+            if (s.pos > 80 || s.pos < 0) {
+                s.dir *= -1
+            }
+            s.pos += s.dir
+        })
+        seagulls2.value.forEach((s) => {
+            if (s.pos > 80 || s.pos < 0) {
+                s.dir *= -1
+            }
+            s.pos += s.dir
+        })
     }, 30)
 })
 
-function handleSegull(event) {
-    dead.value = true
+function seagull(pos) {
+    this.dead = ref(false)
+    this.pos = ref(pos)
+    this.dir = ref(1)
+    this.handleSegull = (event) => {
+    this.dead.value = true
     setTimeout(() => {
-        dead.value = false
+        this.dead.value = false
+        this.pos.value = Math.round(Math.random() * 80)
     }, 1000)
+}
 }
 </script>
 
 <template>
-    <div class="h-[100vh] dark:bg-black bg-white p-[7vh] overflow-y-hidden">
-        <h2 class=" text-black dark:text-white absolute top-0 left-[2vh] text-[4.8vh]">SammyGPT</h2>
+    <div class="h-[100vh] dark:bg-black bg-white p-[7vh] overflow-hidden">
+        <h2 class=" text-black dark:text-white absolute top-0 left-[2vh] text-[2.5rem]">SammyGPT</h2>
         <div class="dark:bg-primary bg-accent2 w-full h-full p-2 rounded-[5vh]">
             <div class="w-full flex flex-col justify-center items-center">
                 <h1 class="text-[3rem] text-center font-[Montserrat] dark:text-white text-black">AI Assistance for <br>
@@ -41,8 +58,11 @@ function handleSegull(event) {
                     <p>an amazing ai assistant</p>
                 </div>
             </div>
+            <div class="bg-transparent w-[90%] h-[20vh] mx-auto mt-[15vh]">
+                <div v-for="s in seagulls" id="seagull" class="h-[80px] w-[80px] cursor-pointer mt-[-80px]" :class="`${s.dead ? 'dead' : 'flying'} ${s.dir == 1 ? 'flipped' : ''}`" :style="`margin-left: ${s.pos}vw;`" @click="s.handleSegull"></div>
+            </div>
             <div class="bg-transparent w-[90%] h-[20vh] mx-auto mt-[5vh]">
-                <div id="seagull" class="h-[80px] w-[80px] cursor-pointer" :class="`${dead ? 'dead' : 'flying'} ${dir == 1 ? 'flipped' : ''}`" :style="`margin-left: ${pos}vw;`" @click="handleSegull"></div>
+                <div v-for="s in seagulls2" id="seagull" class="h-[80px] w-[80px] cursor-pointer mt-[-80px]" :class="`${s.dead ? 'dead' : 'flying'} ${s.dir == 1 ? 'flipped' : ''}`" :style="`margin-left: ${s.pos}vw;`" @click="s.handleSegull"></div>
             </div>
         </div>
     </div>
