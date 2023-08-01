@@ -19,7 +19,7 @@ function windowLoc() {
     if (window.location.pathname.startsWith("/detection")) {
         return 2
     }
-    if (window.location.pathname.startsWith("/landing")){
+    if (window.location.pathname == "/"){
         return 0
     }
     return 1
