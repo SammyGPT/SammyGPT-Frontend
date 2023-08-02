@@ -2,7 +2,7 @@
 import { ref, onMounted } from "vue"
 const main = ref(null)
 
-onMounted(() => {
+onUpdated(() => {
     if (localStorage.theme === undefined) {
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
             console.log("e")
