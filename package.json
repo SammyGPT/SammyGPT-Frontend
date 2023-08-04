@@ -20,8 +20,10 @@
   },
   "dependencies": {
     "gsap": "^3.12.2",
+    "nuxt-vue3-google-signin": "^0.0.9",
     "office-text-extractor": "^3.0.1",
     "textract": "^2.5.0",
+    "vue3-google-login": "^2.0.18",
     "xlsx": "^0.18.5"
   }
 }
