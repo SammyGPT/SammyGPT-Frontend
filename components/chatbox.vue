@@ -67,6 +67,7 @@
 import Examples from "/components/examples.vue"
 import { ref, onMounted, reactive } from 'vue'
 import { useFetch } from 'nuxt/app';
+import { io } from "socket.io-client"
 
 const send_button = ref(null)
 const user_input = ref(null)
@@ -81,12 +82,9 @@ var message_cache = reactive([]) // array of words to be printed for bot
 var waiting_response = reactive(false)
 var system_msg = reactive("")
 var conn = reactive(null)
+var session_id = reactive(null)
 var is_printing = reactive(false) // keeps track of the printing_message task, only 1 instance at a time
 const END_TOKEN = "<END>"
-
-const ping = ()=>{
-    conn.send(JSON.stringify({"prompt": null, "type": "ping"}))
-}
 
 // Prints the message at reading speed for the bot
 const print_message = async()=>{
@@ -115,14 +113,19 @@ const print_message = async()=>{
 }
 
 onMounted(async()=>{
-    console.log("mt")
-    conn = new WebSocket(`${env.public.ws_protocol}://${env.public.api}/generate`)
+    conn = io(`${env.public.ws_protocol}://${env.public.api}`)
 
-    setInterval(ping, 50000)
+    conn.on("connect", () => {
+        console.log("Successfully connected to server");
+        conn.emit("new_session")
+    });
 
-    conn.addEventListener("message", async(res)=>{
+    conn.on("session_id", (data)=>{
+        session_id = data["session_id"]
+        console.log()
+    })
 
-        let data = JSON.parse(res['data'])
+    conn.on("message", async(data)=>{
         
         let response = data["generated"]
         let end = data["end"]
@@ -175,9 +178,11 @@ const send = async(e)=>{
     let prompt = user_input.value.value
     user_input.value.value = ""
     chatbox.value.innerHtml = ""
-    editBoxSize()
-    
-    conn.send(JSON.stringify({"prompt": prompt, "type": "prompt"}))
+    editBoxSize()   
+
+
+    console.log(conn) 
+    conn.emit("generate", {"prompt": prompt, "type": "prompt", "session_id": session_id})
     messages.push(new Message(prompt, false))
     waiting_response = true
     system_msg = "Estimated wait time: ~30 seconds/response. Will have less wait time at production."

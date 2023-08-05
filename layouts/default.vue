@@ -5,7 +5,6 @@ const main = ref(null)
 onUpdated(() => {
     if (localStorage.theme === undefined) {
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            console.log("e")
             main.value.classList.add("dark")
         }
         return
