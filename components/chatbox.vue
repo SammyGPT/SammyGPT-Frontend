@@ -115,6 +115,7 @@ const print_message = async()=>{
 }
 
 onMounted(async()=>{
+    console.log("mt")
     conn = new WebSocket(`${env.public.ws_protocol}://${env.public.api}/generate`)
 
     setInterval(ping, 50000)

@@ -18,7 +18,7 @@
                     </div>
                     <div class="flex flex-col gap-y-4">
                         <h3>Questions and concerns?</h3>
-                        <Button :toggle_button="false" text="Send us an sendEmail" @clicked="sendEmail()"></Button>
+                        <Button :toggle_button="false" text="Send us an email" @clicked="sendEmail()"></Button>
                     </div>
                 </div>
             </div>
