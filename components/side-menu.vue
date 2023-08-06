@@ -60,7 +60,6 @@ const b1 = ref(null), b2 = ref(null), b3 = ref(null)
 const userDataStore = useState('userData', () => null)
 
 const localpath = useLocalePath()
-const locale = useI18n()
 
 const email = computed(() => {
     if (userDataStore.value == null) {
@@ -84,7 +83,7 @@ const props = defineProps({
 const darkMode = ref(main.classList.contains('dark'))
 
 function goToDectector() {
-    window.location.pathname = '/detection'
+    window.location.pathname = localpath('/detection')
 }
 
 function handleTheme() {
