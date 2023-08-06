@@ -1,7 +1,10 @@
 <template>
     <div id="message" class="max-w-full dark:bg-accent1 bg-accent2 rounded-xl dark:text-secondary text-primary text-[Montserrat] lex items-center justify-start">
         <div class="flex" id="bot_image">
-            <img src="~/assets/images/seagull_temp.jpg" class="w-12 h-12 rounded-full"/>
+            <div>
+                <img v-if="props.loading" src="~/assets/images/message_loading.gif" class="w-16 rounded-full"/>
+                <img v-else src="~/assets/images/seagull_temp.jpg" class="w-12 h-12 rounded-full"/>
+            </div>
         </div>
         <p id="content" class="ease-in-out duration-300 dark:text-white text-black whitespace-pre-line">
             {{ props.message }}
@@ -15,7 +18,8 @@
 import { toRefs, toRef, defineProps } from 'vue'
 
 const props = defineProps({
-    message: { type:String, required: true}
+    message: { type:String, required: true},
+    loading: { type: Boolean, required: true}
 })
 
 </script>
@@ -34,6 +38,15 @@ const props = defineProps({
 
 #content{
     font-size: 1.2rem;
+}
+
+.spinner{
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 @media (max-width: 1200px){
