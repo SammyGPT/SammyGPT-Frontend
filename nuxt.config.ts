@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ['@nuxtjs/tailwindcss','nuxt-vue3-google-signin'], 
+  modules: ['@nuxtjs/tailwindcss','nuxt-vue3-google-signin', '@nuxtjs/i18n'], 
   googleSignIn: {
     clientId: '512779933430-oo9c90p46eum9l21goil03hul7eso364.apps.googleusercontent.com',
   },
@@ -16,5 +16,29 @@ export default defineNuxtConfig({
       // protocol: "http",
       // ws_protocol: "ws",
     }
+  },
+  i18n: {
+    /* module options */
+    defaultLocale: "en",
+    lazy: true,
+    langDir: "languages",
+    strategy: "prefix_except_default",
+    locales:[
+      {
+        code: "en",
+        name: "English",
+        file: "en.json"
+      },
+      {
+        code: "zh",
+        name: "简体中文",
+        file: "zh.json"
+      },
+      {
+        code: "ru",
+        name: "Русский",
+        file: "ru.json"
+      },
+    ],
   }
 })

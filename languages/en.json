@@ -1,0 +1,45 @@
+{
+    "project-name": "SammyGPT",
+    "logo-version": "Version Alpha",
+    
+    "landing-intro": "Artificial Intelligence tailored for Staten Island Technical High School.",
+    "landing-description": "Introducing Project SammyGPT: A Comprehensive AI Assistant for Education. Seamlessly integrated to assist educators with real-time detection tools and offer both students and teachers a vast repository of curated Wiki knowledge. Enhancing learning experiences and optimizing classroom efficiency like never before.",
+    "landing-bt-1": "Try SammyGPT",
+    "landing-bt-1-desc": "(For Parents, Students, Teachers)",
+    "landing-bt-2": "Try AI Detection",
+    "landing-bt-2-desc": "(For Teachers)",
+
+    "side-menu-detector": "Go to AI Detector",
+    "side-menu-chat-speed": "Chat Speed",
+    "side-menu-slow": "Slow",
+    "side-menu-medium": "Medium",
+    "side-menu-fast": "Fast",
+    "side-menu-questions": "Questions and concerns?",
+    "side-menu-send-email": "Send us an email",
+    "side-menu-switch-dark-mode": "Switch to Dark Mode",
+    "side-menu-switch-light-mode": "Switch to Light Mode",
+
+    "example-header": "Examples",
+    "example-1": "Who are you?",
+    "example-2": "Tell me about SITHS Curriculum.",
+    "example-3": "Can you explain photosynthesis to me?",
+    "capabilities-header": "Capabilities",    
+    "capabilities-1": "Search up staff memebers",
+    "capabilities-2": "Find upcoming school events",
+    "capabilities-3": "Offer information about the school",
+    "benefits-headers": "Benefits",
+    "benefits-1": "Improving by the day",
+    "benefits-2": "Constant updates and maintenances",
+    "benefits-3": "Tailored specifically to SITHS",
+
+    "switcher-change": "Change Mode",
+    "switcher-text": "Text",
+    "switcher-file": "Upload File",
+    "switcher-back": "Back To Sammy",
+
+    "teacher-login": "Please Login with your teacher account to continue...",
+    
+    "chat-copy-right": "Copyright © SammyGPT. All rights reserved.",
+    "chat-credits": "Created by Youwei Zhen. Assisted by Maximilian Shabatayev",
+    "chat-sammygpt-version": "SammyGPT Version Monday, August 6th"
+}
