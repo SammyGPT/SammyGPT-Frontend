@@ -1,11 +1,14 @@
 <script setup>
-import { ref } from "vue"
+import { ref, onMounted } from "vue"
+import { useRouter } from "vue-router"
 import axios from 'axios';
 
+const userDataStore = useState('userData', () => null)
 const textarea = ref(null)
 const result = ref("")
 const confidence = ref("")
 const env = useRuntimeConfig()
+const router = useRouter();
 
 async function getResults() {
     if (textarea.value.value == "") {return}
@@ -15,10 +18,20 @@ async function getResults() {
     confidence.value = `Confidence: ${Math.round(data.score*10000)/100}%`
     console.log(result.value)
 }
+
+const loggedIn = computed(() => {
+    if (userDataStore.value == null) {
+        return false
+    } 
+    return true
+})
 </script>
 
 <template>
-    <div class="w-[100vw] h-[100vh] dark:bg-primary bg-slate-100 font-[Montserrat] p-8">
+    <div class="w-[100vw] h-[100vh] dark:bg-primary bg-slate-100 font-[Montserrat] p-8" v-if="!loggedIn">
+        <Loginscreen/>
+    </div>
+    <div class="w-[100vw] h-[100vh] dark:bg-primary bg-slate-100 font-[Montserrat] p-8" v-else>
         <h1 class="text-black dark:text-white text-center text-[3rem]">AI Detector</h1>
         <div class="flex justify-center w-full mt-9">
             <textarea

@@ -5,7 +5,6 @@ const main = ref(null)
 onUpdated(() => {
     if (localStorage.theme === undefined) {
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            console.log("e")
             main.value.classList.add("dark")
         }
         return
@@ -21,6 +20,9 @@ function windowLoc() {
     }
     if (window.location.pathname == "/"){
         return 0
+    }
+    if (window.location.pathname == "/login"){
+        return 3
     }
     return 1
 }

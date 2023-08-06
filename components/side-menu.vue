@@ -18,7 +18,7 @@
                     </div>
                     <div class="flex flex-col gap-y-4">
                         <h3>Questions and concerns?</h3>
-                        <Button :toggle_button="false" text="Send us an email" @clicked="email()"></Button>
+                        <Button :toggle_button="false" text="Send us an email" @clicked="sendEmail()"></Button>
                     </div>
                 </div>
             </div>
@@ -34,8 +34,8 @@
             </div>
             <div class="h-[10%] w-full">
                 <div class="p-4 flex flex-row items-center justify-evenly">
-                    <img src="~assets/images/user_image.png" class="w-[5vmin]">
-                    <h3 class="font-[Montserrat] dark:text-white text-black w-[75%] text-center">Guest User Account</h3>
+                    <img :src="pfp" class="w-[5vmin]">
+                    <h3 class="font-[Montserrat] dark:text-white text-black w-[75%] text-center">{{ email }}</h3>
                 </div>
             </div>
         </div>
@@ -57,6 +57,20 @@ const builddate = reactive("July 18th, 2023")
 const desktop_menu = ref(null)
 const settings = ref(null)
 const b1 = ref(null), b2 = ref(null), b3 = ref(null)
+const userDataStore = useState('userData', () => null)
+
+const email = computed(() => {
+    if (userDataStore.value == null) {
+        return "Guest User Account"
+    } 
+    return userDataStore.value.email
+})
+const pfp = computed(() => {
+    if (userDataStore.value == null) {
+        return "~assets/images/user_image.png"
+    } 
+    return userDataStore.value.picture
+})
 
 const generation_speed = ref(localStorage.getItem("generationSpeed"));
 
@@ -82,9 +96,8 @@ function handleTheme() {
     darkMode.value = main.classList.contains('dark')
 }
 
-const email = ()=>{
+const sendEmail = ()=>{
     window.location.href="mailto:youweiz@nycstudents.net"
-
 }
 
 const mobile_menu = ()=>{

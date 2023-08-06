@@ -35,6 +35,21 @@ let seagulls2 = ref([])
 let landing_msg = ref("landing_msg")
 let landing_message = `Artificial Intelligence ${break_word} tailored for ${break_word} Staten Island Technical High School.`
 
+const userDataStore = useState('userData', () => null)
+const teacher = useState('teacher', () => false)
+
+import { GoogleSignInButton, decodeCredential, useOneTap } from "vue3-google-signin";
+
+useOneTap({
+  onSuccess: (response) => {
+    const { credential } = response;
+    const userData = decodeCredential(credential)
+    userDataStore.value = userData
+    console.log(userData)
+  },
+  onError: () => console.error("Error with One Tap Login"),
+});
+
 const animateWords = ()=>{
     let words = landing_message.split(" ")
     let t1 = gsap.timeline()
