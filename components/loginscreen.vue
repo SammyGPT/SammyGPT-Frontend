@@ -14,7 +14,7 @@ const fail = () => console.error("Error with One Tap Login")
 
 <template>
     <div class="w-[100vw] h-[100vh] dark:bg-primary bg-slate-100 font-[Montserrat] py-[30vh]">
-        <h1 class="text-center text-[3rem] text-white">Please Login with your teacher account to continue...</h1>
+        <h1 class="text-center text-[3rem] text-white">{{ $t("teacher-login") }}</h1>
         <div id="container" class="flex justify-center">
             <GoogleSignInButton @success="success" @error="fail" class="h-[10vh]"></GoogleSignInButton>
         </div>

@@ -5,31 +5,31 @@
                 <Logo/>
             </div>
             <div class="h-[60%] dark:text-white text-black font-[Montserrat] flex flex-col items-center">
-                <Button :toggle_button="false" text="Go to Detector" class="w-[70%]" @clicked="goToDectector()"></Button>
+                <Button :toggle_button="false" :text='`${$t("side-menu-detector")}`' class="w-[70%]" @clicked="goToDectector()"></Button>
                 <div class="flex flex-col gap-y-4 mt-[5%]">
                     <h3>Version: {{ version }}</h3>
                     <h3>Build: {{ builddate }}</h3>
-                    <h3>Chat speed: </h3>
+                    <h3>{{$t("side-menu-chat-speed")}}: </h3>
 
                     <div class="flex flex-wrap gap-x-4 gap-y-4 items-center justify-start">
-                        <Button :selected='false' :toggle_button="true" text="Slow" @clicked="select('slow')" ref="b1"></Button>
-                        <Button :selected='false' :toggle_button="true" text="Medium" @clicked="select('medium')" ref="b2"></Button>
-                        <Button :selected='false' :toggle_button="true" text="Fast" @clicked="select('fast')" ref="b3"></Button>
+                        <Button :selected='false' :toggle_button="true" :text='`${$t("side-menu-slow")}`' @clicked="select('slow')" ref="b1"></Button>
+                        <Button :selected='false' :toggle_button="true" :text='`${$t("side-menu-medium")}`' @clicked="select('medium')" ref="b2"></Button>
+                        <Button :selected='false' :toggle_button="true" :text='`${$t("side-menu-fast")}`' @clicked="select('fast')" ref="b3"></Button>
                     </div>
                     <div class="flex flex-col gap-y-4">
-                        <h3>Questions and concerns?</h3>
-                        <Button :toggle_button="false" text="Send us an email" @clicked="sendEmail()"></Button>
+                        <h3>{{$t("side-menu-questions")}}</h3>
+                        <Button :toggle_button="false" :text='`${$t("side-menu-send-email")}`' @clicked="sendEmail()"></Button>
                     </div>
                 </div>
             </div>
             <div class="h-[10%] w-fit mx-auto dark:text-white text-black select-none">
                 <div v-if="darkMode" class="flex cursor-pointer gap-3" @click="handleTheme()">
                     <span class="material-symbols-outlined h-full">light_mode</span>
-                    <span class="h-full align-middle my-3">Switch to Light Mode</span>
+                    <span class="h-full align-middle my-3">{{ $t('side-menu-switch-dark-mode') }}</span>
                 </div>
                 <div v-else class="flex cursor-pointer gap-2" @click="handleTheme()">
                     <span class="material-symbols-outlined h-full">dark_mode</span>
-                    <span class="h-full align-middle my-3">Switch to Dark Mode</span>
+                    <span class="h-full align-middle my-3">{{ $t('side-menu-switch-light-mode') }}</span>
                 </div>
             </div>
             <div class="h-[10%] w-full">
@@ -59,6 +59,8 @@ const settings = ref(null)
 const b1 = ref(null), b2 = ref(null), b3 = ref(null)
 const userDataStore = useState('userData', () => null)
 
+const localpath = useLocalePath()
+
 const email = computed(() => {
     if (userDataStore.value == null) {
         return "Guest User Account"
@@ -81,7 +83,7 @@ const props = defineProps({
 const darkMode = ref(main.classList.contains('dark'))
 
 function goToDectector() {
-    window.location.pathname = '/detection'
+    window.location.pathname = localpath('/detection')
 }
 
 function handleTheme() {

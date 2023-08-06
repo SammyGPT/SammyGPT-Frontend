@@ -1,17 +1,37 @@
 <template>
     <div class="h-full min-h-[100vh] dark:bg-black bg-white pl-[7vh] pr-[7vh]">
-        <div class="w-full flex items-start justify-star">
+        <div class="w-full menu flex items-center justify-start p-4">
             <Logo/>
+            <div class="z-20">
+                <NuxtLink
+                    v-for="{code, name} in locales"
+                    :key="code"
+                    :to="switchLocalePath(code)"
+                    class="mr-4 dark:text-white text-primary"
+                    :class="{
+                        'underline': code == locale
+                    }"
+                >
+                    {{ name }}
+                </NuxtLink>
+            </div>
         </div>
         <div class="dark:bg-primary bg-accent2 w-full h-full rounded-[5vh] pb-12">
             <div class="w-full flex flex-col justify-start items-start pad-intro pb-8 pt-12 gap-y-4">
                 <h1 class="intro-text text-left font-[Raleway] dark:text-[#ebeae1] text-black hidden">Artificial Intelligence for Staten Island Technical High School.</h1>
-                <h2 class="intro-text text-left font-[Raleway] dark:text-[#ebeae1] text-black bold" ref="landing_msg"></h2>
+                <h2 class="intro-text text-left font-[Raleway] dark:text-[#ebeae1] text-black bold w-5/6" ref="landing_msg"></h2>
                 <p class="description-text dark:text-[#ebeae1] text-black text-lg">{{ data }}</p>
+                <p class="description-text dark:text-[#ebeae1] text-black text-lg">{{ $t("landing-description") }}</p>
             </div>
             <div class="flex justify-start flex-col gap-y-4 pad-intro">
-                <NuxtLink class="z-10 button h-[10vh] flex text-center items-center justify-center rounded-lg font-[Montserrat] bg-[#c3b563] hover:bg-[#a99c59] transition ease-in-out" to="/chat">SammyGPT</NuxtLink>
-                <NuxtLink class="z-10 button  h-[10vh] flex text-center items-center justify-center rounded-lg font-[Montserrat] bg-[#c3b563] hover:bg-[#a99c59] transition ease-in-out" to="/detection">AI Detection</NuxtLink>
+                <NuxtLink class="z-10 button h-[10vh] flex flex-col text-center items-center justify-center rounded-lg font-[Montserrat] bg-[#c3b563] hover:bg-[#a99c59] transition ease-in-out" :to="localpath('/chat')">
+                    {{ $t("landing-bt-1") }}
+                    <p class="text-black bt-desc">{{ $t("landing-bt-1-desc") }}</p>
+                </NuxtLink>
+                <NuxtLink class="z-10 button  h-[10vh] flex flex-col text-center items-center justify-center rounded-lg font-[Montserrat] bg-[#c3b563] hover:bg-[#a99c59] transition ease-in-out" :to="localpath('/detection')">
+                    {{ $t("landing-bt-2") }}
+                    <p class="text-black bt-desc">{{ $t("landing-bt-2-desc") }}</p>
+                </NuxtLink>
             </div>
             <div class="z-0 absolute w-full h-full top-0 left-0">
                 <div class="bg-transparent w-[90%] h-[20vh] mx-auto mt-[20vh]">
@@ -26,28 +46,30 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive, } from 'vue'
+import { ref, onMounted } from 'vue'
+import { GoogleSignInButton, decodeCredential, useOneTap } from "vue3-google-signin";
 import gsap from 'gsap'
 
-import { GoogleSignInButton, decodeCredential, useOneTap } from "vue3-google-signin";
-import PageLoader from '../page-loader';
+const localpath = useLocalePath()
+const i18n = useI18n()
 
 const break_word = "<break>"
 let seagulls = ref([])
 let seagulls2 = ref([])
 let landing_msg = ref("landing_msg")
-let landing_message = `Artificial Intelligence ${break_word} tailored for ${break_word} Staten Island Technical High School.`
+let landing_message = i18n.t("landing-intro")
+let text_delay = reactive(0.05)
 
 const userDataStore = useState('userData', () => null)
 const teacher = useState('teacher', () => false)
 const language = reactive("english")
 
-const { data, error } = useAsyncData(async()=>{
-    const response = await fetch('/page-content/index.json');
-    console.log(response)
-    const data = await response.json();
-    return { data: data };
-})
+const { locale, locales } = useI18n()
+const switchLocalePath = useSwitchLocalePath()
+
+if (i18n.locale.value == "zh"){
+    text_delay = 0.1
+}
 
 useOneTap({
   onSuccess: (response) => {
@@ -60,7 +82,8 @@ useOneTap({
 });
 
 const animateWords = ()=>{
-    let words = landing_message.split(" ")
+
+    let words = landing_message.split("")
     let t1 = gsap.timeline()
 
     words.forEach((word) => {
@@ -72,12 +95,12 @@ const animateWords = ()=>{
             let span = document.createElement("span");
             span.className = "word";
             span.style.opacity = 0
-            span.textContent = word + " ";  // adding space after each word for readability
+            span.textContent = word + "";  // adding space after each word for readability
             landing_msg.value.appendChild(span);
             t1.to(span, {
                 opacity: 1,
-                duration: 0.3,
-                ease: "sine.out"
+                duration: text_delay,
+                ease: "power3.out"
             })
         }
     });
@@ -130,6 +153,10 @@ function seagull(pos) {
     font-size: 2rem;
 }
 
+.bt-desc{
+    font-size: 1rem;
+}
+
 .intro-text{
     font-size: 3.5vw;
 }
@@ -171,6 +198,14 @@ function seagull(pos) {
     .button {
         width: 100%;
         font-size: 4vmin;
+    }
+
+    .bt-desc{
+        font-size: 3vmin;
+    }
+
+    .menu{
+        flex-direction: column;
     }
 }
 
