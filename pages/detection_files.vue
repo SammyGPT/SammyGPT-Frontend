@@ -2,6 +2,8 @@
 import { ref } from "vue"
 import axios from 'axios';
 
+const userDataStore = useState('userData', () => null)
+
 const textarea = ref(null)
 const result = ref("")
 const progress = ref(0)
@@ -27,11 +29,20 @@ async function handleFile(e) {
     }
     console.log(results.value)
 }
-
+const loggedIn = computed(() => {
+    if (userDataStore.value == null) {
+        return false
+    } 
+    console.log(userDataStore.value)
+    return true
+})
 </script>
 
 <template>
-    <div class="w-full min-w-[100vw] h-full min-h-[100vh] dark:bg-primary bg-slate-100 font-[Montserrat] p-8">
+    <div class="w-[100vw] h-[100vh] dark:bg-primary bg-slate-100 font-[Montserrat] p-8" v-if="!loggedIn">
+        <Loginscreen/>
+    </div>
+    <div class="w-full min-w-[100vw] h-full min-h-[100vh] dark:bg-primary bg-slate-100 font-[Montserrat] p-8" v-else>
         <h1 class="text-black dark:text-white text-center text-[3rem]">AI Detector</h1>
         <div class="w-full flex items-center justify-center">
             <label

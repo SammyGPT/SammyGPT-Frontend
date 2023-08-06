@@ -22,6 +22,9 @@ function windowLoc() {
     if (window.location.pathname == "/"){
         return 0
     }
+    if (window.location.pathname == "/login"){
+        return 3
+    }
     return 1
 }
 </script>
