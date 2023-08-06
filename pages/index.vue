@@ -4,14 +4,14 @@
             <Logo/>
         </div>
         <div class="dark:bg-primary bg-accent2 w-full h-full rounded-[5vh] pb-12">
-            <div class="w-full flex flex-col justify-start items-start p-24 pb-8 pt-12 gap-y-4">
+            <div class="w-full flex flex-col justify-start items-start pad-intro pb-8 pt-12 gap-y-4">
                 <h1 class="intro-text text-left font-[Raleway] dark:text-[#ebeae1] text-black hidden">Artificial Intelligence for Staten Island Technical High School.</h1>
                 <h2 class="intro-text text-left font-[Raleway] dark:text-[#ebeae1] text-black bold" ref="landing_msg"></h2>
                 <p class="description-text dark:text-[#ebeae1] text-black text-lg">Introducing Project SammyGPT: A Comprehensive AI Assistant for Education. Seamlessly integrated to assist educators with real-time detection tools and offer both students and teachers a vast repository of curated Wiki knowledge. Enhancing learning experiences and optimizing classroom efficiency like never before.</p>
             </div>
-            <div class="flex justify-start flex-col gap-y-4 pl-24">
-                <NuxtLink class="z-10 w-[30vw] h-[10vh] flex text-center items-center justify-center rounded-lg text-[3vmin] font-[Montserrat] bg-[#c3b563] hover:bg-[#a99c59] transition ease-in-out" to="/chat">SammyGPT</NuxtLink>
-                <NuxtLink class="z-10 w-[30vw] h-[10vh] flex text-center items-center justify-center rounded-lg text-[3vmin] font-[Montserrat] bg-[#c3b563] hover:bg-[#a99c59] transition ease-in-out" to="/detection">AI Detection</NuxtLink>
+            <div class="flex justify-start flex-col gap-y-4 pad-intro">
+                <NuxtLink class="z-10 button h-[10vh] flex text-center items-center justify-center rounded-lg font-[Montserrat] bg-[#c3b563] hover:bg-[#a99c59] transition ease-in-out" to="/chat">SammyGPT</NuxtLink>
+                <NuxtLink class="z-10 button  h-[10vh] flex text-center items-center justify-center rounded-lg font-[Montserrat] bg-[#c3b563] hover:bg-[#a99c59] transition ease-in-out" to="/detection">AI Detection</NuxtLink>
             </div>
             <div class="z-0 absolute w-full h-full top-0 left-0">
                 <div class="bg-transparent w-[90%] h-[20vh] mx-auto mt-[20vh]">
@@ -112,6 +112,15 @@ function seagull(pos) {
 
 <style scoped>
 
+.pad-intro{
+    padding: 1.5vw 4vw 1.5vw 4vw;
+}
+
+.button {
+    width: 30vw;
+    font-size: 2rem;
+}
+
 .intro-text{
     font-size: 3.5vw;
 }
@@ -145,7 +154,16 @@ function seagull(pos) {
         font-size: 1rem;
         text-align: left;
     } 
+
+    .pad-intro{
+        padding: 10vw 10vw 0vw 10vw;
     }
+
+    .button {
+        width: 100%;
+        font-size: 4vmin;
+    }
+}
 
 @keyframes flyaround {
     0% {
