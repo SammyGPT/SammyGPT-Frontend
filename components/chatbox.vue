@@ -32,7 +32,7 @@
             </div>
         </form>
         <div class="w-full flex justify-center items-center">
-            <h3 class="dark:text-secondary text-primary p-2 text-sm">SammyGPT Version Monday, June 12th</h3>
+            <h3 class="dark:text-secondary text-primary p-2 text-sm">{{ $t("chat-sammygpt-version") }}</h3>
         </div>
     </div>
 </template>
