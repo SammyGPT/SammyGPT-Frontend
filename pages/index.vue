@@ -7,7 +7,7 @@
             <div class="w-full flex flex-col justify-start items-start pad-intro pb-8 pt-12 gap-y-4">
                 <h1 class="intro-text text-left font-[Raleway] dark:text-[#ebeae1] text-black hidden">Artificial Intelligence for Staten Island Technical High School.</h1>
                 <h2 class="intro-text text-left font-[Raleway] dark:text-[#ebeae1] text-black bold" ref="landing_msg"></h2>
-                <p class="description-text dark:text-[#ebeae1] text-black text-lg">Introducing Project SammyGPT: A Comprehensive AI Assistant for Education. Seamlessly integrated to assist educators with real-time detection tools and offer both students and teachers a vast repository of curated Wiki knowledge. Enhancing learning experiences and optimizing classroom efficiency like never before.</p>
+                <p class="description-text dark:text-[#ebeae1] text-black text-lg">{{ data }}</p>
             </div>
             <div class="flex justify-start flex-col gap-y-4 pad-intro">
                 <NuxtLink class="z-10 button h-[10vh] flex text-center items-center justify-center rounded-lg font-[Montserrat] bg-[#c3b563] hover:bg-[#a99c59] transition ease-in-out" to="/chat">SammyGPT</NuxtLink>
@@ -26,8 +26,11 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, reactive, } from 'vue'
 import gsap from 'gsap'
+
+import { GoogleSignInButton, decodeCredential, useOneTap } from "vue3-google-signin";
+import PageLoader from '../page-loader';
 
 const break_word = "<break>"
 let seagulls = ref([])
@@ -37,8 +40,14 @@ let landing_message = `Artificial Intelligence ${break_word} tailored for ${brea
 
 const userDataStore = useState('userData', () => null)
 const teacher = useState('teacher', () => false)
+const language = reactive("english")
 
-import { GoogleSignInButton, decodeCredential, useOneTap } from "vue3-google-signin";
+const { data, error } = useAsyncData(async()=>{
+    const response = await fetch('/page-content/index.json');
+    console.log(response)
+    const data = await response.json();
+    return { data: data };
+})
 
 useOneTap({
   onSuccess: (response) => {
