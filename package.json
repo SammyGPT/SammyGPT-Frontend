@@ -9,7 +9,9 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
+    "@intlify/nuxt3": "^0.2.4",
     "@nuxt/devtools": "latest",
+    "@nuxtjs/i18n": "^8.0.0-rc.2",
     "@nuxtjs/tailwindcss": "^6.7.0",
     "@types/node": "^18",
     "any-text": "^1.2.0",

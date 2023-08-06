@@ -1,0 +1,34 @@
+{
+    "project-name": "萨米GPT",
+    "logo-version": "Alpha 版本",
+
+    "landing-intro": "为史泰登岛技术高中量身定制的人工智能。",
+    "landing-description": "隆重推出项目SammyGPT：一个针对教育的综合性人工智能助手。无缝集成，为教育者提供实时检测工具，并为学生和教师提供大量经过策划的知识库。前所未有地增强学习体验并优化课堂效率",
+    "landing-bt-1": "尝试 SammyGPT",
+    "landing-bt-1-desc": "（适用于家长、学生、教师）",
+    "landing-bt-2": "尝试人工智能检测",
+    "landing-bt-2-desc": "（适用于教师）",
+
+    "side-menu-detector": "转到人工智能探测器",
+    "side-menu-chat-speed": "聊天速度",
+    "side-menu-slow": "慢",
+    "side-menu-medium": "中",
+    "side-menu-fast": "快",
+    "side-menu-questions": "有问题和疑虑吗？",
+    "side-menu-send-email": "给我们发送电子邮件",
+    "side-menu-switch-dark-mode": "切换到深色模式",
+    "side-menu-switch-light-mode": "切换到灯光模式",
+
+    "example-header": "示例",
+    "example-1": "你是谁？",
+    "example-2": "告诉我有关 SITHS 课程的信息。",
+    "example-3": "你能给我解释一下光合作用吗？",
+    "capabilities-header": "功能",
+    "capabilities-1": "搜索员工",
+    "capabilities-2": "查找即将举行的学校活动",
+    "capabilities-3": "提供有关学校的信息",
+    "benefits-header": "好处",
+    "benefits-1": "逐日进步",
+    "benefits-2": "不断更新和维护",
+    "benefits-3": "专为 SITHS 量身定制"
+}
