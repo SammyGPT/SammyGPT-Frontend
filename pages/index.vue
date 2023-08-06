@@ -1,7 +1,20 @@
 <template>
     <div class="h-full min-h-[100vh] dark:bg-black bg-white pl-[7vh] pr-[7vh]">
-        <div class="w-full flex items-start justify-star">
+        <div class="w-full menu flex items-center justify-start p-4">
             <Logo/>
+            <div class="z-20">
+                <NuxtLink
+                    v-for="{code, name} in locales"
+                    :key="code"
+                    :to="switchLocalePath(code)"
+                    class="mr-4 text-white"
+                    :class="{
+                        'underline': code == locale
+                    }"
+                >
+                    {{ name }}
+                </NuxtLink>
+            </div>
         </div>
         <div class="dark:bg-primary bg-accent2 w-full h-full rounded-[5vh] pb-12">
             <div class="w-full flex flex-col justify-start items-start pad-intro pb-8 pt-12 gap-y-4">
@@ -37,19 +50,22 @@ import { GoogleSignInButton, decodeCredential, useOneTap } from "vue3-google-sig
 import gsap from 'gsap'
 
 const localpath = useLocalePath()
-const locale = useI18n()
+const i18n = useI18n()
 
 const break_word = "<break>"
 let seagulls = ref([])
 let seagulls2 = ref([])
 let landing_msg = ref("landing_msg")
-let landing_message = locale.t("landing-intro")
+let landing_message = i18n.t("landing-intro")
 let text_delay = reactive(0.05)
 
 const userDataStore = useState('userData', () => null)
 const teacher = useState('teacher', () => false)
 
-if (locale.locale.value == "zh"){
+const { locale, locales } = useI18n()
+const switchLocalePath = useSwitchLocalePath()
+
+if (i18n.locale.value == "zh"){
     text_delay = 0.1
 }
 
@@ -176,6 +192,10 @@ function seagull(pos) {
     .button {
         width: 100%;
         font-size: 3.5vmin;
+    }
+
+    .menu{
+        flex-direction: column;
     }
 }
 

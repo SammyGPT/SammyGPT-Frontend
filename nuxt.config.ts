@@ -31,12 +31,12 @@ export default defineNuxtConfig({
       },
       {
         code: "zh",
-        name: "Chinese Simplified",
+        name: "简体中文",
         file: "zh.json"
       },
       {
         code: "ru",
-        name: "Russian",
+        name: "Русский",
         file: "ru.json"
       },
     ],
