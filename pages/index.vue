@@ -7,7 +7,7 @@
                     v-for="{code, name} in locales"
                     :key="code"
                     :to="switchLocalePath(code)"
-                    class="mr-4 text-white"
+                    class="mr-4 dark:text-white text-primary"
                     :class="{
                         'underline': code == locale
                     }"
@@ -19,17 +19,18 @@
         <div class="dark:bg-primary bg-accent2 w-full h-full rounded-[5vh] pb-12">
             <div class="w-full flex flex-col justify-start items-start pad-intro pb-8 pt-12 gap-y-4">
                 <h1 class="intro-text text-left font-[Raleway] dark:text-[#ebeae1] text-black hidden">Artificial Intelligence for Staten Island Technical High School.</h1>
-                <h2 class="intro-text text-left font-[Raleway] dark:text-[#ebeae1] text-black bold" ref="landing_msg"></h2>
+                <h2 class="intro-text text-left font-[Raleway] dark:text-[#ebeae1] text-black bold w-5/6" ref="landing_msg"></h2>
+                <p class="description-text dark:text-[#ebeae1] text-black text-lg">{{ data }}</p>
                 <p class="description-text dark:text-[#ebeae1] text-black text-lg">{{ $t("landing-description") }}</p>
             </div>
             <div class="flex justify-start flex-col gap-y-4 pad-intro">
                 <NuxtLink class="z-10 button h-[10vh] flex flex-col text-center items-center justify-center rounded-lg font-[Montserrat] bg-[#c3b563] hover:bg-[#a99c59] transition ease-in-out" :to="localpath('/chat')">
                     {{ $t("landing-bt-1") }}
-                    <p class="text-black text-xl bold">{{ $t("landing-bt-1-desc") }}</p>
+                    <p class="text-black bt-desc">{{ $t("landing-bt-1-desc") }}</p>
                 </NuxtLink>
                 <NuxtLink class="z-10 button  h-[10vh] flex flex-col text-center items-center justify-center rounded-lg font-[Montserrat] bg-[#c3b563] hover:bg-[#a99c59] transition ease-in-out" :to="localpath('/detection')">
                     {{ $t("landing-bt-2") }}
-                    <p class="text-black text-xl">{{ $t("landing-bt-2-desc") }}</p>
+                    <p class="text-black bt-desc">{{ $t("landing-bt-2-desc") }}</p>
                 </NuxtLink>
             </div>
             <div class="z-0 absolute w-full h-full top-0 left-0">
@@ -61,6 +62,7 @@ let text_delay = reactive(0.05)
 
 const userDataStore = useState('userData', () => null)
 const teacher = useState('teacher', () => false)
+const language = reactive("english")
 
 const { locale, locales } = useI18n()
 const switchLocalePath = useSwitchLocalePath()
@@ -151,6 +153,10 @@ function seagull(pos) {
     font-size: 2rem;
 }
 
+.bt-desc{
+    font-size: 1rem;
+}
+
 .intro-text{
     font-size: 3.5vw;
 }
@@ -191,7 +197,11 @@ function seagull(pos) {
 
     .button {
         width: 100%;
-        font-size: 3.5vmin;
+        font-size: 4vmin;
+    }
+
+    .bt-desc{
+        font-size: 3vmin;
     }
 
     .menu{
