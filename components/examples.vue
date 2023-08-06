@@ -13,7 +13,7 @@ function handleEmit(e) {
                 <span class="material-symbols-outlined dark:text-secondary text-primary mx-auto">sunny</span>
                 <h3 class=" w-full text-center dark:text-secondary text-primary text-[1.2rem]">Examples</h3>
                 <p class="text-box dark:text-secondary text-primary w-full text-center dark:bg-gray-700 bg-light-background h-fit p-4 shadow rounded-md cursor-pointer" @click="handleEmit">Who are you?</p>
-                <p class="text-box dark:text-secondary text-primary w-full text-center dark:bg-gray-700 bg-light-background h-fit p-4 shadow rounded-md cursor-pointer" @click="handleEmit">What is Mr. Whalen's Email?</p>
+                <p class="text-box dark:text-secondary text-primary w-full text-center dark:bg-gray-700 bg-light-background h-fit p-4 shadow rounded-md cursor-pointer" @click="handleEmit">Tell me about SITHS Curriculum?</p>
                 <p class="text-box dark:text-secondary text-primary w-full text-center dark:bg-gray-700 bg-light-background h-fit p-4 shadow rounded-md cursor-pointer" @click="handleEmit">Can you explain photosynthesis to me?</p>    
             </div>
             <div class="text-box-container w-[20%] self-center bg-transparent flex flex-col h-[23rem] gap-4">
