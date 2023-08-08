@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from "vue"
 import axios from 'axios';
+import { useTokenClient } from "vue3-google-signin"
 
 const textarea = ref(null)
 const result = ref("")
@@ -27,6 +28,20 @@ async function handleFile(e) {
     }
     console.log(results.value)
 }
+
+const handleOnSuccess = (response) => {
+  console.log("Access Token: " + response.access_token);
+};
+
+const handleOnError = (errorResponse) => {
+  console.log("Error: " + errorResponse);
+};
+
+const { isReady, login } = useTokenClient({
+  onSuccess: handleOnSuccess,
+  onError: handleOnError,
+  // other options
+});
 </script>
 
 <template>
@@ -37,6 +52,7 @@ async function handleFile(e) {
         </div>
         <div class="flex justify-center my-8">
             <Button :toggle_button="false" :selected="false" text="Check for AI" @clicked="getResults" class=""></Button>
+            <button :disabled="!isReady" @click="() => login()" class="text-white">Login with Google</button>
         </div>
         <!-- <h2 class="text-black dark:text-white text-center text-[3rem]">{{ result }}</h2> -->
         <DetectionLoading :progress="progress"/>
