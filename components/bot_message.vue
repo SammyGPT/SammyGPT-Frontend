@@ -1,13 +1,13 @@
 <template>
     <div class="flex flex-col items-center max-w-full dark:bg-accent1 bg-accent2 rounded-xl dark:text-primary text-secondary text-[Montserrat]">
-        <div id="message" class="w-full items-center justify-start">
+        <div id="message" class="w-fit items-center justify-start">
             <div class="flex" id="bot_image">
                 <div>
                     <img v-if="props.loading" src="~/assets/images/message_loading.gif" class="w-16 rounded-full"/>
                     <img v-else src="~/assets/images/seagull_temp.jpg" class="w-12 h-12 rounded-full"/>
                 </div>
             </div>
-            <div id="content" class="w-full ease-in-out duration-300 dark:text-white text-black break-words p-4 flex flex-col gap-y-4" ref="message"></div>
+            <div id="content" class="ease-in-out duration-300 dark:text-white text-black break-words p-4 flex flex-col gap-y-4" ref="message"></div>
         </div>
         <div v-if="props.references.length" class="rounded-xl dark:bg-accent3 bg-secondary flex flex-col items-start justify-start gap-x-4 p-4 mb-8">
             <label class="dark:text-secondary text-primary font-[Montserrat] ">Possible References: </label>
@@ -74,6 +74,8 @@ onUpdated(()=>{
 #content code, #content pre {
     font-family: monospace;
     border-radius: 3px;
+    word-break: break-word;
+    white-space: pre-wrap;
     /* padding: 10px; */
     background-color: #61849c; /* Very light gray background */
     color: #ffffff;               /* Dark gray text */
@@ -109,7 +111,7 @@ onUpdated(()=>{
         padding-bottom: 1rem;
     }
 
-    #content{
+    #content * {
         font-size: 3vmin;
     }
 
