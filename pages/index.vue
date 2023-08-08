@@ -20,7 +20,7 @@
             <div class="w-full flex flex-col justify-start items-start pad-intro pb-8 pt-12 gap-y-4">
                 <h1 class="intro-text text-left font-[Raleway] dark:text-[#ebeae1] text-black hidden">Artificial Intelligence for Staten Island Technical High School.</h1>
                 <h2 class="intro-text text-left font-[Raleway] dark:text-[#ebeae1] text-black bold w-5/6" ref="landing_msg"></h2>
-                <p class="description-text dark:text-[#ebeae1] text-black text-lg">{{ data }}</p>
+                <!-- <p class="description-text dark:text-[#ebeae1] text-black text-lg">{{ data }}</p> -->
                 <p class="description-text dark:text-[#ebeae1] text-black text-lg">{{ $t("landing-description") }}</p>
             </div>
             <div class="flex justify-start flex-col gap-y-4 pad-intro">
@@ -47,7 +47,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { GoogleSignInButton, decodeCredential, useOneTap } from "vue3-google-signin";
+import { GoogleSignInButton, decodeCredential, useOneTap} from "vue3-google-signin";
 import gsap from 'gsap'
 
 const localpath = useLocalePath()
@@ -74,6 +74,7 @@ if (i18n.locale.value == "zh"){
 useOneTap({
   onSuccess: (response) => {
     const { credential } = response;
+    
     const userData = decodeCredential(credential)
     userDataStore.value = userData
     console.log(userData)
