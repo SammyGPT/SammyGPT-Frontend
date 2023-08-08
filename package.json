@@ -25,6 +25,7 @@
     "@google-cloud/local-auth": "^2.1.0",
     "googleapis": "^105.0.0",
     "gsap": "^3.12.2",
+    "highlight.js": "^11.8.0",
     "marked": "^7.0.1",
     "nuxt-vue3-google-signin": "^0.0.9",
     "office-text-extractor": "^3.0.1",
