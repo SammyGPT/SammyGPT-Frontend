@@ -10,6 +10,32 @@ const progress = ref(0)
 const results = ref([])
 const env = useRuntimeConfig()
 
+const human = 0.16
+const most_human = 0.32
+const likely_human = 0.48
+const likely_ai = 0.64
+const most_ai = 0.80
+const ai = 1.00
+
+// Given the percentage of paragraphs written by AI, returns a message
+const get_result_message = (percentage)=>{
+    if (percentage <= 0.16){
+        return "Entirely written by Human"
+    }else if (percentage > 0.16 && percentage <=0.32){
+        return "Most likely written by Human"
+    }else if (percentage > 0.32 && percentage <=0.48){
+        return "May include parts written by AI"
+    }else if (percentage > 0.48 && percentage <=0.64){
+        return "Some parts written by AI"
+    }else if (percentage > 0.64 && percentage <= 0.80){
+        return "Most likely written by AI"
+    }else if (percentage > 0.80){
+        return "Entirely written by AI"
+    }
+
+    // entirely human, most likely human, likely human, likely ai, most entirely ai, entirely ai
+}
+
 async function handleFile(e) {
     results.value = []
     progress.value = 0
@@ -21,9 +47,21 @@ async function handleFile(e) {
         formData.append("file", files[i]);
         const response = await axios.post(`${env.public.protocol}://${env.public.api}/upload`, formData)
         const data = await JSON.parse(response.data)
+
+        let ai = 0
+        for (let section of data){
+            if (section['label'].toLowerCase() == "ai"){
+                ai++
+            }
+        }
+        let ai_percentage = ai/data.length
+
+        console.log(ai_percentage)
+
         results.value.push({
             fileName: files[i].name,
-            result: data
+            result: get_result_message(ai_percentage),
+            ai_percentage: ai_percentage
         })
         progress.value = Math.round((i+1)/files.length * 100)
     }
@@ -43,7 +81,7 @@ const loggedIn = computed(() => {
         <Loginscreen/>
     </div>
     <div class="w-full min-w-[100vw] h-full min-h-[100vh] dark:bg-primary bg-slate-100 font-[Montserrat] p-8" v-else>
-        <Linebyline/>
+        <!-- <Linebyline/> -->
         <h1 class="text-black dark:text-white text-center text-[3rem]">AI Detector</h1>
         <div class="w-full flex items-center justify-center">
             <label
@@ -71,11 +109,17 @@ const loggedIn = computed(() => {
         <div id="files" class="flex justify-evenly flex-wrap mt-[15vh] h-auto gap-[3vw]">
             <div class="max-w-xs dark:bg-slate-500 bg-[#bfc3c9] rounded-md p-10 flex items-center flex-col justify-center gap-y-[1vw]" v-for="result in results">
                 <h3 class="text-center text-[1.2rem] dark:text-white text-primary break-all">{{ result.fileName }}</h3>
-                <p class="text-center text-[1rem] dark:text-white text-primary">Likely written by:</p>
-                <p class="text-center text-[1rem] dark:text-white text-primary">{{ result.result.label.toLowerCase() == "chatgpt" ? "AI" : result.result.label }}</p>
-                <p class="text-center text-[1rem] dark:text-white text-primary">Confidence: {{ Math.round(result.result.score*10000)/100 }}%</p>
-                <img v-if="result.result.label.toLowerCase() == 'human'" class="w-1/3" src="~assets/images/checked.png"/>
-                <img v-if="result.result.label.toLowerCase() == 'chatgpt'" class="w-1/3" src="~assets/images/x.png"/>
+                <p class="text-center text-[1rem] dark:text-white text-primary">Detected Result:</p>
+                <p class="text-center text-[1rem] dark:text-white text-primary">{{ result.result }}</p>
+                <!-- <p class="text-center text-[1rem] dark:text-white text-primary">Confidence: {{ Math.round(result.result.score*10000)/100 }}%</p> -->
+
+                <!-- By  -->
+                <img v-if="result.ai_percentage <= human" class="w-1/3" src="~assets/images/checked.png"/>
+                <img v-else-if="result.ai_percentage <= most_human" class="w-1/3" src="~assets/images/checked.png"/>
+                <img v-else-if="result.ai_percentage <= likely_human" class="w-1/3" src="~assets/images/warning.png"/>
+                <img v-else-if="result.ai_percentage <= likely_ai" class="w-1/3" src="~assets/images/warning.png"/>
+                <img v-else-if="result.ai_percentage <= most_ai" class="w-1/3" src="~assets/images/x.png"/>
+                <img v-else-if="result.ai_percentage <= ai" class="w-1/3" src="~assets/images/x.png"/>
             </div>
         </div>
     </div>
