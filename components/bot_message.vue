@@ -16,7 +16,7 @@
             </div>
         </div>
         <div v-if="props.references.length" class="rounded-xl dark:bg-accent3 bg-secondary flex flex-col items-start justify-start gap-x-4 p-4 mb-8">
-            <label class="dark:text-secondary text-primary font-[Montserrat] ">Possible References: </label>
+            <label class="dark:text-secondary text-primary font-[Montserrat] ">{{ $t("bot-message-reference") }}</label>
             <div class="flex flex-wrap gap-x-6 gap-y-2 overflow-scroll">
                 <a v-for="link in props.references" 
                 :href="link" 

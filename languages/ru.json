@@ -41,5 +41,7 @@
 
     "chat-copy-right": "Авторское право © SammyGPT. Все права защищены.",
     "chat-credits": "Создано Youwei Zhen. При содействии Maximilian Shabatayev",
-    "chat-sammygpt-version": "Версия СэммиГПТ, понедельник, 6 августа"
+    "chat-sammygpt-version": "Версия СэммиГПТ, понедельник, 6 августа",
+
+    "bot-message-reference": "Внешние ссылки:"
 }
