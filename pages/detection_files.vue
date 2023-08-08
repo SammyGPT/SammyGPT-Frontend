@@ -30,11 +30,11 @@ async function handleFile(e) {
     console.log(results.value)
 }
 const loggedIn = computed(() => {
+    return true
     if (userDataStore.value == null) {
         return false
     } 
     console.log(userDataStore.value)
-    return true
 })
 </script>
 
@@ -43,6 +43,7 @@ const loggedIn = computed(() => {
         <Loginscreen/>
     </div>
     <div class="w-full min-w-[100vw] h-full min-h-[100vh] dark:bg-primary bg-slate-100 font-[Montserrat] p-8" v-else>
+        <Linebyline/>
         <h1 class="text-black dark:text-white text-center text-[3rem]">AI Detector</h1>
         <div class="w-full flex items-center justify-center">
             <label
