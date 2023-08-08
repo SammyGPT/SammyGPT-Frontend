@@ -87,7 +87,7 @@ var is_printing = reactive(false) // keeps track of the printing_message task, o
 const END_TOKEN = "<END>"
 
 // Prints the message at reading speed for the bot
-const print_message = async()=>{
+const print_message = async(single_token)=>{
 
     if (is_printing) return
     is_printing = true
@@ -101,7 +101,10 @@ const print_message = async()=>{
             waiting_response = false
             messages[messages.length - 1].loading = false
         }else{
-            messages[messages.length - 1].message += word + " "
+            messages[messages.length - 1].message += word
+            if (!single_token){ // If not single token, we split by " ", which means we need to add it back
+                messages[messages.length - 1].message += " "
+            }
         }
 
         let word_delay = generation_speed[localStorage.getItem("generationSpeed")]
@@ -123,24 +126,26 @@ onMounted(async()=>{
 
     conn.on("session_id", (data)=>{
         session_id = data["session_id"]
-        console.log()
     })
 
     conn.on("message", async(data)=>{
         
         let response = data["generated"]
         let end = data["end"]
+        let single_token = data["single_token"]
 
-        let splitted = response.split(" ")
+        if (!single_token){
+            response = response.split(" ")
+        }
 
-        message_cache = message_cache.concat(splitted)
+        message_cache = message_cache.concat(response)
 
         if (end) {
             messages[messages.length - 1].references = data["references"]
             message_cache.push(END_TOKEN)
         }
         
-        print_message()
+        print_message(single_token)
     })
 
 })
@@ -202,8 +207,6 @@ const send = async(e)=>{
     chatbox.value.innerHtml = ""
     editBoxSize()   
 
-
-    console.log(conn) 
     conn.emit("generate", {"prompt": prompt, "type": "prompt", "session_id": session_id})
     messages.push(new Message(prompt, false))
     waiting_response = true

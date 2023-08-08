@@ -20,7 +20,12 @@ const props = defineProps({
 
 </script>
 
-<style>
+<style scoped>
+
+
+#content *{
+    word-break: break-all;
+}
 
 #message{
     display: grid;
