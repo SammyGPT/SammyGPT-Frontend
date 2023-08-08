@@ -1,13 +1,19 @@
 <template>
     <div class="flex flex-col items-center max-w-full dark:bg-accent1 bg-accent2 rounded-xl dark:text-primary text-secondary text-[Montserrat]">
-        <div id="message" class="w-fit items-center justify-start">
+        <div id="message" class="w-full items-center justify-start">
             <div class="flex" id="bot_image">
                 <div>
                     <img v-if="props.loading" src="~/assets/images/message_loading.gif" class="w-16 rounded-full"/>
                     <img v-else src="~/assets/images/seagull_temp.jpg" class="w-12 h-12 rounded-full"/>
                 </div>
             </div>
-            <div id="content" class="ease-in-out duration-300 dark:text-white text-black break-words p-4 flex flex-col gap-y-4" ref="message"></div>
+            <div 
+                id="content" 
+                class="box-content ease-in-out duration-300 dark:text-white text-black break-words 
+                        p-4 flex flex-col gap-y-4 [&>*]:break-words [&>*]:whitespace-pre-wrap [&>pre]:p-4 
+                        dark:[&>pre]:bg-accent3 [&>pre]:bg-light-background" 
+                ref="message">
+            </div>
         </div>
         <div v-if="props.references.length" class="rounded-xl dark:bg-accent3 bg-secondary flex flex-col items-start justify-start gap-x-4 p-4 mb-8">
             <label class="dark:text-secondary text-primary font-[Montserrat] ">Possible References: </label>
@@ -15,7 +21,7 @@
                 <a v-for="link in props.references" 
                 :href="link" 
                 target="_blank"
-                class="text-sm text-blue-400 flex-wrap underline text-ellipsis overflow-hidden" 
+                class="text-sm text-blue-400 flex-wrap underline text-ellipsis overflow-hidden whitespace-pre-line break-all" 
                >
                     {{ trim(link) }}
                 </a>
@@ -28,6 +34,22 @@
 
 import { toRefs, toRef, defineProps } from 'vue'
 import { marked } from 'marked'
+import hljs from 'highlight.js';
+import 'highlight.js/styles/default.css'; // Light theme
+import 'highlight.js/styles/dark.css';    // Dark theme
+
+marked.setOptions({
+  highlight: function (code, lang) {
+    if (lang && hljs.getLanguage(lang)) {
+      try {
+        return hljs.highlight(code, { language: lang }).value;
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    return hljs.highlightAuto(code).value;
+  },
+});
 
 const char_lim = 50
 
@@ -69,16 +91,6 @@ onUpdated(()=>{
 
 #content li{
     list-style-type: disc;
-}
-
-#content code, #content pre {
-    font-family: monospace;
-    border-radius: 3px;
-    word-break: break-word;
-    white-space: pre-wrap;
-    /* padding: 10px; */
-    background-color: #61849c; /* Very light gray background */
-    color: #ffffff;               /* Dark gray text */
 }
 
 #message{

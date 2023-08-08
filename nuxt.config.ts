@@ -1,12 +1,13 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-    devtools: { enabled: true },
+    devtools: { enabled: false },
     modules: ['@nuxtjs/tailwindcss', 'nuxt-vue3-google-signin', '@nuxtjs/i18n'],
     googleSignIn: {
         clientId: '885744489083-sesf2bhp70vs7cgqsl7mrgg5mi4l7s6k.apps.googleusercontent.com',
     },
     css: ['~/assets/css/font.css', '~/assets/css/base.css'],
     ssr: false,
+    spaLoadingTemplate: false,
     runtimeConfig: {
         public: {
             api: "siths2024.com:5555",
