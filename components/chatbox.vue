@@ -4,7 +4,7 @@
             <div class="flex flex-col gap-y-2" ref="container" id="container">
                 <Examples class="h-fit" v-if="messages.length === 0" @putInChat="(x) => {user_input.value = x; editBoxSize()}"/>
                 <div v-for="msg in messages">
-                    <BotMessage v-if="msg.is_bot" :message="msg.message" :loading="msg.loading"/>
+                    <BotMessage v-if="msg.is_bot" :message="msg.message" :loading="msg.loading" :references="msg.reference"/>
                     <UserMessage v-if="!msg.is_bot" :message="msg.message" :loading="msg.loading"/>
                 </div>
             </div>
@@ -135,7 +135,10 @@ onMounted(async()=>{
 
         message_cache = message_cache.concat(splitted)
 
-        if (end) message_cache.push(END_TOKEN)
+        if (end) {
+            messages[messages.length - 1].references = data["references"]
+            message_cache.push(END_TOKEN)
+        }
         
         print_message()
     })
@@ -148,6 +151,7 @@ class Message{
         this.msg = message
         this.bot = is_bot
         this.load_state = true
+        this.references = []
     }
 
     get message(){
@@ -164,6 +168,14 @@ class Message{
 
     set loading(new_state){
         this.load_state = new_state
+    }
+
+    get reference(){
+        return this.references
+    }
+
+    set reference(new_references){
+        this.references = new_references
     }
 
     get is_bot(){

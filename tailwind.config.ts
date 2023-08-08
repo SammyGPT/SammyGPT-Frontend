@@ -17,6 +17,7 @@ module.exports = {
                 "patchBG": "#5c5c67",
                 "accent1": "#151515",
                 "accent2": "#eaeaea",
+                "accent3": "#3e3e42"
             }
         }
     },
