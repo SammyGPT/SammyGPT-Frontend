@@ -41,5 +41,7 @@
     
     "chat-copy-right": "Copyright © SammyGPT. All rights reserved.",
     "chat-credits": "Created by Youwei Zhen. Assisted by Maximilian Shabatayev",
-    "chat-sammygpt-version": "SammyGPT Version Monday, August 6th"
+    "chat-sammygpt-version": "SammyGPT Version Monday, August 6th",
+
+    "bot-message-reference": "External References:"
 }
