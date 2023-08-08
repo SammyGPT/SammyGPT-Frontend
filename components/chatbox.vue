@@ -4,7 +4,7 @@
             <div class="flex flex-col gap-y-2" ref="container" id="container">
                 <Examples class="h-fit" v-if="messages.length === 0" @putInChat="(x) => {user_input.value = x; editBoxSize()}"/>
                 <div v-for="msg in messages">
-                    <BotMessage v-if="msg.is_bot" :message="msg.message" :loading="msg.loading"/>
+                    <BotMessage v-if="msg.is_bot" :message="msg.message" :loading="msg.loading" :references="msg.reference"/>
                     <UserMessage v-if="!msg.is_bot" :message="msg.message" :loading="msg.loading"/>
                 </div>
             </div>
@@ -87,7 +87,7 @@ var is_printing = reactive(false) // keeps track of the printing_message task, o
 const END_TOKEN = "<END>"
 
 // Prints the message at reading speed for the bot
-const print_message = async()=>{
+const print_message = async(single_token)=>{
 
     if (is_printing) return
     is_printing = true
@@ -101,7 +101,10 @@ const print_message = async()=>{
             waiting_response = false
             messages[messages.length - 1].loading = false
         }else{
-            messages[messages.length - 1].message += word + " "
+            messages[messages.length - 1].message += word
+            if (!single_token){ // If not single token, we split by " ", which means we need to add it back
+                messages[messages.length - 1].message += " "
+            }
         }
 
         let word_delay = generation_speed[localStorage.getItem("generationSpeed")]
@@ -123,21 +126,26 @@ onMounted(async()=>{
 
     conn.on("session_id", (data)=>{
         session_id = data["session_id"]
-        console.log()
     })
 
     conn.on("message", async(data)=>{
         
         let response = data["generated"]
         let end = data["end"]
+        let single_token = data["single_token"]
 
-        let splitted = response.split(" ")
+        if (!single_token){
+            response = response.split(" ")
+        }
 
-        message_cache = message_cache.concat(splitted)
+        message_cache = message_cache.concat(response)
 
-        if (end) message_cache.push(END_TOKEN)
+        if (end) {
+            messages[messages.length - 1].references = data["references"]
+            message_cache.push(END_TOKEN)
+        }
         
-        print_message()
+        print_message(single_token)
     })
 
 })
@@ -148,6 +156,7 @@ class Message{
         this.msg = message
         this.bot = is_bot
         this.load_state = true
+        this.references = []
     }
 
     get message(){
@@ -164,6 +173,14 @@ class Message{
 
     set loading(new_state){
         this.load_state = new_state
+    }
+
+    get reference(){
+        return this.references
+    }
+
+    set reference(new_references){
+        this.references = new_references
     }
 
     get is_bot(){
@@ -190,8 +207,6 @@ const send = async(e)=>{
     chatbox.value.innerHtml = ""
     editBoxSize()   
 
-
-    console.log(conn) 
     conn.emit("generate", {"prompt": prompt, "type": "prompt", "session_id": session_id})
     messages.push(new Message(prompt, false))
     waiting_response = true
