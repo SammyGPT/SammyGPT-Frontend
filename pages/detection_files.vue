@@ -34,8 +34,6 @@ const get_result_message = (percentage)=>{
     }else if (percentage > 0.80){
         return "Entirely written by AI"
     }
-
-    // entirely human, most likely human, likely human, likely ai, most entirely ai, entirely ai
 }
 
 async function handleFile(e) {
@@ -51,24 +49,29 @@ async function handleFile(e) {
         const data = await JSON.parse(response.data)
 
         let ai = 0
+        let undetermined_char = 0
+        let total_char = 0
         for (let section of data){
+            total_char += section['content'].length
             if (section['label'].toLowerCase() == "ai"){
                 ai++
             }
+            else if (section['label'].toLowerCase() == "undetermined"){
+                undetermined_char += section['content'].length;
+            }
         }
         let ai_percentage = ai/data.length
-
-        console.log(ai_percentage)
 
         results.value.push({
             data: data,
             fileName: files[i].name,
             result: get_result_message(ai_percentage),
-            ai_percentage: ai_percentage
+            ai_percentage: ai_percentage,
+            recommend_depth_analysis: undetermined_char >= 0.25 * total_char
         })
         progress.value = Math.round((i+1)/files.length * 100)
+
     }
-    console.log(results.value)
 }
 const loggedIn = computed(() => {
     return true
@@ -123,6 +126,13 @@ const loggedIn = computed(() => {
                 <img v-else-if="result.ai_percentage <= likely_ai" class="w-1/3" src="~assets/images/warning.png"/>
                 <img v-else-if="result.ai_percentage <= most_ai" class="w-1/3" src="~assets/images/x.png"/>
                 <img v-else-if="result.ai_percentage <= ai" class="w-1/3" src="~assets/images/x.png"/>
+
+                <div v-if="result.recommend_depth_analysis" class="w-full flex flex-col items-center bg-red-300 p-2 rounded-md">
+                    <img class="w-1/6" src="~assets/images/exclamation.png"/>
+                    <h4 class="text-center">Conflicting results, recommend In Depth Analysis</h4>
+                </div>
+
+                <h3 class="underline">Click for In Depth Analysis</h3>
             </div>
         </div>
     </div>
