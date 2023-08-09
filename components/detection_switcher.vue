@@ -28,7 +28,7 @@ async function handleClick(path) {
 </script>
 
 <template>
-    <div id="container" class="flex flex-col gap-1 dark:bg-primary bg-secondary">
+    <div id="container" class="flex flex-col gap-1 dark:bg-primary bg-slate-100">
         <h3 class="bg-transparent dark:text-white text-black text-center text-[1.5rem]">{{ $t("switcher-change") }}</h3>
         <Button :text="`${$t('switcher-text')}`" :selected="normal" @clicked="handleClick('/detection')"></Button>
         <Button :text="`${$t('switcher-file')}`" :selected="files" @clicked="handleClick('/detection_files')"></Button>
