@@ -6,7 +6,7 @@
             This tool was built with reference to the research paper
             <a class="underline text-blue-600" href="https://arxiv.org/abs/2301.07597">https://arxiv.org/abs/2301.07597</a>,
             and has a ~97-98% accuracy, which is the state of the art accuracy. Through cross testing with existing 
-            AI Detectors (GPTZero, created by Princeton undergraduate), we find that this AI Detector has similar if not better performance. 
+            AI Detectors (GPTZero, Affliated with Princeton University), we find that this AI Detector has similar if not better performance. 
             Yet, given the ever-evolving nature of AI technology, it's prudent to approach its findings with skepticism.
             <br>
             <p class="p-4 text-lg underline text-center">This detector is designed to assist teachers but shouldn't override human judgment.</p>
