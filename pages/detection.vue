@@ -9,7 +9,7 @@ const result = ref("")
 const confidence = ref("")
 const env = useRuntimeConfig()
 const router = useRouter();
-
+const warning = ref("")
 const currentData = ref(null)
 var detect_data = reactive(null)
 
@@ -49,10 +49,9 @@ async function getResults() {
 
     if (has_undertermined){
         detect_data = data
-        result.value = `Conflicting results, please click 'In Depth Analysis'`
-    }else{
-        result.value = `Result: ${get_result_message(ai_percentage)}`
+        warning.value = `Conflicting results, please click 'In Depth Analysis'`
     }
+    result.value = `Result: ${get_result_message(ai_percentage)}`
     confidence.value = `Perentage of AI (approximately): ${Math.round(ai_percentage*10000)/100}%`
 }
 
@@ -81,6 +80,7 @@ const loggedIn = computed(() => {
             <Button :toggle_button="false" :selected="false" text="Check for AI" @clicked="getResults" class=""></Button>
             <Button  v-if="detect_data" :toggle_button="false" :selected="false" text="In Depth Analysis" @clicked="currentData = detect_data" class="bg-amber-400 animate-bounce"></Button>
         </div>
+        <h2 class="text-black dark:text-white text-center text-[2rem]">{{ warning }}</h2>
         <h2 class="text-black dark:text-white text-center text-[2rem]">{{ result }}</h2>
         <h2 class="text-black dark:text-white text-center text-[2rem]">{{ confidence }}</h2>
     </div>
