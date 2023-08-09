@@ -7,7 +7,7 @@ const success = (response) => {
     const { credential } = response;
     const userData = decodeCredential(credential)
     userDataStore.value = userData
-    console.log(userData)
+    // console.log(userData)
 }
 const fail = () => console.error("Error with One Tap Login")
 </script>
