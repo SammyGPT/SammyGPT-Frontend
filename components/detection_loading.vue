@@ -11,7 +11,17 @@ function getStyle() {
 
 <template>
     <div id="loading mx-auto">
-        <div class="w-[50vw] h-4 bg-slate-700 rounded-lg absolute left-[25vw]"></div>
+        <div class="min-w-[50vw] h-4 bg-slate-700 rounded-lg absolute left-[25vw]"></div>
         <div class="h-4 bg-blue-500 rounded-lg absolute left-[25vw] z-10 transition-[1s]" :style="getStyle()"></div>
     </div>
 </template>
+
+<style scoped>
+
+@media (max-width: 1200px) {
+    .block-width{
+        width: 90vw;
+    }
+}
+
+</style>
