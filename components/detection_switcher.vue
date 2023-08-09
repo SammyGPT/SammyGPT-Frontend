@@ -28,11 +28,34 @@ async function handleClick(path) {
 </script>
 
 <template>
-    <div id="container" class="flex flex-col absolute w-[10vw] left-[2vw] top-[3vw] gap-1">
-        <h3 class=" bg-transparent dark:text-white text-black text-center text-[1.5rem]">{{ $t("switcher-change") }}</h3>
+    <div id="container" class="flex flex-col gap-1 dark:bg-primary bg-secondary">
+        <h3 class="bg-transparent dark:text-white text-black text-center text-[1.5rem]">{{ $t("switcher-change") }}</h3>
         <Button :text="`${$t('switcher-text')}`" :selected="normal" @clicked="handleClick('/detection')"></Button>
         <Button :text="`${$t('switcher-file')}`" :selected="files" @clicked="handleClick('/detection_files')"></Button>
         <!-- <Button v-if="update" text="Import From Drive" :selected="drive" :toggle_button="true" :non-clickable="drive" @clicked="handleClick('/detection_drive')"></Button> -->
         <Button :text="`${$t('switcher-back')}`" :toggle_button="true" @clicked="handleClick('/')"></Button>
     </div>
 </template>
+
+<style scoped>
+
+#container{
+    position: absolute;
+    width: 10vw;
+    left: 2vw;
+    top: 3vw;
+}
+
+@media (max-width: 1200px) {
+    #container{
+        position: relative;
+        flex-direction: column;
+        position: relative;
+        width: 100%;
+        left: 0;
+        top: 0;
+        justify-content: center;
+    }
+}
+
+</style>

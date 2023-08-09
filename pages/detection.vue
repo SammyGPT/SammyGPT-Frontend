@@ -65,13 +65,14 @@ const loggedIn = computed(() => {
 </script>
 
 <template>
-    <div class="w-[100vw] h-[100vh] dark:bg-primary bg-slate-100 font-[Montserrat] p-8" v-if="!loggedIn">
+    <div class="h-full w-sreen dark:bg-primary bg-slate-100 font-[Montserrat] p-8" v-if="!loggedIn">
         <Loginscreen/>
     </div>
-    <div class="w-[100vw] h-[100vh] dark:bg-primary bg-slate-100 font-[Montserrat] p-8" v-else>
+    <div class="w-screen h-full dark:bg-primary bg-slate-100 font-[Montserrat] p-8" v-else>
         <Linebyline v-if="currentData !== null" :data="currentData" @close="currentData = null"/>
         <h1 class="text-black dark:text-white text-center text-[3rem]">AI Detector</h1>
-        <div class="flex justify-center w-full mt-9">
+        <div class="flex flex-col items-center justify-center w-full mt-9">
+            <Disclaimer class="p-4"/>
             <textarea
                 class="bg-light-background dark:bg-slate-700 mx-auto w-[50vw] dark:text-white text-black resize-none p-4 text-[1rem] rounded-xl"
                 rows="20" placeholder="Enter your text" ref="textarea"></textarea>
@@ -84,3 +85,17 @@ const loggedIn = computed(() => {
         <h2 class="text-black dark:text-white text-center text-[2rem]">{{ confidence }}</h2>
     </div>
 </template>
+
+<style scoped>
+
+.block{
+    width: 50%;
+}
+
+@media (max-width: 1200px) {
+    .block{
+        width: 95%;
+    }
+}
+
+</style>
