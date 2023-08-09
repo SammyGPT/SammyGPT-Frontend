@@ -74,11 +74,10 @@ async function handleFile(e) {
     }
 }
 const loggedIn = computed(() => {
-    return true
     if (userDataStore.value == null) {
         return false
     } 
-    console.log(userDataStore.value)
+    return true
 })
 </script>
 
