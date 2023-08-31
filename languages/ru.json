@@ -1,15 +1,19 @@
 {
-    "project-name": "СэммиГПТ",
+    "loading-name": "Проект SammyGPT",
+    "loading-creator": "Создано Youwei Zhen",
+    "loading-assistant": "Помощник Maximilian Shabatayev",
+    
+    "project-name": "SammyGPT",
     "logo-version": "Альфа-версия",
     
     "landing-intro": "Искусственный интеллект специально для Высшей технической школы Статен-Айленда.",
     "landing-description": "Представляем проект SammyGPT: комплексный ИИ-помощник для образования. Бесшовно интегрированный, чтобы помочь преподавателям с инструментами обнаружения в реальном времени и предложить как учащимся, так и учителям обширное хранилище проверенных знаний вики. Расширение возможностей обучения и оптимизация эффективности работы в классе, как никогда до.",
-    "landing-bt-1": "Попробуйте SammyGPT",
+    "landing-bt-1": "Попробуйте Sammy",
     "landing-bt-1-desc": "(для родителей, учащихся, учителей)",
     "landing-bt-2": "Попробуйте обнаружение ИИ",
     "landing-bt-2-desc": "(для учителей)",
 
-    "side-menu-detector": "Перейти к Детектору ИИ",
+    "side-menu-detector": "Вернуться на главную страницу",
     "side-menu-chat-speed": "Скорость чата",
     "side-menu-slow": "Медленно",
     "side-menu-medium": "Средний",
@@ -18,6 +22,8 @@
     "side-menu-send-email": "Отправить нам письмо",
     "side-menu-switch-dark-mode": "Переключиться в темный режим",
     "side-menu-switch-light-mode": "Переключиться в светлый режим",
+    "side-menu-connected": "Подключено к серверу",
+    "side-menu-disconnected": "Отключено от сервера",
 
     "example-header": "Примеры",
     "example-1": "Кто ты?",
@@ -35,7 +41,7 @@
     "switcher-change": "Изменить режим",
     "switcher-text": "Текст",
     "switcher-file": "Загрузить файл",
-    "switcher-back": "Назад к Сэмми",
+    "switcher-back": "Вернуться на главную страницу",
     
     "teacher-login": "Пожалуйста, войдите в свою учетную запись учителя, чтобы продолжить...",
 

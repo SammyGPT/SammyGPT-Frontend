@@ -1,15 +1,19 @@
 {
-    "project-name": "萨米GPT",
+    "loading-name": "项目 SammyGPT",
+    "loading-creator": "创建者: Youwei Zhen",
+    "loading-assistant": "协助者: Maximilian Shabatayev",
+    
+    "project-name": "SammyGPT",
     "logo-version": "Alpha 版本",
 
     "landing-intro": "为史泰登岛技术高中量身定制的人工智能。",
     "landing-description": "隆重推出项目SammyGPT：一个针对教育的综合性人工智能助手。无缝集成，为教育者提供实时检测工具，并为学生和教师提供大量经过策划的知识库。前所未有地增强学习体验并优化课堂效率",
-    "landing-bt-1": "尝试 SammyGPT",
+    "landing-bt-1": "尝试 Sammy",
     "landing-bt-1-desc": "（适用于家长、学生、教师）",
     "landing-bt-2": "尝试人工智能检测",
     "landing-bt-2-desc": "（适用于教师）",
 
-    "side-menu-detector": "转到人工智能探测器",
+    "side-menu-detector": "返回主页",
     "side-menu-chat-speed": "聊天速度",
     "side-menu-slow": "慢",
     "side-menu-medium": "中",
@@ -18,6 +22,8 @@
     "side-menu-send-email": "给我们发送电子邮件",
     "side-menu-switch-dark-mode": "切换到深色模式",
     "side-menu-switch-light-mode": "切换到灯光模式",
+    "side-menu-connected": "已连接到服务器",
+    "side-menu-disconnected": "与服务器断开连接",
 
     "example-header": "示例",
     "example-1": "你是谁？",
@@ -35,7 +41,7 @@
     "switcher-change": "更改模式",
     "switcher-text": "文本",
     "switcher-file": "上传文件",
-    "switcher-back": "回到萨米",
+    "switcher-back": "返回主页",
 
     "teacher-login": "请使用您的教师帐户登录以继续...",
 

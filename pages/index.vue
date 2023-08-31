@@ -1,5 +1,6 @@
 <template>
     <div class="h-full min-h-[100vh] dark:bg-black bg-white pl-[7vh] pr-[7vh]">
+        <Loadingscreen/>
         <div class="w-full menu flex items-center justify-start p-4">
             <Logo/>
             <div class="z-20">
