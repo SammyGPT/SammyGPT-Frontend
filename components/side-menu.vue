@@ -5,10 +5,12 @@
                 <Logo/>
             </div>
             <div class="h-[60%] dark:text-white text-black font-[Montserrat] flex flex-col items-center">
-                <Button :toggle_button="false" :text='`${$t("side-menu-detector")}`' class="w-[70%]" @clicked="goToDectector()"></Button>
+                <Button :toggle_button="false" :text='`${$t("side-menu-detector")}`' class="w-[70%]" @clicked="gotoMain()"></Button>
                 <div class="flex flex-col gap-y-4 mt-[5%]">
                     <h3>Version: {{ version }}</h3>
                     <h3>Build: {{ builddate }}</h3>
+                    <h3 v-if="connected" class="text-green-500">{{ $t("side-menu-connected") }}</h3>
+                    <h3 v-else class="text-red-500">{{ $t("side-menu-disconnected") }}</h3>
                     <h3>{{$t("side-menu-chat-speed")}}: </h3>
 
                     <div class="flex flex-wrap gap-x-4 gap-y-4 items-center justify-start">
@@ -23,14 +25,7 @@
                 </div>
             </div>
             <div class="h-[10%] w-fit mx-auto dark:text-white text-black select-none">
-                <div v-if="darkMode" class="flex cursor-pointer gap-3" @click="handleTheme()">
-                    <span class="material-symbols-outlined h-full">light_mode</span>
-                    <span class="h-full align-middle my-3">{{ $t('side-menu-switch-dark-mode') }}</span>
-                </div>
-                <div v-else class="flex cursor-pointer gap-2" @click="handleTheme()">
-                    <span class="material-symbols-outlined h-full">dark_mode</span>
-                    <span class="h-full align-middle my-3">{{ $t('side-menu-switch-light-mode') }}</span>
-                </div>
+                <ThemeButton :main="main" :dark-mode="darkMode" @dark-mode="(e) => darkMode = e "/>
             </div>
             <div class="h-[10%] w-full">
                 <div class="p-4 flex flex-row items-center justify-evenly">
@@ -56,6 +51,7 @@ const version = reactive("alpha-0.17.5")
 const builddate = reactive("July 18th, 2023")
 const desktop_menu = ref(null)
 const settings = ref(null)
+const connected = ref(false)
 const b1 = ref(null), b2 = ref(null), b3 = ref(null)
 const userDataStore = useState('userData', () => null)
 
@@ -69,7 +65,7 @@ const email = computed(() => {
 })
 const pfp = computed(() => {
     if (userDataStore.value == null) {
-        return "~assets/images/user_image.png"
+        return "user_image.png"
     } 
     return userDataStore.value.picture
 })
@@ -82,20 +78,8 @@ const props = defineProps({
 
 const darkMode = ref(main.classList.contains('dark'))
 
-function goToDectector() {
-    window.location.pathname = localpath('/detection')
-}
-
-function handleTheme() {
-    if (props.main.classList.contains('dark')) {
-        props.main.classList.remove('dark')
-        localStorage.theme = "light"
-    }
-    else {
-        localStorage.theme = "dark"
-        props.main.classList.add('dark')
-    }
-    darkMode.value = main.classList.contains('dark')
+function gotoMain() {
+    window.location.pathname = localpath('/')
 }
 
 const sendEmail = ()=>{
@@ -124,7 +108,7 @@ onMounted(async()=>{
     
     const env = useRuntimeConfig()
     const { data, pending, error, refresh} = await useFetch(`${env.public.protocol}://${env.public.api}/`, { crossOrigin: '*' })
-    
+
     if (generation_speed.value){ // previous generation value
         if (generation_speed.value == "slow") b1.value.click()
         else if (generation_speed.value == "medium") b2.value.click()
@@ -135,6 +119,8 @@ onMounted(async()=>{
 
     if (error.value && window.location.pathname.indexOf("/server_is_down") == -1){
         router.push('/server_is_down')
+    } else{
+        connected.value = true
     }
 
 })

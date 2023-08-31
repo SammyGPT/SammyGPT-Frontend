@@ -1,19 +1,23 @@
 <template>
     <div class="h-full min-h-[100vh] dark:bg-black bg-white pl-[7vh] pr-[7vh]">
+        <Loadingscreen/>
         <div class="w-full menu flex items-center justify-start p-4">
             <Logo/>
-            <div class="z-20">
-                <NuxtLink
-                    v-for="{code, name} in locales"
-                    :key="code"
-                    :to="switchLocalePath(code)"
-                    class="mr-4 dark:text-white text-primary"
-                    :class="{
-                        'underline': code == locale
-                    }"
-                >
-                    {{ name }}
-                </NuxtLink>
+            <div class="z-20 flex gap-8">
+                <div class="mt-4">
+                    <NuxtLink
+                        v-for="{code, name} in locales"
+                        :key="code"
+                        :to="switchLocalePath(code)"
+                        class="mr-4 dark:text-white text-primary"
+                        :class="{
+                            'underline': code == locale
+                        }"
+                    >
+                        {{ name }}
+                    </NuxtLink>
+                </div>
+                <ThemeButton :main="main" :dark-mode="darkMode" @dark-mode="(e) => darkMode = e"/>
             </div>
         </div>
         <div class="dark:bg-primary bg-accent2 w-full h-full rounded-[5vh] pb-12">
@@ -52,6 +56,8 @@ import gsap from 'gsap'
 
 const localpath = useLocalePath()
 const i18n = useI18n()
+const main = ref(null)
+const darkMode = ref(null)
 
 const break_word = "<break>"
 let seagulls = ref([])
@@ -108,6 +114,8 @@ const animateWords = ()=>{
 }
 
 onMounted(() => {
+    main.value = document.getElementById("main")
+    darkMode.value = main.value.classList.contains('dark')
     animateWords()
     seagulls.value.push(new seagull(Math.round(Math.random() * 80)))
     // seagulls.value.push(new seagull(Math.round(Math.random() * 80)))
