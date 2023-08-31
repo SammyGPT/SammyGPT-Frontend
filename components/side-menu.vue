@@ -25,14 +25,7 @@
                 </div>
             </div>
             <div class="h-[10%] w-fit mx-auto dark:text-white text-black select-none">
-                <div v-if="darkMode" class="flex cursor-pointer gap-3" @click="handleTheme()">
-                    <span class="material-symbols-outlined h-full">light_mode</span>
-                    <span class="h-full align-middle my-3">{{ $t('side-menu-switch-dark-mode') }}</span>
-                </div>
-                <div v-else class="flex cursor-pointer gap-2" @click="handleTheme()">
-                    <span class="material-symbols-outlined h-full">dark_mode</span>
-                    <span class="h-full align-middle my-3">{{ $t('side-menu-switch-light-mode') }}</span>
-                </div>
+                <ThemeButton :main="main" :dark-mode="darkMode" @dark-mode="(e) => darkMode = e "/>
             </div>
             <div class="h-[10%] w-full">
                 <div class="p-4 flex flex-row items-center justify-evenly">
@@ -72,7 +65,7 @@ const email = computed(() => {
 })
 const pfp = computed(() => {
     if (userDataStore.value == null) {
-        return "~assets/images/user_image.png"
+        return "user_image.png"
     } 
     return userDataStore.value.picture
 })
@@ -87,18 +80,6 @@ const darkMode = ref(main.classList.contains('dark'))
 
 function gotoMain() {
     window.location.pathname = localpath('/')
-}
-
-function handleTheme() {
-    if (props.main.classList.contains('dark')) {
-        props.main.classList.remove('dark')
-        localStorage.theme = "light"
-    }
-    else {
-        localStorage.theme = "dark"
-        props.main.classList.add('dark')
-    }
-    darkMode.value = main.classList.contains('dark')
 }
 
 const sendEmail = ()=>{
