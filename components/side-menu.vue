@@ -69,7 +69,7 @@ const email = computed(() => {
 })
 const pfp = computed(() => {
     if (userDataStore.value == null) {
-        return "~assets/images/user_image.png"
+        return "user_image.png"
     } 
     return userDataStore.value.picture
 })
