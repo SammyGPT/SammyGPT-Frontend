@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue"
+import { ref, watch } from "vue"
 import axios from 'axios';
 
 const userDataStore = useState('userData', () => null)
@@ -17,6 +17,7 @@ const likely_ai = 0.64
 const most_ai = 0.80
 const ai = 1.00
 
+const scrollPosition = ref(0)
 const currentData = ref(null)
 
 // Given the percentage of paragraphs written by AI, returns a message
@@ -73,12 +74,27 @@ async function handleFile(e) {
 
     }
 }
+
 const loggedIn = computed(() => {
     if (userDataStore.value == null) {
         return false
     } 
     return true
 })
+
+watch(currentData, (new_value) => {
+
+    if (new_value != null){
+        scrollPosition.value = document.documentElement.scrollTop; // storing the current y positition
+        document.body.style.position = "fixed" // this will reset the scroll pos to top
+        document.body.style.top = -scrollPosition.value + 'px'; // set it back to where the user scrolled
+    }else{
+        document.body.style.position = "" // this will reset the scroll pos to top
+        document.body.style.top = ""; // Clear the top value
+        window.scrollTo(0, scrollPosition.value); // Scroll back to the original position
+    }
+})
+
 </script>
 
 <template>
@@ -86,13 +102,16 @@ const loggedIn = computed(() => {
         <Loginscreen/>
     </div>
     <div class="w-full min-w-[100vw] h-full min-h-[100vh] dark:bg-primary bg-slate-100 font-[Montserrat] p-8" v-else>
-        <Linebyline v-if="currentData !== null" :data="currentData" @close="currentData = null"/>
+        <div class="z-50" v-if="currentData !== null">
+            <div class="fixed h-screen top-0 left-0 w-screen bg-white opacity-30" @click="currentData = null"></div>
+            <Linebyline v-if="currentData !== null" :data="currentData" @close="currentData = null"/>
+        </div>
         <h1 class="text-black dark:text-white text-center text-[3rem]">AI Detector</h1>
         <div class="w-full flex flex-col items-center justify-center">
             <Disclaimer class="p-4"/>
             <label
                 class="flex justify-center block-width h-32 px-4 transition dark:bg-background bg-white border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none" @drop="" @dragover.prevent="">
-                <input class="absolute block-width h-32 opacity-0" type="file" name="file_upload" accept=".doc, .docx, .DOT, .CSV, .TXT, .XLS, .XLSX, .JSON" @change="handleFile" multiple="multiple">
+                <input class="absolute block-width h-32 opacity-0 z-10" type="file" name="file_upload" accept=".doc, .docx, .DOT, .CSV, .TXT, .XLS, .XLSX, .JSON" @change="handleFile" multiple="multiple">
                 <span class="flex items-center space-x-2">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-600" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor" stroke-width="2">
@@ -108,7 +127,7 @@ const loggedIn = computed(() => {
             </label>
         </div>
         <div class="flex justify-center my-8">
-            <Button :toggle_button="false" :selected="false" text="Check for AI" @clicked="getResults" class=""></Button>
+            <!-- <Button :toggle_button="false" :selected="false" text="Check for AI"></Button> -->
         </div>
         <!-- <h2 class="text-black dark:text-white text-center text-[3rem]">{{ result }}</h2> -->
         <DetectionLoading :progress="progress"/>
@@ -148,6 +167,13 @@ const loggedIn = computed(() => {
     .block-width{
         width: 95%;
     }
+}
+
+.noscroll {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
 }
 
 </style>
