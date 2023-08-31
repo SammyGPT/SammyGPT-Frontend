@@ -1,15 +1,20 @@
 {
+
+    "loading-name": "Project SammyGPT",
+    "loading-creator": "Created by Youwei Zhen",
+    "loading-assistant": "Assisted by Maximilian Shabatayev",
+
     "project-name": "SammyGPT",
     "logo-version": "Version Alpha",
     
     "landing-intro": "Artificial Intelligence tailored for Staten Island Technical High School.",
     "landing-description": "Introducing Project SammyGPT: A Comprehensive AI Assistant for Education. Seamlessly integrated to assist educators with real-time detection tools and offer both students and teachers a vast repository of curated Wiki knowledge. Enhancing learning experiences and optimizing classroom efficiency like never before.",
-    "landing-bt-1": "Try SammyGPT",
+    "landing-bt-1": "Try Sammy",
     "landing-bt-1-desc": "(For Parents, Students, Teachers)",
     "landing-bt-2": "Try AI Detection",
     "landing-bt-2-desc": "(For Teachers)",
 
-    "side-menu-detector": "Go to AI Detector",
+    "side-menu-detector": "Go back to main page",
     "side-menu-chat-speed": "Chat Speed",
     "side-menu-slow": "Slow",
     "side-menu-medium": "Medium",
@@ -18,6 +23,8 @@
     "side-menu-send-email": "Send us an email",
     "side-menu-switch-dark-mode": "Switch to Dark Mode",
     "side-menu-switch-light-mode": "Switch to Light Mode",
+    "side-menu-connected": "Connected to server",
+    "side-menu-disconnected": "Disconnected from server",
 
     "example-header": "Examples",
     "example-1": "Who are you?",
@@ -35,7 +42,7 @@
     "switcher-change": "Change Mode",
     "switcher-text": "Text",
     "switcher-file": "Upload File",
-    "switcher-back": "Back To Sammy",
+    "switcher-back": "Back to main page",
 
     "teacher-login": "Please Login with your teacher account to continue...",
     
