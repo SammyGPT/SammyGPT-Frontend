@@ -5,7 +5,7 @@
                 <Logo/>
             </div>
             <div class="h-[60%] dark:text-white text-black font-[Montserrat] flex flex-col items-center">
-                <Button :toggle_button="false" :text='`${$t("side-menu-detector")}`' class="w-[70%]" @clicked="goToDectector()"></Button>
+                <Button :toggle_button="false" :text='`${$t("side-menu-detector")}`' class="w-[70%]" @clicked="gotoMain()"></Button>
                 <div class="flex flex-col gap-y-4 mt-[5%]">
                     <h3>Version: {{ version }}</h3>
                     <h3>Build: {{ builddate }}</h3>
@@ -82,8 +82,8 @@ const props = defineProps({
 
 const darkMode = ref(main.classList.contains('dark'))
 
-function goToDectector() {
-    window.location.pathname = localpath('/detection')
+function gotoMain() {
+    window.location.pathname = localpath('/')
 }
 
 function handleTheme() {

@@ -4,12 +4,12 @@
     
     "landing-intro": "Artificial Intelligence tailored for Staten Island Technical High School.",
     "landing-description": "Introducing Project SammyGPT: A Comprehensive AI Assistant for Education. Seamlessly integrated to assist educators with real-time detection tools and offer both students and teachers a vast repository of curated Wiki knowledge. Enhancing learning experiences and optimizing classroom efficiency like never before.",
-    "landing-bt-1": "Try SammyGPT",
+    "landing-bt-1": "Try Sammy",
     "landing-bt-1-desc": "(For Parents, Students, Teachers)",
     "landing-bt-2": "Try AI Detection",
     "landing-bt-2-desc": "(For Teachers)",
 
-    "side-menu-detector": "Go to AI Detector",
+    "side-menu-detector": "Go back to Sammy",
     "side-menu-chat-speed": "Chat Speed",
     "side-menu-slow": "Slow",
     "side-menu-medium": "Medium",
