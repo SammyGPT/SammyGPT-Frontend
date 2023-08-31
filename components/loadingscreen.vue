@@ -2,9 +2,9 @@
     <div class="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center" ref="loading">
         <img src="~assets/images/logo.png" class="w-[30vmin] z-40" ref="logo"/>
         <div class="absolute bottom-[15%] z-40 text-center">
-            <h1 class="p-4 font-[Montserrat] dark:text-white text-primary text-3xl z-40 opacity-0" ref="project">Project SammyGPT</h1>
-            <h2 class="p-4 font-[Montserrat] dark:text-white text-primary text-xl z-40 opacity-0" ref="founded">Created by Youwei Zhen</h2>
-            <h3 class="p-4 font-[Montserrat] dark:text-white text-primary text-base z-40 opacity-0" ref="thanks">Assisted by Maximilian Shabatayev</h3>
+            <h1 class="p-4 font-[Montserrat] dark:text-white text-primary text-3xl z-40 opacity-0" ref="project">{{ $t("loading-name") }}</h1>
+            <h2 class="p-4 font-[Montserrat] dark:text-white text-primary text-xl z-40 opacity-0" ref="founded">{{ $t("loading-creator") }}</h2>
+            <h3 class="p-4 font-[Montserrat] dark:text-white text-primary text-base z-40 opacity-0" ref="thanks">{{ $t("loading-assistant") }}</h3>
         </div>
         <svg class="absolute top-0 left-0 w-full h-full z-30">
             <circle cx="50%" cy="50%" r="100000" :fill="getBackground()" ref="circle"/>

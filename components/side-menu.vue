@@ -9,6 +9,8 @@
                 <div class="flex flex-col gap-y-4 mt-[5%]">
                     <h3>Version: {{ version }}</h3>
                     <h3>Build: {{ builddate }}</h3>
+                    <h3 v-if="connected" class="text-green-500">{{ $t("side-menu-connected") }}</h3>
+                    <h3 v-else class="text-red-500">{{ $t("side-menu-disconnected") }}</h3>
                     <h3>{{$t("side-menu-chat-speed")}}: </h3>
 
                     <div class="flex flex-wrap gap-x-4 gap-y-4 items-center justify-start">
@@ -56,6 +58,7 @@ const version = reactive("alpha-0.17.5")
 const builddate = reactive("July 18th, 2023")
 const desktop_menu = ref(null)
 const settings = ref(null)
+const connected = ref(false)
 const b1 = ref(null), b2 = ref(null), b3 = ref(null)
 const userDataStore = useState('userData', () => null)
 
@@ -124,7 +127,7 @@ onMounted(async()=>{
     
     const env = useRuntimeConfig()
     const { data, pending, error, refresh} = await useFetch(`${env.public.protocol}://${env.public.api}/`, { crossOrigin: '*' })
-    
+
     if (generation_speed.value){ // previous generation value
         if (generation_speed.value == "slow") b1.value.click()
         else if (generation_speed.value == "medium") b2.value.click()
@@ -135,6 +138,8 @@ onMounted(async()=>{
 
     if (error.value && window.location.pathname.indexOf("/server_is_down") == -1){
         router.push('/server_is_down')
+    } else{
+        connected.value = true
     }
 
 })
