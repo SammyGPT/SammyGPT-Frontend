@@ -20,7 +20,7 @@
                 <ThemeButton :main="main" :dark-mode="darkMode" @dark-mode="(e) => darkMode = e"/>
             </div>
         </div>
-        <div class="dark:bg-primary bg-accent2 w-full h-full rounded-[5vh] pb-12">
+        <div class="dark:bg-primary bg-accent2 w-full h-full rounded-[3vh] pb-12">
             <div class="w-full flex flex-col justify-start items-start pad-intro pb-8 pt-12 gap-y-4">
                 <h1 class="intro-text text-left font-[Raleway] dark:text-[#ebeae1] text-black hidden">Artificial Intelligence for Staten Island Technical High School.</h1>
                 <h2 class="intro-text text-left font-[Raleway] dark:text-[#ebeae1] text-black bold w-5/6" ref="landing_msg"></h2>
