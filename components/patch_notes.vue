@@ -1,5 +1,5 @@
 <template>
-    <div v-if="!seenPatchNotes" id="patch-notes" class="dark:text-secondary text-primary absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-lg rounded-sm p-5 dark:bg-zinc-700 bg-light-background">
+    <div v-if="!seenPatchNotes" id="patch-notes" class="dark:text-secondary text-primary absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-lg rounded-xl p-5 dark:bg-zinc-700 bg-light-background z-10">
         <h2 class="text-left font-[Montserrat] text-[1.5rem]">Version July 18th, 2023</h2>
         <h2 class="text-left font-[Montserrat] text-[2rem] mt-5">What's New?</h2>
         <hr class="wfull border-black dark:border-light-background">
@@ -8,7 +8,7 @@
                 <span class="dark:text-secondary text-primary">{{patch}}</span>
             </li>
         </ol>
-        <Button text="Close" :selected="true" @clicked="closePatchNotes" class="absolute left-[75%] bottom-6"/>
+        <Button text="Close" :selected="true" @clicked="closePatchNotes" class="dark:bg-gray-700 rounded-lg absolute left-[75%] bottom-6"/>
     </div>
 </template>
 
