@@ -1,7 +1,9 @@
 {
     "loading-name": "项目 SammyGPT",
-    "loading-creator": "创建者: Youwei Zhen",
-    "loading-assistant": "协助者: Maximilian Shabatayev",
+    "loading-message": "为社区赋能人工智能",
+
+    "nav-team": "我们的团队",
+    "nav-contact": "联系我们",
     
     "project-name": "SammyGPT",
     "logo-version": "Alpha 版本",

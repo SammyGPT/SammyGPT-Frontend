@@ -100,8 +100,10 @@ watch(currentData, (new_value) => {
 <template>
     <div class="w-[100vw] h-[100vh] dark:bg-primary bg-slate-100 font-[Montserrat] p-8" v-if="!loggedIn">
         <Loginscreen/>
+        <title>Login</title>
     </div>
     <div class="w-full min-w-[100vw] h-full min-h-[100vh] dark:bg-primary bg-slate-100 font-[Montserrat] p-8" v-else>
+        <title>AI Detection</title>
         <div class="z-50" v-if="currentData !== null">
             <div class="fixed h-screen top-0 left-0 w-screen bg-white opacity-30" @click="currentData = null"></div>
             <Linebyline v-if="currentData !== null" :data="currentData" @close="currentData = null"/>

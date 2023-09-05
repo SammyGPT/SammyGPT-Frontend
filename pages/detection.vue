@@ -65,9 +65,11 @@ const loggedIn = computed(() => {
 
 <template>
     <div class="h-full w-sreen dark:bg-primary bg-slate-100 font-[Montserrat] p-8" v-if="!loggedIn">
+        <title>Login</title>
         <Loginscreen/>
     </div>
     <div class="w-screen h-full dark:bg-primary bg-slate-100 font-[Montserrat] p-8" v-else>
+        <title>AI Detection</title>
         <Linebyline v-if="currentData !== null" :data="currentData" @close="currentData = null"/>
         <h1 class="text-black dark:text-white text-center text-[3rem]">AI Detector</h1>
         <div class="flex flex-col items-center justify-center w-full mt-9">

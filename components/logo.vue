@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col items-center">
+    <div class="flex flex-col items-center hover:cursor-pointer" @click="home">
         <div id="inner-menu" class="flex flex-row items-center p-7">
             <img src="~/assets/images/logo.png" class="h-[8vmin] w-[8vmin]" id="logo"/>
             <div class="pl-2">
@@ -11,7 +11,14 @@
 </template>
 
 <script setup>
+
 const localpath = useLocalePath()
+const router = useRouter()
+
+const home = ()=>{
+    router.push(localpath('/'))
+}
+
 </script>
 
 <style>

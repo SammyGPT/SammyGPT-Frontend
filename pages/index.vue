@@ -1,5 +1,6 @@
 <template>
     <div class="h-full min-h-[100vh] dark:bg-black bg-white pl-[7vh] pr-[7vh]">
+        <title>Project SammyGPT</title>
         <Loadingscreen/>
         <Navbar/>
         <div class="dark:bg-primary bg-accent2 w-full h-full rounded-[3vh] pb-12">

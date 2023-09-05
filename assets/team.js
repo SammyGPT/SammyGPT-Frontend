@@ -1,8 +1,23 @@
 export const profiles = [
     {
-        img: 'https://i.pinimg.com/564x/fc/59/f5/fc59f5945ba4d316ddf4128bcb5db3ac.jpg',
-        title: 'kitty',
-        name: 'kitten',
-        description: 'a kitten'
-    }
-  ]
+        img: '/team/youwei.jpg',
+        title: 'Project Lead',
+        name: 'Youwei Zhen',
+        description: 'Artificial Intelligence, Machine Learning, Natural Language Processing, Web Development, Multi-language Integration',
+        message: "Please don't hate me for the AI Detection"
+    },
+    {
+        img: '/team/max.jpg',
+        title: 'Systems Specialist',
+        name: 'Maximilian Shabatayev',
+        description: 'Database Management, Server Management, Web Development, Data Analysis, API Development and Integration',
+        message: "The seagull on the frontpage took me 3 hours"
+    },
+    {
+        img: '/team/unknown.jpg',
+        title: 'UI Specialist',
+        name: 'Bridget Fang',
+        description: 'User Interface Design, User Research & Experience, Responsive Web Design, Prototyping',
+        message: "Also don't hate me for the AI detection, I simply dont understand it enough to develope it"
+    },
+]

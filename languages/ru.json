@@ -1,7 +1,9 @@
 {
     "loading-name": "Проект SammyGPT",
-    "loading-creator": "Создано Youwei Zhen",
-    "loading-assistant": "Помощник Maximilian Shabatayev",
+    "loading-message": "Расширение возможностей ИИ для сообщества",
+
+    "nav-team": "Наша команда",
+    "nav-contact": "Свяжитесь с нами",
     
     "project-name": "SammyGPT",
     "logo-version": "Альфа-версия",
