@@ -20,12 +20,12 @@ function handleTheme() {
 </script>
 
 <template>
-    <div v-if="darkMode" class="flex cursor-pointer gap-2 text-white" @click="handleTheme()">
-        <span class="material-symbols-outlined mt-4 h-full text-[2rem]">light_mode</span>
-        <span class="h-full align-middle my-3 text-[1.2rem] ">{{ $t('side-menu-switch-light-mode') }}</span>
+    <div v-if="darkMode" class="flex items-center justify-center cursor-pointer gap-2 text-white" @click="handleTheme()">
+        <span class="material-symbols-outlined h-full text-[2rem]">light_mode</span>
+        <span class="h-full align-middle text-[1rem] ">{{ $t('side-menu-switch-light-mode') }}</span>
     </div>
-    <div v-else class="flex cursor-pointer gap-3 text-black" @click="handleTheme()">
-        <span class="material-symbols-outlined h-full mt-4 text-[2rem]">dark_mode</span>
-        <span class="h-full align-middle my-3 text-[1.2rem]" >{{ $t('side-menu-switch-dark-mode') }}</span>
+    <div v-else class="flex items-center justify-center cursor-pointer gap-3 text-black" @click="handleTheme()">
+        <span class="material-symbols-outlined h-full text-[2rem]">dark_mode</span>
+        <span class="h-full align-middle text-[1rem]" >{{ $t('side-menu-switch-dark-mode') }}</span>
     </div>
 </template>
