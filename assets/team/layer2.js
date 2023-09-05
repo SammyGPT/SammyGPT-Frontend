@@ -1,11 +1,4 @@
-export const profiles = [
-    {
-        img: '/team/youwei.jpg',
-        title: 'Project Lead',
-        name: 'Youwei Zhen',
-        description: 'Artificial Intelligence, Machine Learning, Natural Language Processing, Web Development, Multi-language Integration',
-        message: "Please don't hate me for the AI Detection"
-    },
+export const layer2 = [
     {
         img: '/team/max.jpg',
         title: 'Systems Specialist',
@@ -18,6 +11,6 @@ export const profiles = [
         title: 'UI Specialist',
         name: 'Bridget Feng',
         description: 'User Interface Design, User Research & Experience, Responsive Web Design, Prototyping, Spell Check',
-        message: "Also don't hate me for the AI detection, I simply dont understand it enough to develop it"
+        message: "The seagull enhances user experience"
     },
 ]
