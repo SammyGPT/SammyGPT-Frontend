@@ -1,25 +1,8 @@
 <template>
     <div class="h-full min-h-[100vh] dark:bg-black bg-white pl-[7vh] pr-[7vh]">
+        <title>Project SammyGPT</title>
         <Loadingscreen/>
-        <div class="w-full menu flex items-center justify-start p-4">
-            <Logo/>
-            <div class="z-20 flex gap-8">
-                <div class="mt-4">
-                    <NuxtLink
-                        v-for="{code, name} in locales"
-                        :key="code"
-                        :to="switchLocalePath(code)"
-                        class="mr-4 dark:text-white text-primary"
-                        :class="{
-                            'underline': code == locale
-                        }"
-                    >
-                        {{ name }}
-                    </NuxtLink>
-                </div>
-                <ThemeButton :main="main" :dark-mode="darkMode" @dark-mode="(e) => darkMode = e"/>
-            </div>
-        </div>
+        <Navbar/>
         <div class="dark:bg-primary bg-accent2 w-full h-full rounded-[3vh] pb-12">
             <div class="w-full flex flex-col justify-start items-start pad-intro pb-8 pt-12 gap-y-4">
                 <h1 class="intro-text text-left font-[Raleway] dark:text-[#ebeae1] text-black hidden">Artificial Intelligence for Staten Island Technical High School.</h1>
@@ -69,9 +52,6 @@ let text_delay = reactive(0.05)
 const userDataStore = useState('userData', () => null)
 const teacher = useState('teacher', () => false)
 const language = reactive("english")
-
-const { locale, locales } = useI18n()
-const switchLocalePath = useSwitchLocalePath()
 
 if (i18n.locale.value == "zh"){
     text_delay = 0.1

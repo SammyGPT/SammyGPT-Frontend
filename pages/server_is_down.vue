@@ -1,5 +1,6 @@
 <template>
     <div class="flex flex-col items-center justify-center w-full h-screen dark:bg-accent1 bg-accent2">
+        <title>Server Offline</title>
         <h1 class="text-[5vmin] font-[Montserrat] dark:text-secondary text-accent1">
             Server is currently offline.
         </h1>

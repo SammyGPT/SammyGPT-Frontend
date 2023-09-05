@@ -1,8 +1,10 @@
 {
 
     "loading-name": "Project SammyGPT",
-    "loading-creator": "Created by Youwei Zhen",
-    "loading-assistant": "Assisted by Maximilian Shabatayev",
+    "loading-message": "Empowering AI for the community",
+
+    "nav-team": "Our Team",
+    "nav-contact": "Contact Us",
 
     "project-name": "SammyGPT",
     "logo-version": "Version Alpha",
