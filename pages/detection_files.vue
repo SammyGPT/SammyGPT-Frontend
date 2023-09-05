@@ -113,7 +113,7 @@ watch(currentData, (new_value) => {
             <Disclaimer class="p-4"/>
             <label
                 class="flex justify-center block-width h-32 px-4 transition dark:bg-background bg-white border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none" @drop="" @dragover.prevent="">
-                <input class="absolute block-width h-32 opacity-0 z-10" type="file" name="file_upload" accept=".doc, .docx, .DOT, .CSV, .TXT, .XLS, .XLSX, .JSON" @change="handleFile" multiple="multiple">
+                <input class="absolute block-width h-32 opacity-0 z-10" type="file" name="file_upload" accept=".csv, .docx, .eml, .json, .html, .msg, .txt, .xls, .xlsx" @change="handleFile" multiple="multiple">
                 <span class="flex items-center space-x-2">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-600" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor" stroke-width="2">
