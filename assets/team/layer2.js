@@ -11,6 +11,6 @@ export const layer2 = [
         title: 'UI Specialist',
         name: 'Bridget Feng',
         description: 'User Interface Design, User Research & Experience, Responsive Web Design, Prototyping, Spell Check',
-        message: "Also don't hate me for the AI detection, I simply dont understand it enough to develop it"
+        message: "The seagull enhances user experience"
     },
 ]
