@@ -1,7 +1,7 @@
 <template>
     <div v-if="!seenPatchNotes" id="patch-notes"
         class="dark:text-secondary text-primary absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-lg rounded-xl p-8 dark:bg-zinc-700 bg-light-background z-10">
-        <h2 class="text-left font-[Montserrat] text-[1.2rem]">Version July 18th, 2023</h2>
+        <h2 class="text-left font-[Montserrat] text-[1.2rem]">Version August 6th, 2023</h2>
         <h2 class="text-left font-[Raleway] dark:text-[#ebeae1] text-[2rem] mt-5">What's New?</h2>
         <hr class="wfull border-black dark:border-light-background">
         <ol class="ml-5 mt-5 list-inside overflow-y-scroll h-[38vh] list-disc">

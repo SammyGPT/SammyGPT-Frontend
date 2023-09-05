@@ -36,7 +36,6 @@ function windowLoc() {
         <SideMenu v-if="main !== null && windowLoc() == 1" :main="main"/>
         <DetectionSwitcher v-if="main !== null && windowLoc() == 2"/>
         <slot/>
-        <PatchNotes/>
     </div>
 </template>
 
