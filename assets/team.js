@@ -17,7 +17,7 @@ export const profiles = [
         img: '/team/unknown.jpg',
         title: 'UI Specialist',
         name: 'Bridget Feng',
-        description: 'User Interface Design, User Research & Experience, Responsive Web Design, Prototyping',
+        description: 'User Interface Design, User Research & Experience, Responsive Web Design, Prototyping, Spell Check',
         message: "Also don't hate me for the AI detection, I simply dont understand it enough to develop it"
     },
 ]
