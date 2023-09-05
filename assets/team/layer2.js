@@ -7,7 +7,7 @@ export const layer2 = [
         message: "The seagull on the frontpage took me 3 hours"
     },
     {
-        img: '/team/unknown.jpg',
+        img: '/team/bridget.jpg',
         title: 'UI Specialist',
         name: 'Bridget Feng',
         description: 'User Interface Design, User Research & Experience, Responsive Web Design, Prototyping, Spell Check',
