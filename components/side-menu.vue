@@ -29,7 +29,7 @@
             </div>
             <div class="h-[10%] w-full">
                 <div class="p-4 flex flex-row items-center justify-evenly">
-                    <img :src="pfp" class="w-[5vmin]">
+                    <img :src="`/${pfp}`" class="w-[5vmin]">
                     <h3 class="font-[Montserrat] dark:text-white text-black w-[75%] text-center">{{ email }}</h3>
                 </div>
             </div>
@@ -76,7 +76,7 @@ const props = defineProps({
     main: { type:Element, required: true}
 })
 
-const darkMode = ref(main.classList.contains('dark'))
+var darkMode = localStorage.theme.toLowerCase() == "dark"
 
 function gotoMain() {
     window.location.pathname = localpath('/')
@@ -105,6 +105,8 @@ const select = (selected_speed)=>{
 }
 
 onMounted(async()=>{
+
+    console.log(darkMode)
     
     const env = useRuntimeConfig()
     const { data, pending, error, refresh} = await useFetch(`${env.public.protocol}://${env.public.api}/`, { crossOrigin: '*' })

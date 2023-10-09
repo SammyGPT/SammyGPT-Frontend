@@ -6,6 +6,9 @@ onUpdated(() => {
     if (localStorage.theme === undefined) {
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
             main.value.classList.add("dark")
+        }else{
+            localStorage.theme = "dark"
+            main.value.classList.add("dark")
         }
         return
     }
