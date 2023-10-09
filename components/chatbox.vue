@@ -26,7 +26,7 @@
                 />
             </div>
             <div class="flex justify-center items-center">
-                <button class="dark:text-white text-black material-symbols-outlined ease-in-out duration-300 cursor-pointer" @click="getTranscript" id="mic_button">
+                <button class="flex justify-center items-center dark:text-white text-black material-symbols-outlined ease-in-out duration-300 cursor-pointer" @click="getTranscript" ref="mic_button"  id="mic_button">
                     mic
                 </button>
                 <button alt="send button" class="dark:text-white text-black material-symbols-outlined w-[6vmin] ease-in-out duration-300 cursor-pointer" ref="send_button" id="send_button">
@@ -68,6 +68,10 @@
 #mic_button{
     font-size: 2.2rem;
 }
+.mic_recording{
+    background-color: rgb(255, 64, 64);
+    border-radius: 100%;
+}
 </style>
 
 <script setup>
@@ -78,6 +82,7 @@ import { io } from "socket.io-client"
 const i18n = useI18n()
 
 const send_button = ref(null)
+const mic_button = ref(null)
 const user_input = ref(null)
 const chatbox = ref(null)
 const container = ref(null)
@@ -105,13 +110,14 @@ const getTranscript = (e)=>{
     recognition.lang = i18n.locale.value // get the i18n langauge
     recognition.interimResults = true // false means to wait until whole sentence complete, true is while user is speaking
     recognition.maxAlternatives = 1 // max number of transcripts
-
+    mic_button.value.classList.add("mic_recording") // mic color
     recognition.start()
     recognition.onresult = function(event) {
         const speechResult = event.results[0][0].transcript; // Get the transcript of what was said
         console.log(`You said (in ${i18n.locale.value}): `, speechResult);
         user_input.value.value = speechResult
         if (event.results[0].isFinal){ // if the voice recognition is final/done
+            mic_button.value.classList.remove("mic_recording") // mic color
             send_button.value.click()
         }
     };
