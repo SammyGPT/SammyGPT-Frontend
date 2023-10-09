@@ -20,7 +20,7 @@
 </template>
 
 <script setup>
-const darkMode = ref(localStorage.theme.toLowerCase() == "dark")
+const darkMode = ref(true)
 const main = ref(null)
 
 const { locale, locales } = useI18n()
