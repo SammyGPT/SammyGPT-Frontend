@@ -94,7 +94,6 @@ const speaking = ref(false)
 const env = useRuntimeConfig()
 
 // tts and voice recognition
-const requireTTS = ref(false)
 const voices = ref([])
 const synth = ref(null)
 const lang_voice = ref(null)
@@ -120,7 +119,6 @@ if (SpeechRecognition){
 }
 const getTranscript = (e)=>{
     e.preventDefault()
-    requireTTS.value = true
     if (speaking.value) return
     speaking.value = true // so no two instances at once
 
@@ -145,9 +143,9 @@ const getTranscript = (e)=>{
         if (event.results[0].isFinal){ // if the voice recognition is final/done
             
             mic_button.value.classList.remove("mic_recording") // mic color
-            send_button.value.click()
             recognition.stop()
             speaking.value = false
+            send(e, true) // send the message to server. Requires tts
 
         }
     };
@@ -158,34 +156,28 @@ const isEndingSentence = (sentence) => {
     return /[.!?;:]/.test(sentence.trim());
 }
 
-const resetTTS = ()=>{
-    ttsArray.value = []
-    tts_sentence.value = ""
-    requireTTS.value = false
-}
-
 const addTTS = ()=>{
-    if (!requireTTS.value) return
     ttsArray.value.push(tts_sentence.value) // add the values
     tts_sentence.value = ""
 }
 
 const processTTS = ()=>{
 
-    if (!requireTTS.value) return
     if (ttsActive.value) return // actual processing the tts
-    ttsActive.value = true
-
-    const sanitizedText = ttsArray.value.shift().replace(/[\/#$%\^&\*;:{}=\-_`~()]/g, "")
-    const utterance = new SpeechSynthesisUtterance(sanitizedText)
-    utterance.rate = 1.2
-    utterance.voice = lang_voice.value
+    if (ttsArray.value.length){
+        ttsActive.value = true
     
-    utterance.onend = ()=>{
-        ttsActive.value = false
-        processTTS()
+        const sanitizedText = ttsArray.value.shift().replace(/[\/#$%\^&\*;:{}=\-_`~()]/g, "")
+        const utterance = new SpeechSynthesisUtterance(sanitizedText)
+        utterance.rate = 1.25 // speed of the reading
+        utterance.voice = lang_voice.value
+        
+        utterance.onend = ()=>{
+            ttsActive.value = false
+            processTTS()
+        }
+        synth.value.speak(utterance);
     }
-    synth.value.speak(utterance);
 }
 
 // Prints the message at reading speed for the bot
@@ -199,12 +191,14 @@ const print_message = async(single_token)=>{
     while (message_cache.length > 0){
         
         let word = message_cache.shift()
+        let require_tts = messages[messages.length - 1].tts
         
         if (word == END_TOKEN){
 
-            addTTS()
-            processTTS()
-            resetTTS()
+            if (require_tts){
+                addTTS()
+                processTTS()
+            }
 
             system_msg = ""
             waiting_response = false
@@ -219,7 +213,7 @@ const print_message = async(single_token)=>{
                 messages[messages.length - 1].message += " "
                 tts_sentence.value += " "
             }
-            if (isEndingSentence(tts_sentence.value)){
+            if (require_tts && isEndingSentence(tts_sentence.value)){
                 addTTS()
                 processTTS()
             }
@@ -283,11 +277,16 @@ onMounted(async()=>{
 
 class Message{
 
-    constructor(message, is_bot){
+    constructor(message, is_bot, requireTTS){
         this.msg = message
         this.bot = is_bot
         this.load_state = true
         this.references = []
+        this.tts_required = requireTTS
+    }
+
+    get tts(){
+        return this.tts_required
     }
 
     get message(){
@@ -328,7 +327,7 @@ const sleep = async(ms)=> {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-const send = async(e)=>{
+const send = async(e, require_tts = false)=>{
     e.preventDefault()    
     let prompt = user_input.value.value
     if (waiting_response) return
@@ -338,13 +337,13 @@ const send = async(e)=>{
     editBoxSize()   
 
     conn.emit("generate", {"prompt": prompt, "type": "prompt", "session_id": session_id})
-    messages.push(new Message(prompt, false))
+    messages.push(new Message(prompt, false, false))
     waiting_response = true
     system_msg = "Estimated wait time: ~30 seconds/response. Will have less wait time at production."
 
     scroll_down()
 
-    messages.push(new Message("", true))
+    messages.push(new Message("", true, require_tts))
 
 }
 function handleInput(e) {

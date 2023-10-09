@@ -4,7 +4,6 @@ const main = ref(null)
 
 onUpdated(() => {
     if (localStorage.theme === undefined) {
-
         if (window.matchMedia) { // if preference exists
             if (window.matchMedia('(prefers-color-scheme: dark)').matches){ // dark mode
                 localStorage.theme = "dark"
