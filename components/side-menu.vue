@@ -117,11 +117,11 @@ onMounted(async()=>{
         select("fast")
     }
 
-    if (error.value && window.location.pathname.indexOf("/server_is_down") == -1){
-        router.push('/server_is_down')
-    } else{
-        connected.value = true
-    }
+    // if (error.value && window.location.pathname.indexOf("/server_is_down") == -1){
+    //     router.push('/server_is_down')
+    // } else{
+    //     connected.value = true
+    // }
 
 })
 
