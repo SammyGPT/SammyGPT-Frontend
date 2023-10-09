@@ -17,6 +17,10 @@ function handleTheme() {
     }
     emit('darkMode', main.classList.contains('dark'))
 }
+
+onMounted(()=>{
+    console.log(props.darkMode)
+})
 </script>
 
 <template>
