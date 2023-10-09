@@ -100,8 +100,11 @@ var session_id = reactive(null)
 var is_printing = reactive(false) // keeps track of the printing_message task, only 1 instance at a time
 const END_TOKEN = "<END>"
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
-const recognition = new SpeechRecognition()
+var recognition = undefined
 
+if (SpeechRecognition){
+    recognition = new SpeechRecognition()
+}
 const getTranscript = (e)=>{
     e.preventDefault()
     if (speaking.value) return
@@ -111,6 +114,7 @@ const getTranscript = (e)=>{
         alert("Speech recognition is not enabled in this browser. Please fix it in settings if possible.")
         return
     }
+    
     recognition.lang = i18n.locale.value // get the i18n langauge
     recognition.interimResults = true // false means to wait until whole sentence complete, true is while user is speaking
     recognition.maxAlternatives = 1 // max number of transcripts

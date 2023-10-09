@@ -20,7 +20,7 @@
 </template>
 
 <script setup>
-const darkMode = ref(null)
+const darkMode = ref(localStorage.theme.toLowerCase() == "dark")
 const main = ref(null)
 
 const { locale, locales } = useI18n()
@@ -29,7 +29,6 @@ const switchLocalePath = useSwitchLocalePath()
 onMounted(() => {
     main.value = document.getElementById("main")
     darkMode.value = localStorage.theme == "dark"
-    console.log(darkMode.value)
 })
 </script>
 
