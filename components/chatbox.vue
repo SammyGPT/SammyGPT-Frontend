@@ -153,7 +153,7 @@ const getTranscript = (e)=>{
 
 const isEndingSentence = (sentence) => {
     // Check if the sentence contains a period, exclamation mark, question mark, colon, or semicolon
-    return /[.!?;:]/.test(sentence.trim());
+    return /[.!?;:]/.test(sentence.trim()) || sentence.length >= 300;
 }
 
 const addTTS = ()=>{
