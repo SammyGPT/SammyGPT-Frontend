@@ -76,7 +76,7 @@ const props = defineProps({
     main: { type:Element, required: true}
 })
 
-var darkMode = localStorage.theme.toLowerCase() == "dark"
+const darkMode = ref(true)
 
 function gotoMain() {
     window.location.pathname = localpath('/')
@@ -106,7 +106,7 @@ const select = (selected_speed)=>{
 
 onMounted(async()=>{
 
-    console.log(darkMode)
+    darkMode.value = localStorage.theme.toLowerCase() == "dark"
     
     const env = useRuntimeConfig()
     const { data, pending, error, refresh} = await useFetch(`${env.public.protocol}://${env.public.api}/`, { crossOrigin: '*' })
