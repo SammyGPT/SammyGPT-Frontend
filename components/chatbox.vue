@@ -86,6 +86,7 @@ const mic_button = ref(null)
 const user_input = ref(null)
 const chatbox = ref(null)
 const container = ref(null)
+const speaking = ref(false)
 const env = useRuntimeConfig()
 
 const generation_speed = {"slow": 150, "medium": 75, "fast": 0}
@@ -98,27 +99,38 @@ var conn = reactive(null)
 var session_id = reactive(null)
 var is_printing = reactive(false) // keeps track of the printing_message task, only 1 instance at a time
 const END_TOKEN = "<END>"
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
+const recognition = new SpeechRecognition()
 
 const getTranscript = (e)=>{
     e.preventDefault()
+    if (speaking.value) return
+    speaking.value = true // so no two instances at once
+
     if (! ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window)){ // if speech recognition not allowed
         alert("Speech recognition is not enabled in this browser. Please fix it in settings if possible.")
         return
     }
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
-    const recognition = new SpeechRecognition()
     recognition.lang = i18n.locale.value // get the i18n langauge
     recognition.interimResults = true // false means to wait until whole sentence complete, true is while user is speaking
     recognition.maxAlternatives = 1 // max number of transcripts
     mic_button.value.classList.add("mic_recording") // mic color
+
     recognition.start()
+
     recognition.onresult = function(event) {
+
         const speechResult = event.results[0][0].transcript; // Get the transcript of what was said
         console.log(`You said (in ${i18n.locale.value}): `, speechResult);
         user_input.value.value = speechResult
+
         if (event.results[0].isFinal){ // if the voice recognition is final/done
+
             mic_button.value.classList.remove("mic_recording") // mic color
             send_button.value.click()
+            recognition.stop()
+            speaking.value = false
+
         }
     };
 }
@@ -236,10 +248,9 @@ const sleep = async(ms)=> {
 
 const send = async(e)=>{
     e.preventDefault()    
-    if (waiting_response) return
-    
-    
     let prompt = user_input.value.value
+    if (waiting_response) return
+    if (prompt.trim() == "") return
     user_input.value.value = ""
     chatbox.value.innerHtml = ""
     editBoxSize()   

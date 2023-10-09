@@ -76,7 +76,7 @@ const props = defineProps({
     main: { type:Element, required: true}
 })
 
-const darkMode = ref(main.classList.contains('dark'))
+var darkMode = localStorage.theme
 
 function gotoMain() {
     window.location.pathname = localpath('/')
