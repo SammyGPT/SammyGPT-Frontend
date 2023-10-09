@@ -37,6 +37,9 @@
         <div class="w-full flex justify-center items-center">
             <h3 class="dark:text-secondary text-primary p-2 text-sm">{{ $t("chat-sammygpt-version") }}</h3>
         </div>
+        <audio class="hidden" loop ref="placeholder_audio">
+            <source src="~assets/audio/seagull.wav">
+        </audio>
     </div>
 </template>
 
@@ -80,14 +83,24 @@ import { ref, onMounted, reactive } from 'vue'
 import { useFetch } from 'nuxt/app';
 import { io } from "socket.io-client"
 const i18n = useI18n()
-
+const lang = ref(i18n.locale.value)
 const send_button = ref(null)
 const mic_button = ref(null)
 const user_input = ref(null)
+const placeholder_audio = ref(null)
 const chatbox = ref(null)
 const container = ref(null)
 const speaking = ref(false)
 const env = useRuntimeConfig()
+
+// tts and voice recognition
+const requireTTS = ref(false)
+const voices = ref([])
+const synth = ref(null)
+const lang_voice = ref(null)
+const tts_sentence = ref("")
+const ttsArray = ref([])
+const ttsActive = ref(false)
 
 const generation_speed = {"slow": 150, "medium": 75, "fast": 0}
 
@@ -107,6 +120,7 @@ if (SpeechRecognition){
 }
 const getTranscript = (e)=>{
     e.preventDefault()
+    requireTTS.value = true
     if (speaking.value) return
     speaking.value = true // so no two instances at once
 
@@ -115,7 +129,7 @@ const getTranscript = (e)=>{
         return
     }
     
-    recognition.lang = i18n.locale.value // get the i18n langauge
+    recognition.lang = lang.value // get the i18n langauge
     recognition.interimResults = true // false means to wait until whole sentence complete, true is while user is speaking
     recognition.maxAlternatives = 1 // max number of transcripts
     mic_button.value.classList.add("mic_recording") // mic color
@@ -125,11 +139,11 @@ const getTranscript = (e)=>{
     recognition.onresult = function(event) {
 
         const speechResult = event.results[0][0].transcript; // Get the transcript of what was said
-        console.log(`You said (in ${i18n.locale.value}): `, speechResult);
         user_input.value.value = speechResult
-
+        // console.log(`You said (in ${i18n.locale.value}): `, speechResult);
+        
         if (event.results[0].isFinal){ // if the voice recognition is final/done
-
+            
             mic_button.value.classList.remove("mic_recording") // mic color
             send_button.value.click()
             recognition.stop()
@@ -139,24 +153,75 @@ const getTranscript = (e)=>{
     };
 }
 
+const isEndingSentence = (sentence) => {
+    // Check if the sentence contains a period, exclamation mark, question mark, colon, or semicolon
+    return /[.!?;:]/.test(sentence.trim());
+}
+
+const resetTTS = ()=>{
+    ttsArray.value = []
+    tts_sentence.value = ""
+    requireTTS.value = false
+}
+
+const addTTS = ()=>{
+    if (!requireTTS.value) return
+    ttsArray.value.push(tts_sentence.value) // add the values
+    tts_sentence.value = ""
+}
+
+const processTTS = ()=>{
+
+    if (!requireTTS.value) return
+    if (ttsActive.value) return // actual processing the tts
+    ttsActive.value = true
+
+    const sanitizedText = ttsArray.value.shift().replace(/[\/#$%\^&\*;:{}=\-_`~()]/g, "")
+    const utterance = new SpeechSynthesisUtterance(sanitizedText)
+    utterance.rate = 1.2
+    utterance.voice = lang_voice.value
+    
+    utterance.onend = ()=>{
+        ttsActive.value = false
+        processTTS()
+    }
+    synth.value.speak(utterance);
+}
+
 // Prints the message at reading speed for the bot
 const print_message = async(single_token)=>{
 
     if (is_printing) return
     is_printing = true
+    placeholder_audio.value.volume = 0.7
+    // placeholder_audio.value.play()
 
     while (message_cache.length > 0){
         
         let word = message_cache.shift()
         
         if (word == END_TOKEN){
+
+            addTTS()
+            processTTS()
+            resetTTS()
+
             system_msg = ""
             waiting_response = false
             messages[messages.length - 1].loading = false
+            
+            // placeholder_audio.value.pause()
+
         }else{
+            tts_sentence.value += word
             messages[messages.length - 1].message += word
             if (!single_token){ // If not single token, we split by " ", which means we need to add it back
                 messages[messages.length - 1].message += " "
+                tts_sentence.value += " "
+            }
+            if (isEndingSentence(tts_sentence.value)){
+                addTTS()
+                processTTS()
             }
         }
 
@@ -200,6 +265,19 @@ onMounted(async()=>{
         
         print_message(single_token)
     })
+
+    speechSynthesis.onvoiceschanged = function() {
+        voices.value = speechSynthesis.getVoices();
+        for (let v of voices.value){
+            if (v.lang.indexOf(lang.value) != -1) {
+                lang_voice.value = v
+                break
+            }
+        }
+        console.log("TTS is ready")
+    };
+
+    synth.value = window.speechSynthesis;
 
 })
 
