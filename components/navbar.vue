@@ -11,7 +11,7 @@
                 </NuxtLink>
             </div>
             <div class="flex justify-center items-center">
-                <NuxtLink class="mr-4 dark:text-white text-primary" to="/team">{{ $t('nav-team') }}</NuxtLink>
+                <NuxtLink class="mr-4 dark:text-white text-primary" :to="switchLocalePath(code)">{{ $t('nav-team') }}</NuxtLink>
                 <NuxtLink class="mr-4 dark:text-white text-primary" to="mailto:youweiz@nycstudents.net">{{ $t('nav-contact') }}</NuxtLink>
             </div>
             <ThemeButton :main="main" :dark-mode="darkMode" @dark-mode="(e) => darkMode = e" />
