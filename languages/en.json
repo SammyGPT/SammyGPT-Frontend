@@ -51,5 +51,21 @@
     "chat-copy-right": "Copyright © SammyGPT. All rights reserved.",
     "chat-sammygpt-version": "SammyGPT Version Monday, August 6th",
 
-    "bot-message-reference": "External References:"
+    "bot-message-reference": "External References:",
+
+    "youwei-title": "Project Lead",
+    "max-title": "Systems Specialist",
+    "bridget-title": "UI Specialist",
+    "whalen-title": "Computer Science Teacher",
+
+    "youwei-description": "Artificial Intelligence, Machine Learning, Natural Language Processing, Web Development, Multi-language Integration",
+    "max-description": "Database Management, Server Management, Web Development, Data Analysis, API Development and Integration",
+    "bridget-description": "User Interface Design, User Research & Experience, Responsive Web Design, Prototyping, Spell Check",
+    "whalen-description": "Web Development, Developing functional applications, Our Lord and Savior",
+
+    "youwei-message": "Please don't hate me for the AI Detection",
+    "max-message": "The seagull on the frontpage took me 3 hours",
+    "bridget-message": "The seagull enhances user experience",
+    "whalen-message": "🐋"
+
 }
