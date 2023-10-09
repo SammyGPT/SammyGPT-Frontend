@@ -29,7 +29,7 @@
             </div>
             <div class="h-[10%] w-full">
                 <div class="p-4 flex flex-row items-center justify-evenly">
-                    <img :src="pfp" class="w-[5vmin]">
+                    <img :src="`/${pfp}`" class="w-[5vmin]">
                     <h3 class="font-[Montserrat] dark:text-white text-black w-[75%] text-center">{{ email }}</h3>
                 </div>
             </div>
