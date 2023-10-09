@@ -26,7 +26,10 @@
                 />
             </div>
             <div class="flex justify-center items-center">
-                <button alt="send button" class="dark:text-white text-black material-symbols-outlined w-[6vmin] ease-in-out duration-300 cursor-pointer" id="send_button">
+                <button class="flex justify-center items-center dark:text-white text-black material-symbols-outlined ease-in-out duration-300 cursor-pointer" @click="getTranscript" ref="mic_button"  id="mic_button">
+                    mic
+                </button>
+                <button alt="send button" class="dark:text-white text-black material-symbols-outlined w-[6vmin] ease-in-out duration-300 cursor-pointer" ref="send_button" id="send_button">
                     send
                 </button>
             </div>
@@ -61,6 +64,14 @@
 #send_button:hover {
     color: #f4ff77;
 }
+
+#mic_button{
+    font-size: 2.2rem;
+}
+.mic_recording{
+    background-color: rgb(255, 64, 64);
+    border-radius: 100%;
+}
 </style>
 
 <script setup>
@@ -68,8 +79,10 @@ import Examples from "/components/examples.vue"
 import { ref, onMounted, reactive } from 'vue'
 import { useFetch } from 'nuxt/app';
 import { io } from "socket.io-client"
+const i18n = useI18n()
 
 const send_button = ref(null)
+const mic_button = ref(null)
 const user_input = ref(null)
 const chatbox = ref(null)
 const container = ref(null)
@@ -85,6 +98,30 @@ var conn = reactive(null)
 var session_id = reactive(null)
 var is_printing = reactive(false) // keeps track of the printing_message task, only 1 instance at a time
 const END_TOKEN = "<END>"
+
+const getTranscript = (e)=>{
+    e.preventDefault()
+    if (! ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window)){ // if speech recognition not allowed
+        alert("Speech recognition is not enabled in this browser. Please fix it in settings if possible.")
+        return
+    }
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
+    const recognition = new SpeechRecognition()
+    recognition.lang = i18n.locale.value // get the i18n langauge
+    recognition.interimResults = true // false means to wait until whole sentence complete, true is while user is speaking
+    recognition.maxAlternatives = 1 // max number of transcripts
+    mic_button.value.classList.add("mic_recording") // mic color
+    recognition.start()
+    recognition.onresult = function(event) {
+        const speechResult = event.results[0][0].transcript; // Get the transcript of what was said
+        console.log(`You said (in ${i18n.locale.value}): `, speechResult);
+        user_input.value.value = speechResult
+        if (event.results[0].isFinal){ // if the voice recognition is final/done
+            mic_button.value.classList.remove("mic_recording") // mic color
+            send_button.value.click()
+        }
+    };
+}
 
 // Prints the message at reading speed for the bot
 const print_message = async(single_token)=>{
