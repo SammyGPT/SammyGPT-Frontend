@@ -98,8 +98,9 @@ const voices = ref([])
 const synth = ref(null)
 const lang_voice = ref(null)
 const tts_sentence = ref("")
-const ttsArray = ref([])
-const ttsActive = ref(false)
+const volume = 0.7
+const maxChar = 300
+const speed = 1.25
 
 const generation_speed = {"slow": 150, "medium": 75, "fast": 0}
 
@@ -145,39 +146,26 @@ const getTranscript = (e)=>{
             mic_button.value.classList.remove("mic_recording") // mic color
             recognition.stop()
             speaking.value = false
+            synth.value.cancel()
             send(e, true) // send the message to server. Requires tts
-
         }
     };
 }
 
 const isEndingSentence = (sentence) => {
     // Check if the sentence contains a period, exclamation mark, question mark, colon, or semicolon
-    return /[.!?;:]/.test(sentence.trim()) || sentence.length >= 300;
-}
-
-const addTTS = ()=>{
-    ttsArray.value.push(tts_sentence.value) // add the values
-    tts_sentence.value = ""
+    return /[.!?;:]/.test(sentence.trim()) || sentence.length >= maxChar;
 }
 
 const processTTS = ()=>{
-
-    if (ttsActive.value) return // actual processing the tts
-    if (ttsArray.value.length){
-        ttsActive.value = true
     
-        const sanitizedText = ttsArray.value.shift().replace(/[\/#$%\^&\*;:{}=\-_`~()]/g, "")
-        const utterance = new SpeechSynthesisUtterance(sanitizedText)
-        utterance.rate = 1.25 // speed of the reading
-        utterance.voice = lang_voice.value
-        
-        utterance.onend = ()=>{
-            ttsActive.value = false
-            processTTS()
-        }
-        synth.value.speak(utterance);
-    }
+    const sanitizedText = tts_sentence.value.replace(/[\/#$%\^&\*;:{}=\-_`~()]/g, "")
+    const utterance = new SpeechSynthesisUtterance(sanitizedText)
+    utterance.rate = speed // speed of the reading
+    utterance.voice = lang_voice.value
+    utterance.volume = volume
+    synth.value.speak(utterance); // adds to speechSynthesis queue
+    tts_sentence.value = ""
 }
 
 // Prints the message at reading speed for the bot
@@ -196,7 +184,6 @@ const print_message = async(single_token)=>{
         if (word == END_TOKEN){
 
             if (require_tts){
-                addTTS()
                 processTTS()
             }
 
@@ -214,7 +201,6 @@ const print_message = async(single_token)=>{
                 tts_sentence.value += " "
             }
             if (require_tts && isEndingSentence(tts_sentence.value)){
-                addTTS()
                 processTTS()
             }
         }
