@@ -144,7 +144,7 @@ const getTranscript = (e)=>{
         if (event.results[0].isFinal){ // if the voice recognition is final/done
             
             mic_button.value.classList.remove("mic_recording") // mic color
-            recognition.stop()
+            recognition.abort()
             speaking.value = false
             synth.value.cancel()
             send(e, true) // send the message to server. Requires tts
