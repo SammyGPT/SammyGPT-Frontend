@@ -194,7 +194,7 @@ const print_message = async(single_token)=>{
             // placeholder_audio.value.pause()
 
         }else{
-            tts_sentence.value += word
+            if (require_tts) tts_sentence.value += word
             messages[messages.length - 1].message += word
             if (!single_token){ // If not single token, we split by " ", which means we need to add it back
                 messages[messages.length - 1].message += " "
