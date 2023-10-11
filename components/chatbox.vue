@@ -100,7 +100,7 @@ const lang_voice = ref(null)
 const tts_sentence = ref("")
 const volume = 0.7
 const maxChar = 300
-const speed = 1.25
+const speed = 1.1
 
 const generation_speed = {"slow": 150, "medium": 75, "fast": 0}
 
@@ -249,11 +249,24 @@ onMounted(async()=>{
     speechSynthesis.onvoiceschanged = function() {
         voices.value = speechSynthesis.getVoices();
         for (let v of voices.value){
-            if (v.lang.indexOf(lang.value) != -1) {
+            if (lang.value == "en"){ // hard code english female voice for sammy
+                if (v.lang.indexOf(lang.value) != -1 && v.name.indexOf("Google") != -1){
+                    lang_voice.value = v
+                    break
+                }
+            }
+            else if (v.lang.indexOf(lang.value) != -1 && lang.value != "en" && v.name.indexOf("Google") != -1) {
                 lang_voice.value = v
                 break
             }
+
+            // if (v.lang.indexOf(lang.value) != -1) {
+            //     lang_voice.value = v
+            //     break
+            // }
+            
         }
+        // console.log(lang_voice.value)
         console.log("TTS is ready")
     };
 
