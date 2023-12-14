@@ -19,6 +19,23 @@ onUpdated(() => {
         main.value.classList.add("dark")
     }
 })
+onMounted(() => {
+    if (localStorage.theme === undefined) {
+        if (window.matchMedia) { // if preference exists
+            if (window.matchMedia('(prefers-color-scheme: dark)').matches){ // dark mode
+                localStorage.theme = "dark"
+                main.value.classList.add("dark")
+            }else{} // do nothing as it is light mode preference
+        }else{ // give darkmode if no preference
+            localStorage.theme = "dark"
+            main.value.classList.add("dark")
+        }
+        return
+    }
+    if (localStorage.theme === "dark") {
+        main.value.classList.add("dark")
+    }
+})
 
 function windowLoc() {
     if (window.location.pathname.indexOf("/detection") != -1) {

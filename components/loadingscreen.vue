@@ -38,6 +38,15 @@ const spin = ()=>{
 const getBackground = ()=>{
     if (localStorage.theme == "light") return "white"
     else if (localStorage.theme == "dark") return "#15181c"
+    else if (window.matchMedia) { // if preference exists
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches){ // dark mode
+            localStorage.theme = "dark"
+            return "#15181c"
+        }else{ // do nothing as it is light mode preference
+            localStorage.theme = "light"
+            return "white"
+        }
+    }
 }
 
 const minimize = ()=>{
