@@ -327,7 +327,7 @@ const sleep = async(ms)=> {
 }
 
 const send = async(e, require_tts = false)=>{
-    e.preventDefault()    
+    e.preventDefault()
     let prompt = user_input.value.value
     if (waiting_response) return
     if (prompt.trim() == "") return
@@ -335,7 +335,7 @@ const send = async(e, require_tts = false)=>{
     chatbox.value.innerHtml = ""
     editBoxSize()   
 
-    conn.emit("generate", {"prompt": prompt, "type": "prompt", "session_id": session_id})
+    conn.emit("generate", {"prompt": prompt, "type": "prompt", "session_id": session_id, "language": lang.value})
     messages.push(new Message(prompt, false, false))
     waiting_response = true
     system_msg = "Estimated wait time: ~30 seconds/response. Will have less wait time at production."
