@@ -13,12 +13,12 @@ export default defineNuxtConfig({
             // api: "siths2024.com:5555",
             // protocol: "https",
             // ws_protocol: "wss",
-            api: "0.0.0.0:5000",
-            protocol: "http",
-            ws_protocol: "ws",
-            // api: "sammy-api.siths.tech",
-            // protocol: "https",
-            // ws_protocol: "wss",
+            // api: "0.0.0.0:5000",
+            // protocol: "http",
+            // ws_protocol: "ws",
+            api: "sammy-api.siths.tech",
+            protocol: "https",
+            ws_protocol: "wss",
         }
     },
     i18n: {
