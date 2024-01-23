@@ -328,6 +328,7 @@ const sleep = async(ms)=> {
 
 const send = async(e, require_tts = false)=>{
     e.preventDefault()
+    console.log("Current language: " + lang.value)
     let prompt = user_input.value.value
     if (waiting_response) return
     if (prompt.trim() == "") return
