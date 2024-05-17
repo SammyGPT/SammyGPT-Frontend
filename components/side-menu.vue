@@ -1,36 +1,33 @@
 <template>
-    <div id="menu" class="dark:bg-primary bg-secondary">
-        <div class="h-full dark:bg-primary bg-secondary w-full" id="desktop_menu" ref="desktop_menu">
+    <div id="menu" class="dark:bg-primary bg-secondary p-4">
+        <div class="item-center h-full flex flex-col justify-even dark:bg-primary bg-secondary w-full" id="desktop_menu" ref="desktop_menu">
             <div class="h-auto" id="desktop_logo">
                 <Logo/>
             </div>
             <div class="h-[60%] dark:text-white text-black font-[Montserrat] flex flex-col items-center">
-                <Button :toggle_button="false" :text='`${$t("side-menu-detector")}`' class="w-[70%]" @clicked="gotoMain()"></Button>
-                <div class="flex flex-col gap-y-4 mt-[5%]">
+                <Button :toggle_button="false" :text='`${$t("side-menu-detector")}`' class="w-56 hover:text-green-500 transition-colors duration-300 ease-in-out" @clicked="gotoMain()"></Button>
+                <div class="flex flex-col gap-y-2 mt-[5%] text-md">
                     <h3>Version: {{ version }}</h3>
                     <h3>Build: {{ builddate }}</h3>
                     <h3 v-if="connected" class="text-green-500">{{ $t("side-menu-connected") }}</h3>
                     <h3 v-else class="text-red-500">{{ $t("side-menu-disconnected") }}</h3>
                     <h3>{{$t("side-menu-chat-speed")}}: </h3>
 
-                    <div class="flex flex-wrap gap-x-4 gap-y-4 items-center justify-start">
+                    <div class="flex flex-wrap gap-x-2 gap-y-2 items-center justify-start">
                         <Button :selected='false' :toggle_button="true" :text='`${$t("side-menu-slow")}`' @clicked="select('slow')" ref="b1"></Button>
                         <Button :selected='false' :toggle_button="true" :text='`${$t("side-menu-medium")}`' @clicked="select('medium')" ref="b2"></Button>
                         <Button :selected='false' :toggle_button="true" :text='`${$t("side-menu-fast")}`' @clicked="select('fast')" ref="b3"></Button>
                     </div>
-                    <div class="flex flex-col gap-y-4">
+                    <div class="flex flex-col gap-y-2">
                         <h3>{{$t("side-menu-questions")}}</h3>
-                        <Button :toggle_button="false" :text='`${$t("side-menu-send-email")}`' @clicked="sendEmail()"></Button>
+                        <Button class="w-56 hover:text-green-500 transition-colors duration-300 ease-in-out text-md" :toggle_button="false" :text='`${$t("side-menu-send-email")}`' @clicked="sendEmail()"></Button>
                     </div>
                 </div>
-            </div>
-            <div class="h-[10%] w-fit mx-auto dark:text-white text-black select-none">
-                <ThemeButton :main="main" :dark-mode="darkMode" @dark-mode="(e) => darkMode = e "/>
             </div>
             <div class="h-[10%] w-full">
                 <div class="p-4 flex flex-row items-center justify-evenly">
                     <img :src="`/${pfp}`" class="w-[5vmin]">
-                    <h3 class="font-[Montserrat] dark:text-white text-black w-[75%] text-center">{{ email }}</h3>
+                    <h3 class="font-[Montserrat] dark:text-white text-black w-[75%] text-center text-md">{{ email }}</h3>
                 </div>
             </div>
         </div>

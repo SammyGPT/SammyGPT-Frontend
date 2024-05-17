@@ -1,6 +1,7 @@
 <template>
     <div class="w-full menu flex items-center justify-start p-4">
         <Logo />
+         <div class="flex-grow"></div> 
         <div class="z-20 flex flex-row flex-wrap justify-center gap-y-4">
             <div class="flex justify-center items-center">
                 <NuxtLink v-for="{ code, name } in locales" :key="code" :to="switchLocalePath(code)"
@@ -14,7 +15,7 @@
                 <NuxtLink class="mr-4 dark:text-white text-primary" :to="localpath('/team')">{{ $t('nav-team') }}</NuxtLink>
                 <NuxtLink class="mr-4 dark:text-white text-primary" to="mailto:youweiz@nycstudents.net">{{ $t('nav-contact') }}</NuxtLink>
             </div>
-            <ThemeButton :main="main" :dark-mode="darkMode" @dark-mode="(e) => darkMode = e" />
+            <ThemeButton :main="main" :dark-mode="darkMode" @dark-mode="(e) => darkMode = e" class="justify-end"/>
         </div>
     </div>
 </template>

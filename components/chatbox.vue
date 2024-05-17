@@ -18,9 +18,9 @@
             <div class="h-full flex justify-center items-center">
                 <textarea type="text" id="user_input" ref="user_input"
                     class="w-full dark:bg-accent1 bg-accent2 border-2 
-                    border-gray-400 p-4 dark:text-secondary text-primary rounded-[1rem]
+                    border-gray-400 p-2.5 dark:text-secondary text-primary rounded-lg
                     text-[Montserrat] focus:border-yellow-100 
-                    outline-none text-[1.2rem] ease-in-out duration-300 resize-none max-h-[30vh]"
+                    outline-none text-md ease-in-out duration-300 resize-none max-h-[30vh]"
                     @input='editBoxSize'
                     rows="1"
                 />

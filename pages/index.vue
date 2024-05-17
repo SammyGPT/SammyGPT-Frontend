@@ -11,11 +11,11 @@
                 <p class="description-text dark:text-[#ebeae1] text-black text-lg">{{ $t("landing-description") }}</p>
             </div>
             <div class="flex justify-start flex-col gap-y-4 pad-intro">
-                <NuxtLink class="z-10 button h-[10vh] flex flex-col text-center items-center justify-center rounded-lg font-[Montserrat] bg-[#c3b563] hover:bg-[#a99c59] transition ease-in-out" :to="localpath('/chat')">
+                <NuxtLink class="z-10 button h-fit py-2 flex flex-col text-center items-center justify-center rounded-lg font-[Montserrat] bg-[#c3b563] hover:bg-[#a99c59] transition ease-in-out" :to="localpath('/chat')">
                     {{ $t("landing-bt-1") }}
                     <p class="text-black bt-desc">{{ $t("landing-bt-1-desc") }}</p>
                 </NuxtLink>
-                <NuxtLink class="z-10 button  h-[10vh] flex flex-col text-center items-center justify-center rounded-lg font-[Montserrat] bg-[#c3b563] hover:bg-[#a99c59] transition ease-in-out" :to="localpath('/detection')">
+                <NuxtLink class="z-10 button h-fit py-2 flex flex-col text-center items-center justify-center rounded-lg font-[Montserrat] bg-[#c3b563] hover:bg-[#a99c59] transition ease-in-out" :to="localpath('/detection')">
                     {{ $t("landing-bt-2") }}
                     <p class="text-black bt-desc">{{ $t("landing-bt-2-desc") }}</p>
                 </NuxtLink>

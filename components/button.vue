@@ -1,5 +1,5 @@
 <template>
-    <button class="dark:bg-gray-700 bg-light-background dark:hover:bg-green-700 hover:bg-green-700 dark:text-white font-bold py-2 px-4 border dark:border-gray-700 border-light-background rounded" @click="selected" ref="button">
+    <button class="dark:bg-gray-700 bg-light-background dark:hover:bg-green-700 hover:bg-green-700 dark:text-white font-bold py-2 px-4 border dark:border-gray-700 border-light-background rounded-md" @click="selected" ref="button">
         {{text}}
     </button>
 </template>
