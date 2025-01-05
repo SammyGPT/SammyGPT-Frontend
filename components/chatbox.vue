@@ -82,6 +82,14 @@ import Examples from "/components/examples.vue"
 import { ref, onMounted, reactive } from 'vue'
 import { useFetch } from 'nuxt/app';
 import { io } from "socket.io-client"
+
+const props = defineProps({
+    schoolKey: {
+        type: String,
+        required: true, // Ensure this prop is passed
+    }
+});
+
 const i18n = useI18n()
 const lang = ref(i18n.locale.value)
 const send_button = ref(null)
@@ -336,7 +344,7 @@ const send = async(e, require_tts = false)=>{
     chatbox.value.innerHtml = ""
     editBoxSize()   
 
-    conn.emit("generate", {"prompt": prompt, "type": "prompt", "session_id": session_id, "language": lang.value})
+    conn.emit("generate", {"prompt": prompt, "type": "prompt", "session_id": session_id, "language": lang.value,"school_key":props.schoolKey})
     messages.push(new Message(prompt, false, false))
     waiting_response = true
     system_msg = "Estimated wait time: ~30 seconds/response. Will have less wait time at production."

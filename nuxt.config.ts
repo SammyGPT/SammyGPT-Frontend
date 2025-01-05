@@ -10,15 +10,24 @@ export default defineNuxtConfig({
     spaLoadingTemplate: false,
     runtimeConfig: {
         public: {
+            //test version start
             // api: "siths2024.com:5555",
             // protocol: "https",
             // ws_protocol: "wss",
-            // api: "0.0.0.0:5000",
-            // protocol: "http",
-            // ws_protocol: "ws",
-            api: "sammy-api.siths.tech",
-            protocol: "https",
-            ws_protocol: "wss",
+            api: "0.0.0.0:5000",
+            protocol: "http",
+            ws_protocol: "ws",
+            
+
+
+
+            //test version end
+
+            // working version below
+            // api: "sammy-api.siths.tech",
+            // protocol: "https",
+            // ws_protocol: "wss",
+
         }
     },
     i18n: {
