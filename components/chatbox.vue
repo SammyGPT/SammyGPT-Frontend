@@ -4,8 +4,16 @@
             <div class="flex flex-col gap-y-2" ref="container" id="container">
                 <Examples class="h-fit" v-if="messages.length === 0" @putInChat="(x) => {user_input.value = x; editBoxSize()}"/>
                 <div v-for="msg in messages">
-                    <BotMessage v-if="msg.is_bot" :message="msg.message" :loading="msg.loading" :references="msg.reference"/>
-                    <UserMessage v-if="!msg.is_bot" :message="msg.message" :loading="msg.loading"/>
+                    <BotMessage v-if="msg.is_bot" :message="msg.message" :loading="msg.loading" :references="msg.reference" />
+                    <UserMessage v-if="!msg.is_bot" :message="msg.message" :loading="msg.loading" />
+                    <div v-if="msg.is_bot && !msg.feedbackGiven && !msg.loading && (!waiting_response || msg !== messages[messages.length - 1])" class="flex items-center gap-x-4 mt-2">
+                        <button @click="setFeedback(msg, 1)" class="text-green-500 hover:text-green-700">👍</button>
+                        <button @click="setFeedback(msg, 0)" class="text-red-500 hover:text-red-700">👎</button>
+                    </div>
+                    <div v-if="msg.is_bot && !msg.feedbackGiven && !msg.loading && (!waiting_response || msg !== messages[messages.length - 1])" class="mt-2">
+                        <textarea v-model="msg.userFeedback" placeholder="Optional feedback..." class="w-full border rounded p-2"></textarea>
+                        <button @click="submitFeedback(msg)" class="mt-2 bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-700">Submit</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -24,6 +32,14 @@
                     @input='editBoxSize'
                     rows="1"
                 />
+                <input type="file" id="image_input" accept="image/*" ref="image_input" class="hidden" @change="handleImageUpload">
+                <button
+                    type="button"
+                    @click="triggerFileUpload"
+                    class="material-symbols-outlined text-2xl dark:text-white text-black cursor-pointer ease-in-out duration-300"
+                >
+                    upload
+                </button>
             </div>
             <div class="flex justify-center items-center">
                 <button class="flex justify-center items-center dark:text-white text-black material-symbols-outlined ease-in-out duration-300 cursor-pointer" @click="getTranscript" ref="mic_button"  id="mic_button">
@@ -87,6 +103,7 @@ const lang = ref(i18n.locale.value)
 const send_button = ref(null)
 const mic_button = ref(null)
 const user_input = ref(null)
+const image_input = ref(null)
 const placeholder_audio = ref(null)
 const chatbox = ref(null)
 const container = ref(null)
@@ -214,6 +231,53 @@ const print_message = async(single_token)=>{
     is_printing = false
 }
 
+const triggerFileUpload = () => {
+    image_input.value.click()
+}
+
+const uploadedImage = ref(null)
+
+const handleImageUpload = (event) => {
+    const file = event.target.files[0]
+    if (file) {
+        const reader = new FileReader()
+        reader.onload = () => {
+            uploadedImage.value = reader.result.split(',')[1]
+            console.log("Uploaded image set successfully")
+        }
+    reader.readAsDataURL(file)
+    }   
+}
+
+const submitFeedback = (msg) => {
+    if (waiting_response) return
+
+    waiting_response = true
+
+    const feedbackData = {
+        "type": msg.feedbackType,
+        "prompt": messages[messages.length - 2].message,
+        "response": msg.message,
+        "feedback": msg.userFeedback
+    }
+
+    conn.emit("submit_feedback", feedbackData)
+
+    msg.feedbackGiven = false
+    msg.feedbackType = null
+    msg.userFeedback = ""
+    waiting_response = false
+
+    alert("Feedback submitted")
+}
+
+const setFeedback = (msg, type) => {
+    if (waiting_response) return
+
+    msg.feedbackType = type
+    msg.feedbackGiven = true
+}
+
 onMounted(async()=>{
     conn = io(`${env.public.ws_protocol}://${env.public.api}`)
 
@@ -282,6 +346,9 @@ class Message{
         this.load_state = true
         this.references = []
         this.tts_required = requireTTS
+        this.feedbackGiven = false
+        this.feedbackType = null
+        this.userFeedback = ''
     }
 
     get tts(){
@@ -332,12 +399,21 @@ const send = async(e, require_tts = false)=>{
     let prompt = user_input.value.value
     if (waiting_response) return
     if (prompt.trim() == "") return
+
     user_input.value.value = ""
     chatbox.value.innerHtml = ""
     editBoxSize()   
 
-    conn.emit("generate", {"prompt": prompt, "type": "prompt", "session_id": session_id, "language": lang.value})
+    conn.emit("generate", {
+        "prompt": prompt, 
+        "type": uploadedImage.value ? "image" : "prompt",
+        "image": uploadedImage.value || null,
+        "session_id": session_id, 
+        "language": lang.value
+    })
+
     messages.push(new Message(prompt, false, false))
+    
     waiting_response = true
     system_msg = "Estimated wait time: ~30 seconds/response. Will have less wait time at production."
 
