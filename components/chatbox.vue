@@ -260,6 +260,8 @@ const handleImageUpload = (event) => {
 const submitFeedback = (msg) => {
     if (waiting_response) return
 
+    console.log('Feedback')
+
     waiting_response = true
 
     const feedbackData = {
@@ -283,7 +285,6 @@ const setFeedback = (msg, type) => {
     if (waiting_response) return
 
     msg.feedbackType = type
-    msg.feedbackGiven = true
 }
 
 onMounted(async()=>{

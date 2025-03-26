@@ -6,7 +6,7 @@
       <ul class="mt-8 w-full">
         <li v-for="(school, index) in schools" :key="index" class="p-4 border-b border-gray-300 dark:border-gray-600">
             <button :class="['text-lg w-full text-left py-2 px-4 rounded-lg dark:bg-gray-800 dark:text-white bg-gray-100 text-black hover:bg-gray-200 dark:hover:bg-gray-700 transition',]"
-            @click="navigateToChat(keys[index])">
+            @click="navigateToChat(lang, keys[index])">
             {{ school }}
             </button>
         </li>
@@ -18,9 +18,11 @@
   import { ref, onMounted } from 'vue';
   import { io } from "socket.io-client";
   import { useRouter } from 'vue-router';
+  import { useI18n } from 'vue-i18n';
   
   const router = useRouter();
-
+  const i18n = useI18n()
+  const lang = ref(i18n.locale.value)
   // WebSocket connection
   const env = useRuntimeConfig();
   const conn = ref(null);
@@ -61,8 +63,8 @@
     };
 });
 
-function navigateToChat (key) {
-    router.push(`/chat/${key}`);
+function navigateToChat (lang, key) {
+    router.push(`/${lang}/chat/${key}`);
 };
   </script>
   
