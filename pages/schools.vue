@@ -64,7 +64,12 @@
 });
 
 function navigateToChat (lang, key) {
-    router.push(`/${lang}/chat/${key}`);
+    if (lang == "en"){
+      router.push(`/chat/${key}`);
+    }
+    else{
+      router.push(`/${lang}/chat/${key}`);
+    }
 };
   </script>
   
